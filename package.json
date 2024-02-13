@@ -1,8 +1,8 @@
 {
   "name": "heykeploy",
-  "displayName": "HeyKeploy",
+  "displayName": "KeployVScodeExtension",
   "description": "Hello Keploy Community!",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "publisher" : "Akash-Singh04",
   "repository": {
     "type": "git",
@@ -17,6 +17,26 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
+      "viewsContainers": {
+        "activitybar": [
+          {
+            "id": "Keploy-Sidebar",
+            "title": "Keploy",
+            "icon": "media/beaker.svg"
+          }
+        ]
+      },
+      "views": {
+        "Keploy-Sidebar": [
+          {
+            "type": "webview",
+            "id": "Keploy-Sidebar",
+            "name": "Keploy",
+            "icon": "media/beaker.svg",
+            "contextualTitle": "VSinder"
+          }
+        ]
+      },
     "commands": [
       {
         "command": "heykeploy.HeyKeploy",
