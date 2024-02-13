@@ -1,6 +1,8 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
+import { get } from 'http';
 import * as vscode from 'vscode';
+import getKeployVersion from './version';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -22,7 +24,13 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(hellocommand);
 
 	let versioncommand = vscode.commands.registerCommand('heykeploy.KeployVersion', () => {
-		vscode.window.showInformationMessage('Hey Keploy Version 0.0.1');
+		let keployVersion:String;
+		getKeployVersion().then((version) => {
+			keployVersion = version;
+			vscode.window.showInformationMessage(`The latest version of Keploy is ${keployVersion}`);
+		}).catch((error) => {
+			vscode.window.showErrorMessage(`Error fetching Keploy version: ${error}`);
+		});
 	}
 	);
 
