@@ -48,8 +48,9 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     //   vscode.Uri.joinPath(this._extensionUri, "media", "reset.css")
     // );
     const scriptUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, "./", "compiled/sidebar.mjs")
+      vscode.Uri.joinPath(this._extensionUri, "./", "compiled/sidebar.js")
     );
+    console.log(scriptUri.path);
     // const styleMainUri = webview.asWebviewUri(
     //   vscode.Uri.joinPath(this._extensionUri, "out", "compiled/sidebar.css")
     // );
@@ -74,23 +75,9 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
         	</head>
       <body>
+      <div id="versionDisplay"></div>
       <button id="getVersionButton">Get latest version</button>
-				<script type="module" nonce="${nonce}" src="${scriptUri}"></script>
-                <script nonce="${nonce}">
-          document.getElementById('getVersionButton').addEventListener('click', async () => {
-            try {
-              // Call the getKeployVersion function
-            //   const version = await getKeployVersion();
-              // Show the version information
-            //   vscode.window.showInformationMessage("The latest version of Keploy is " + version);
-                console.log("The latest version of Keploy is ");
-        } catch (error) {
-              // Handle any errors that occur
-            //   vscode.window.showErrorMessage("Error getting Keploy version: " + error.message);
-            console.log(error.message);    
-        }
-          });
-        </script>
+				<script nonce="${nonce}" src="${scriptUri}" type="module"></script>
 			</body>
 			</html>`;
   }

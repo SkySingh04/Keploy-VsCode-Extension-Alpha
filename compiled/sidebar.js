@@ -1,46 +1,46 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const version_1 = __importDefault(require("../src/version"));
-const vscode = __importStar(require("vscode"));
+const vscode = acquireVsCodeApi();
+async function getKeployVersion() {
+  // GitHub repository details
+  const repoOwner = "keploy";
+  const repoName = "keploy";
+
+  const apiURL =`https://api.github.com/repos/${repoOwner}/${repoName}/releases/latest`;
+
+  // Get the latest release
+  const response = await fetch(apiURL);
+  const data = await response.json();
+  const latestVersion = data.tag_name;
+  return latestVersion;
+}
+// Create a function to update the version display
+function updateVersionDisplay(version) {
+  const versionDisplay = document.getElementById('versionDisplay');
+  if (versionDisplay) {
+    versionDisplay.textContent = `Latest version: ${version}`;
+  }
+}
+
+// Get the button element
 const getVersionButton = document.getElementById('getVersionButton');
 if (getVersionButton) {
-    getVersionButton.addEventListener('click', async () => {
-        try {
-            // Call the getKeployVersion function
-            const version = await (0, version_1.default)();
-            // Show the version information
-            vscode.window.showInformationMessage("The latest version of Keploy is " + version);
-        }
-        catch (error) {
-            // Handle any errors that occur
-            vscode.window.showErrorMessage("Error getting Keploy version: " + error.message);
-        }
-    });
+  getVersionButton.addEventListener('click', async () => {
+    try {
+      // Call the getKeployVersion function
+      const version = await getKeployVersion();
+      console.log(`The latest version of Keploy is ${version}`);
+      // Update the version display
+      updateVersionDisplay(version);
+      // Post a message to the extension with the latest version
+      vscode.postMessage({
+        type: "onInfo",
+        value: `The latest version of Keploy is ${version}`
+      });
+    } catch (error) {
+      // Handle any errors that occur
+      vscode.postMessage({
+        type: "onError",
+        value: `Error getting Keploy version: ${error.message}`
+      });
+    }
+  });
 }
-//# sourceMappingURL=sidebar.js.map
