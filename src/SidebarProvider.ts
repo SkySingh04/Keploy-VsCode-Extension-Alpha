@@ -88,7 +88,10 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           ▓
       </pre>
       <div id="versionDisplay"></div>
+      <div id="Progress"></div>
       <button id="getVersionButton">Get latest version</button>
+      <button id="updateKeployButton">Update Your Keploy</button>
+      
 				<script nonce="${nonce}" src="${scriptUri}" type="module"></script>
 			</body>
 			</html>`;
