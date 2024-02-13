@@ -1,6 +1,6 @@
-# HeyKeploy README
+# HeyKeploy 
 
-Welcome to the README for HeyKeploy, your go-to extension for interacting with the Keploy platform directly from within Visual Studio Code!
+Try it out: [Vscode Extension](https://marketplace.visualstudio.com/items?itemName=Akash-Singh04.heykeploy)
 
 ## Features
 
