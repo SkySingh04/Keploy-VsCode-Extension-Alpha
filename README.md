@@ -29,7 +29,9 @@ HeyKeploy offers the following features:
 - Added SidePanel View to extension
 - Created button to fetch latest keploy version
 
-
+### 0.1.1
+- Added Css Styling and logo
+- Added boilerplate for keploy update
 
 ## Requirements
 
