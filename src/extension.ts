@@ -7,6 +7,17 @@ import getKeployVersion from './version';
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+	const logo  = `
+       ▓██▓▄
+    ▓▓▓▓██▓█▓▄
+     ████████▓▒
+          ▀▓▓███▄      ▄▄   ▄               ▌
+         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
+       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
+      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
+       ▓▌                           ▐█▌                   █▌
+        ▓
+`;
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
@@ -18,7 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
 	let hellocommand = vscode.commands.registerCommand('heykeploy.HeyKeploy', () => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
-		vscode.window.showInformationMessage('Hey Keploy Community!');
+		vscode.window.showInformationMessage(`Hey Keploy Community!`);
 	});
 
 	context.subscriptions.push(hellocommand);
@@ -30,12 +41,14 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.ViewColumn.One, // Editor column to show the new webview panel in
             {}
         );
+		
 
         // Get the Keploy version and update the Webview content
         getKeployVersion().then(version => {
             panel.webview.html = `
                 <html>
                     <body>
+						<pre>${logo}</pre>
                         <h1>The latest version of Keploy is ${version}</h1>
                     </body>
                 </html>
