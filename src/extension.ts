@@ -50,6 +50,7 @@ export function activate(context: vscode.ExtensionContext) {
                     <body>
 						<pre>${logo}</pre>
                         <h1>The latest version of Keploy is ${version}</h1>
+						<h1>View the latest version at <a href="https://github.com/keploy/keploy"> Keploy GitHub</a></h1>s
                     </body>
                 </html>
             `;

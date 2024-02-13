@@ -21,6 +21,10 @@ HeyKeploy offers the following features:
 - Added Keploy logo.
 - Added Github Actions workflow to automatically publish to VScode Marketplace
 
+### 0.0.3
+
+- Added link to Keploy repository
+
 ## Requirements
 
 There are no specific requirements or dependencies for using HeyKeploy. Simply install the extension and start enjoying its features!
