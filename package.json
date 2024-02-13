@@ -3,6 +3,11 @@
   "displayName": "HeyKeploy",
   "description": "Hello Keploy Community!",
   "version": "0.0.1",
+  "publisher" : "Akash-Singh04",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Akash-Singh04/KeployVScodeExtension"
+  },
   "engines": {
     "vscode": "^1.86.0"
   },

@@ -24,13 +24,26 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(hellocommand);
 
 	let versioncommand = vscode.commands.registerCommand('heykeploy.KeployVersion', () => {
-		let keployVersion:String;
-		getKeployVersion().then((version) => {
-			keployVersion = version;
-			vscode.window.showInformationMessage(`The latest version of Keploy is ${keployVersion}`);
-		}).catch((error) => {
-			vscode.window.showErrorMessage(`Error fetching Keploy version: ${error}`);
-		});
+		const panel = vscode.window.createWebviewPanel(
+            'keployVersion', // Identifies the type of the webview. Used internally
+            'Keploy Version', // Title of the panel displayed to the user
+            vscode.ViewColumn.One, // Editor column to show the new webview panel in
+            {}
+        );
+
+        // Get the Keploy version and update the Webview content
+        getKeployVersion().then(version => {
+            panel.webview.html = `
+                <html>
+                    <body>
+                        <h1>The latest version of Keploy is ${version}</h1>
+                    </body>
+                </html>
+            `;
+        }).catch(error => {
+            // Display error message in case of failure
+            vscode.window.showErrorMessage(`Error fetching Keploy version: ${error}`);
+        });
 	}
 	);
 

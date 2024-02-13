@@ -1,71 +1,40 @@
-# heykeploy README
+# HeyKeploy README
 
-This is the README for your extension "heykeploy". After writing up a brief description, we recommend including the following sections.
+Welcome to the README for HeyKeploy, your go-to extension for interacting with the Keploy platform directly from within Visual Studio Code!
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+HeyKeploy offers the following features:
 
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+- **Keploy Version Display**: Get the latest version of Keploy directly in your Visual Studio Code.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+There are no specific requirements or dependencies for using HeyKeploy. Simply install the extension and start enjoying its features!
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+HeyKeploy doesn't add any custom settings to Visual Studio Code at the moment.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Currently, there are no known issues with HeyKeploy. If you encounter any issues or have suggestions for improvement, please don't hesitate to [open an issue](https://github.com/Akash-Singh04/heykeploy/issues) on GitHub.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
 
-Initial release of ...
+- Initial release of HeyKeploy.
+- Added functionality to display the latest Keploy version in the sidebar.
 
 ### 1.0.1
 
-Fixed issue #.
+- Fixed minor bugs and improved performance.
 
-### 1.1.0
+## Following Extension Guidelines
 
-Added features X, Y, and Z.
+HeyKeploy follows the [Visual Studio Code Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines) to ensure a seamless experience for users.
 
----
 
-## Following extension guidelines
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Enjoy using HeyKeploy! If you find it helpful, consider leaving a review or starring the repository on GitHub. Thank you!
