@@ -1,0 +1,30 @@
+button{
+    background-color: #d1a30a;
+    color: white;
+    height: 50px;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+#versionDisplay{
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+#versionDisplay p{
+    font-size: 20px;
+    font-weight: bold;
+    color: #d1a30a;
+    text-align: center;
+    margin-top: 20px;
+}
+

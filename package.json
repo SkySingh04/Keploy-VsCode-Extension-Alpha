@@ -1,8 +1,8 @@
 {
   "name": "heykeploy",
-  "displayName": "KeployVScodeExtension",
+  "displayName": "Keploy-VScode",
   "description": "Hello Keploy Community!",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher" : "Akash-Singh04",
   "repository": {
     "type": "git",

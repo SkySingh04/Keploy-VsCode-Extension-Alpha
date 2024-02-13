@@ -48,12 +48,12 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     //   vscode.Uri.joinPath(this._extensionUri, "media", "reset.css")
     // );
     const scriptUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, "./", "compiled/sidebar.js")
+      vscode.Uri.joinPath(this._extensionUri, "./", "sidebar/sidebar.js")
     );
     console.log(scriptUri.path);
-    // const styleMainUri = webview.asWebviewUri(
-    //   vscode.Uri.joinPath(this._extensionUri, "out", "compiled/sidebar.css")
-    // );
+    const styleMainUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this._extensionUri, "./", "sidebar/sidebar.css")
+    );
     // const styleVSCodeUri = webview.asWebviewUri(
     //   vscode.Uri.joinPath(this._extensionUri, "media", "vscode.css")
     // );
@@ -73,8 +73,20 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
       webview.cspSource
     }; script-src 'nonce-${nonce}';">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="${styleMainUri}" rel="stylesheet">
         	</head>
       <body>
+      <pre>
+        ▓██▓▄
+      ▓▓▓▓██▓█▓▄
+        ████████▓▒
+              ▀▓▓███▄                   
+            ▄▌▌▓▓████▄    
+          ▓█████████▌▓▓   
+          ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  
+          ▓▌                      
+          ▓
+      </pre>
       <div id="versionDisplay"></div>
       <button id="getVersionButton">Get latest version</button>
 				<script nonce="${nonce}" src="${scriptUri}" type="module"></script>

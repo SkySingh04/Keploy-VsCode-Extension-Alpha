@@ -29,6 +29,8 @@ HeyKeploy offers the following features:
 - Added SidePanel View to extension
 - Created button to fetch latest keploy version
 
+
+
 ## Requirements
 
 There are no specific requirements or dependencies for using HeyKeploy. Simply install the extension and start enjoying its features!

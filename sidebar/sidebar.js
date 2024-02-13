@@ -16,7 +16,8 @@ async function getKeployVersion() {
 function updateVersionDisplay(version) {
   const versionDisplay = document.getElementById('versionDisplay');
   if (versionDisplay) {
-    versionDisplay.textContent = `Latest version: ${version}`;
+    versionDisplay.innerHTML = `Latest version:
+     <p>${version}</p>`;
   }
 }
 
