@@ -37,3 +37,11 @@ All notable changes to the "heykeploy" extension will be documented in this file
 
 - Added CSS styling and logo.
 - Added boilerplate for Keploy update.
+
+## [0.1.2] - 2024-02-14
+
+### Added
+
+- Added Keploy Update to update the keploy binary 
+
+
