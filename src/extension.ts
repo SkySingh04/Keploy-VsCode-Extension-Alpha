@@ -1,11 +1,20 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import { get } from 'http';
 import * as vscode from 'vscode';
 import getKeployVersion from './version';
 import {SidebarProvider} from './SidebarProvider';
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
+import * as cp from "child_process";
+import {downloadAndUpdate} from './updateKeploy';
+
+const execShell = (cmd: string) =>
+  new Promise<string>((resolve, reject) => {
+    cp.exec(cmd, (err, out) => {
+      if (err) {
+        return resolve(cmd+' error!');
+        //or,  reject(err);
+      }
+      return resolve(out);
+    });
+  });
+
 export function activate(context: vscode.ExtensionContext) {
 	const logo  = `
        ▓██▓▄
@@ -28,12 +37,18 @@ context.subscriptions.push(
 );
 
 	let hellocommand = vscode.commands.registerCommand('heykeploy.HeyKeploy', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
 		vscode.window.showInformationMessage(`Hey Keploy Community!`);
 	});
 
 	context.subscriptions.push(hellocommand);
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand('heykeploy.UpdateKeploy', async () => {
+          const output = await execShell('powershell pwd');
+          await downloadAndUpdate("https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz")
+          vscode.window.showInformationMessage(output);
+        })
+      );
 
 	let versioncommand = vscode.commands.registerCommand('heykeploy.KeployVersion', () => {
 		const panel = vscode.window.createWebviewPanel(
