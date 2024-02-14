@@ -1,76 +1,12 @@
 const vscode = acquireVsCodeApi();
-// const util = require('util');
-// const { exec } = require('child_process');
-// const os = require('os');
-// const fs = require('fs');
+
 
 
 
 // const execPromise = util.promisify(exec);
 const progressDiv = document.getElementById('Progress');
 
-// async function downloadAndUpdate(downloadUrl) {
-//   try {
-//     // Determine the path based on the alias "keploy"
-//     let aliasPath = "/usr/local/bin/keploybin"; // Default path
-//     const whichCmd = os.platform() === 'win32' ? 'where' : 'which';
-//     const { stdout: aliasOutput } = await execPromise(`${whichCmd} keploy`);
-//     if (aliasOutput.trim()) {
-//       aliasPath = aliasOutput.trim();
-//     }
 
-//     // Check if the aliasPath is a valid path
-//     try {
-//       await fs.promises.access(aliasPath, fs.constants.F_OK);
-//     } catch (err) {
-//       throw new Error(`Alias path ${aliasPath} does not exist`);
-//     }
-
-//     // Check if the aliasPath is a directory
-//     const aliasStats = await fs.promises.stat(aliasPath);
-//     if (aliasStats.isDirectory()) {
-//       throw new Error(`Alias path ${aliasPath} is a directory, not a file`);
-//     }
-
-//     // Download keploy binary
-//     const curlCmd = `curl --silent --location ${downloadUrl}`;
-//     const untarCmd = 'tar xz -C /tmp';
-//     const downloadProcess = exec(curlCmd);
-//     const untarProcess = exec(untarCmd);
-
-//     // Pipe the output of the first command to the second command
-//     downloadProcess.stdout.pipe(untarProcess.stdin);
-
-//     await Promise.all([
-//       new Promise((resolve, reject) => {
-//         downloadProcess.on('exit', (code) => {
-//           if (code === 0) {
-//             resolve();
-//           } else {
-//             reject(new Error(`Download command failed with code ${code}`));
-//           }
-//         });
-//       }),
-//       new Promise((resolve, reject) => {
-//         untarProcess.on('exit', (code) => {
-//           if (code === 0) {
-//             resolve();
-//           } else {
-//             reject(new Error(`Untar command failed with code ${code}`));
-//           }
-//         });
-//       }),
-//     ]);
-
-//     // Move keploy binary to aliasPath
-//     const moveCmd = `sudo mv /tmp/keploy ${aliasPath}`;
-//     await execPromise(moveCmd);
-
-//     console.log('Keploy binary updated successfully.');
-//   } catch (error) {
-//     console.error('Error updating Keploy binary:', error.message);
-//   }
-// }
 
 
 async function getKeployVersion() {
@@ -155,6 +91,10 @@ if (updateButton) {
       // Set the text to "Updating"
       progressDiv.innerHTML = "<p class='info'>Feature is being worked on</p>";
     }
+    vscode.postMessage({
+      type: "updateKeploy",
+      value: `Updating Keploy...`
+    })
     // try {
     //   // Call the keployUpdate function
     //   await keployUpdate();

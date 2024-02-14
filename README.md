@@ -33,6 +33,10 @@ HeyKeploy offers the following features:
 - Added Css Styling and logo
 - Added boilerplate for keploy update
 
+### 0.1.1
+- Added Keploy Update to update the keploy binary 
+
+
 ## Requirements
 
 There are no specific requirements or dependencies for using HeyKeploy. Simply install the extension and start enjoying its features!

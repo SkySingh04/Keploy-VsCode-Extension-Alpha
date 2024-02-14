@@ -35,6 +35,13 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           vscode.window.showErrorMessage(data.value);
           break;
         }
+        case "updateKeploy": {
+          if (!data.value) {
+            return;
+          }
+          vscode.commands.executeCommand('heykeploy.UpdateKeploy')
+          break;
+        }
       }
     });
   }
@@ -50,7 +57,6 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     const scriptUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this._extensionUri, "./", "sidebar/sidebar.js")
     );
-    console.log(scriptUri.path);
     const styleMainUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this._extensionUri, "./", "sidebar/sidebar.css")
     );
