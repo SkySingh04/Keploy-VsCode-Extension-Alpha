@@ -1,19 +1,11 @@
 import * as vscode from 'vscode';
 import getKeployVersion from './version';
 import {SidebarProvider} from './SidebarProvider';
-import * as cp from "child_process";
-import {downloadAndUpdate} from './updateKeploy';
-
-const execShell = (cmd: string) =>
-  new Promise<string>((resolve, reject) => {
-    cp.exec(cmd, (err, out) => {
-      if (err) {
-        return resolve(cmd+' error!');
-        //or,  reject(err);
-      }
-      return resolve(out);
-    });
-  });
+// import * as cp from "child_process";
+// import {downloadAndUpdate} from './updateKeploy';
+// import {exec} from "child_process";
+// import * as os from "os";
+  
 
 export function activate(context: vscode.ExtensionContext) {
 	const logo  = `
@@ -41,20 +33,19 @@ context.subscriptions.push(
 	});
 
 	context.subscriptions.push(hellocommand);
-
-    context.subscriptions.push(
-        vscode.commands.registerCommand('heykeploy.UpdateKeploy', async () => {
-          const output = await execShell('powershell pwd');
-          await downloadAndUpdate("https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz")
-          vscode.window.showInformationMessage(output);
-        })
-      );
+    // const keployversioncommand = vscode.commands.registerCommand('heykeploy.VersionKeploy', async () => {
+    //     const output = await execShell('keploy --version');
+    //     vscode.window.showInformationMessage(output);
+    //     // return output;
+    //     }
+    // );
+    // context.subscriptions.push(keployversioncommand);
 
 	let versioncommand = vscode.commands.registerCommand('heykeploy.KeployVersion', () => {
 		const panel = vscode.window.createWebviewPanel(
             'keployVersion', // Identifies the type of the webview. Used internally
-            'Keploy Version', // Title of the panel displayed to the user
-            vscode.ViewColumn.One, // Editor column to show the new webview panel in
+            'Keploy Version', // Title of the panel displayed to the webviewuser
+            vscode.ViewColumn.One, // Editor column to show the new  panel in
             {}
         );
 		
@@ -66,7 +57,7 @@ context.subscriptions.push(
                     <body>
 						<pre>${logo}</pre>
                         <h1>The latest version of Keploy is ${version}</h1>
-						<h1>View the latest version at <a href="https://github.com/keploy/keploy"> Keploy GitHub</a></h1>s
+						<h1>View the latest version at <a href="https://github.com/keploy/keploy"> Keploy GitHub</a></h1>
                     </body>
                 </html>
             `;
@@ -78,6 +69,7 @@ context.subscriptions.push(
 	);
 
 	context.subscriptions.push(versioncommand);
+   
 }
 
 // This method is called when your extension is deactivated
