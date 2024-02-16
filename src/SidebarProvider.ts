@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { getNonce } from "./getNonce";
 import { downloadAndUpdate } from './updateKeploy';
+import { downloadAndUpdateDocker } from './updateKeploy';
 
 export class SidebarProvider implements vscode.WebviewViewProvider {
   _view?: vscode.WebviewView;
@@ -48,8 +49,19 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           }
           break;
         }
+        case "updateKeployDocker": {
+          if (!data.value) {
+            return;
+          }
+          try {
+            await downloadAndUpdateDocker();
+            this._view?.webview.postMessage({ type: 'updateStatus', value: 'Keploy Docker updated!' });
+          } catch (error) {
+            this._view?.webview.postMessage({ type: 'updateStatus', value: 'Failed to update Keploy Docker' });
+          }
+          break;
       }
-    });
+    }});
   }
 
   public revive(panel: vscode.WebviewView) {
@@ -88,7 +100,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
         <link href="${styleMainUri}" rel="stylesheet">
         	</head>
       <body>
-      <pre>
+      <p class="logo"><pre>
         ▓██▓▄
       ▓▓▓▓██▓█▓▄
         ████████▓▒
@@ -98,11 +110,20 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  
           ▓▌                      
           ▓
-      </pre>
+      </pre></p>
       <div id="versionDisplay"></div>
       <div id="Progress"></div>
       <button id="getVersionButton">Get latest version</button>
       <button id="updateKeployButton">Update Your Keploy</button>
+      <div id="osButtons">
+        <button id="updateKeployLinuxButton">Linux</button>
+        <button id="updateKeployWindowsButton">Windows</button>
+        <button id="updateKeployMacButton">Mac</button>
+      </div>
+      <div id="additionalUpdateButtons">
+          <button id="updateKeployDockerButton">Update Keploy Docker</button>
+          <button id="updateKeployBinaryButton">Update Keploy Binary</button>
+      </div>
       <div id="updateStatus"></div>
       
 				<script nonce="${nonce}" src="${scriptUri}" type="module"></script>

@@ -11,34 +11,43 @@ HeyKeploy offers the following features:
 
 ## Release Notes
 
-### 0.0.1
+### 0.2.0
 
-- Initial release of HeyKeploy.
-- Added functionality to display the latest Keploy version.
+- Added support for docker and other OS
+
+### 0.1.3
+
+- Added check for current keploy version
+- Added better error Handling 
+
+### 0.1.2
+
+- Added Keploy Update to update the keploy binary 
+
+### 0.1.1
+
+- Added Css Styling and logo
+- Added boilerplate for keploy update
+
+### 0.1.0
+
+- Added SidePanel View to extension
+- Created button to fetch latest keploy version
+
+### 0.0.3
+
+- Added link to Keploy repository
 
 ### 0.0.2
 
 - Added Keploy logo.
 - Added Github Actions workflow to automatically publish to VScode Marketplace
 
-### 0.0.3
+### 0.0.1
 
-- Added link to Keploy repository
+- Initial release of HeyKeploy.
+- Added functionality to display the latest Keploy version.
 
-### 0.1.0
-- Added SidePanel View to extension
-- Created button to fetch latest keploy version
-
-### 0.1.1
-- Added Css Styling and logo
-- Added boilerplate for keploy update
-
-### 0.1.1
-- Added Keploy Update to update the keploy binary 
-
-### 0.1.1
-- Added check for current keploy version
-- Added better error Handling 
 
 ## Limitations
 

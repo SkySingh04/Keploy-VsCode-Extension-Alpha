@@ -12,18 +12,17 @@ const execShell = (cmd: string) => {
             // Execute the command in the default shell if on other platforms
             commandToExecute = cmd;
         }
-
         exec(commandToExecute, (err, stdout, stderr) => {
             if (err) {
                 reject(err.message);
                 return;
             }
             if (stderr) {
-                reject(stderr);
-                return;
+                console.log(stderr); // Log stderr but don't reject the promise
             }
             resolve(stdout);
         });
+        
     });
 };
 export async function downloadAndUpdate(downloadUrl: string): Promise<void> {
@@ -103,3 +102,22 @@ export async function downloadAndUpdate(downloadUrl: string): Promise<void> {
         }
     });
 }
+
+export async function downloadAndUpdateDocker(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        console.log('Downloading and updating Keploy Docker image...');
+        const dockerCmd = 'docker pull ghcr.io/keploy/keploy:latest';
+        execShell(dockerCmd).then(() => {
+            vscode.window.showInformationMessage('Updated Keploy Docker image successfully!');
+            resolve();
+        }).catch(error => {
+            console.error('Failed to update Keploy Docker image:', error);
+            vscode.window.showErrorMessage('Failed to update Keploy Docker image');
+            reject(error);
+        }
+        );
+    }
+    );
+}
+
+        
