@@ -88,7 +88,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
         <link href="${styleMainUri}" rel="stylesheet">
         	</head>
       <body>
-      <pre>
+      <p class="logo"><pre>
         ▓██▓▄
       ▓▓▓▓██▓█▓▄
         ████████▓▒
@@ -98,11 +98,20 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  
           ▓▌                      
           ▓
-      </pre>
+      </pre></p>
       <div id="versionDisplay"></div>
       <div id="Progress"></div>
       <button id="getVersionButton">Get latest version</button>
       <button id="updateKeployButton">Update Your Keploy</button>
+      <div id="osButtons">
+        <button id="updateKeployLinuxButton">Linux</button>
+        <button id="updateKeployWindowsButton">Windows</button>
+        <button id="updateKeployMacButton">Mac</button>
+      </div>
+      <div id="additionalUpdateButtons">
+          <button id="updateKeployDockerButton">Update Keploy Docker</button>
+          <button id="updateKeployBinaryButton">Update Keploy Binary</button>
+      </div>
       <div id="updateStatus"></div>
       
 				<script nonce="${nonce}" src="${scriptUri}" type="module"></script>
