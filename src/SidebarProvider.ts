@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { getNonce } from "./getNonce";
 import { downloadAndUpdate } from './updateKeploy';
+import { downloadAndUpdateDocker } from './updateKeploy';
 
 export class SidebarProvider implements vscode.WebviewViewProvider {
   _view?: vscode.WebviewView;
@@ -48,8 +49,19 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           }
           break;
         }
+        case "updateKeployDocker": {
+          if (!data.value) {
+            return;
+          }
+          try {
+            await downloadAndUpdateDocker();
+            this._view?.webview.postMessage({ type: 'updateStatus', value: 'Keploy Docker updated!' });
+          } catch (error) {
+            this._view?.webview.postMessage({ type: 'updateStatus', value: 'Failed to update Keploy Docker' });
+          }
+          break;
       }
-    });
+    }});
   }
 
   public revive(panel: vscode.WebviewView) {

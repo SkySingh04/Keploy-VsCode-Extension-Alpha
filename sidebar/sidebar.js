@@ -129,7 +129,19 @@ if (updateKeployBinaryButton) {
       type: "updateKeploy",
       value: `Updating Keploy...`
     });
-  });
+  })
+}
+
+const updateKeployDockerButton = document.getElementById('updateKeployDockerButton');
+if (updateKeployDockerButton) {
+  updateKeployDockerButton.addEventListener('click', async () => {
+    console.log("updateKeployDockerButton clicked");
+    // Get the Progress div
+    vscode.postMessage({
+      type: "updateKeployDocker",
+      value: `Updating Keploy Docker...`
+    });
+  })
 }
 
 // Handle messages sent from the extension
