@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import { getNonce } from "./getNonce";
+import { downloadAndUpdate } from './updateKeploy';
 
 export class SidebarProvider implements vscode.WebviewViewProvider {
   _view?: vscode.WebviewView;
@@ -39,7 +40,12 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           if (!data.value) {
             return;
           }
-          vscode.commands.executeCommand('heykeploy.UpdateKeploy')
+          try {
+            await downloadAndUpdate("https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz");
+            this._view?.webview.postMessage({ type: 'updateStatus', value: 'Keploy binary updated!' });
+          } catch (error) {
+            this._view?.webview.postMessage({ type: 'updateStatus', value: 'Failed to update Keploy binary' });
+          }
           break;
         }
       }
@@ -97,6 +103,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
       <div id="Progress"></div>
       <button id="getVersionButton">Get latest version</button>
       <button id="updateKeployButton">Update Your Keploy</button>
+      <div id="updateStatus"></div>
       
 				<script nonce="${nonce}" src="${scriptUri}" type="module"></script>
 			</body>

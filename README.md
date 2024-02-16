@@ -36,6 +36,14 @@ HeyKeploy offers the following features:
 ### 0.1.1
 - Added Keploy Update to update the keploy binary 
 
+### 0.1.1
+- Added check for current keploy version
+- Added better error Handling 
+
+## Limitations
+
+Currently there is no way for us to know if the executed command in the terminal was successful or not: Reference: [Issue](https://stackoverflow.com/a/62774501)
+
 
 ## Requirements
 

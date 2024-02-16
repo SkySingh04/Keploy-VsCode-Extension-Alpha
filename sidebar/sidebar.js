@@ -1,13 +1,5 @@
 const vscode = acquireVsCodeApi();
-
-
-
-
-// const execPromise = util.promisify(exec);
 const progressDiv = document.getElementById('Progress');
-
-
-
 
 async function getKeployVersion() {
   // GitHub repository details
@@ -30,30 +22,6 @@ function updateVersionDisplay(version) {
      <p>${version}</p>`;
   }
 }
-
-// Create a function to update Keploy
-// async function keployUpdate() {
-//   try {
-//     // Call the getKeployVersion function
-//     const version = await getKeployVersion();
-//     if (version === undefined || version === null || version === "") {
-//       throw new Error("No version found");
-//     }
-//     downloadUrl = "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz"
-//     const response = await  downloadAndUpdate(downloadUrl)
-//     if (response === undefined || response === null || response === "") {
-//       throw new Error("Error Updating Keploy");
-//     }
-
-
-//   } catch (error) {
-//     // Handle any errors that occur
-//     vscode.postMessage({
-//       type: "onError",
-//       value: `Error getting Keploy version: ${error.message}`
-//     });
-//   }
-// }
 
 
 const getVersionButton = document.getElementById('getVersionButton');
@@ -87,29 +55,26 @@ if (updateButton) {
   updateButton.addEventListener('click', async () => {
     // Get the Progress div
     
-    if (progressDiv) {
-      // Set the text to "Updating"
-      progressDiv.innerHTML = "<p class='info'>Feature is being worked on</p>";
-    }
+    // if (progressDiv) {
+    //   // Set the text to "Updating"
+    //   progressDiv.innerHTML = "<p class='info'>Feature is being worked on</p>";
+    // }
     vscode.postMessage({
       type: "updateKeploy",
       value: `Updating Keploy...`
-    })
-    // try {
-    //   // Call the keployUpdate function
-    //   await keployUpdate();
-    //   if (progressDiv) {
-    //     progressDiv.textContent = "<p class='success'>Updated</p>";
-    //   }
-    // } catch (error) {
-    //   // If update fails, set the text to "Update failed"
-    //   if (progressDiv) {
-    //     progressDiv.textContent = "<p class='error'>Update failed</p>";
-    //   }
-    // }
+    });
   });
 }
 
+// Handle messages sent from the extension
+window.addEventListener('message', event => {
+  const message = event.data;
+  console.log("message", message);
+  if (message.type === 'updateStatus') {
+      console.log("message.value", message.value);
+      progressDiv.innerHTML = `<p class="info">${message.value}</p>`;
+  }
+});
 
 
 

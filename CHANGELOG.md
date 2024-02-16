@@ -43,5 +43,6 @@ All notable changes to the "heykeploy" extension will be documented in this file
 ### Added
 
 - Added Keploy Update to update the keploy binary 
-
+- Check for current keploy version
+- Error Handling
 
