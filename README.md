@@ -51,8 +51,11 @@ HeyKeploy offers the following features:
 
 ## Limitations
 
-Currently there is no way for us to know if the executed command in the terminal was successful or not: Reference: [Issue](https://stackoverflow.com/a/62774501)
+Currently there is no way for us to know if the executed command in the terminal was successful or not as the VScode Terminal API has depricated [Terminal.onDidWriteData](https://github.com/microsoft/vscode/issues/78574): 
 
+Reference: [Issue](https://stackoverflow.com/a/62774501)
+
+A workaround patch for this is documented here, which i have implemented partially in my code in conjuction with the VSCode Terminal API: [Solution](https://stackoverflow.com/a/67732928)
 
 ## Requirements
 
