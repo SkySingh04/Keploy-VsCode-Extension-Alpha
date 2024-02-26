@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2] - 2024-02-24
+
+### Added
+
+- Added better error handling.
+- More UI updates
+
 ## [0.2.0] - 2024-02-16
 
 ### Added

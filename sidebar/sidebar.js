@@ -152,6 +152,14 @@ window.addEventListener('message', event => {
       console.log("message.value", message.value);
       progressDiv.innerHTML = `<p class="info">${message.value}</p>`;
   }
+  else if (message.type === 'error') {
+    console.error(message.value);
+    progressDiv.innerHTML = `<p class="error">${message.value}</p>`;
+  }
+  else if (message.type === 'success') {
+    console.log(message.value);
+    progressDiv.innerHTML = `<p class="success">${message.value}</p>`;
+  }
 });
 
 

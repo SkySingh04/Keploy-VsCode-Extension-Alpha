@@ -43,9 +43,9 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           }
           try {
             await downloadAndUpdate("https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz");
-            this._view?.webview.postMessage({ type: 'updateStatus', value: 'Keploy binary updated!' });
+            this._view?.webview.postMessage({ type: 'success', value: 'Keploy binary updated!' });
           } catch (error) {
-            this._view?.webview.postMessage({ type: 'updateStatus', value: 'Failed to update Keploy binary' });
+            this._view?.webview.postMessage({ type: 'error', value: `Failed to update Keploy binary: ${error}` });
           }
           break;
         }
@@ -55,9 +55,9 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           }
           try {
             await downloadAndUpdateDocker();
-            this._view?.webview.postMessage({ type: 'updateStatus', value: 'Keploy Docker updated!' });
+            this._view?.webview.postMessage({ type: 'success', value: 'Keploy Docker updated!' });
           } catch (error) {
-            this._view?.webview.postMessage({ type: 'updateStatus', value: 'Failed to update Keploy Docker' });
+            this._view?.webview.postMessage({ type: 'error', value: `Failed to update Keploy Docker ${error}` });
           }
           break;
       }
@@ -97,7 +97,9 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
       webview.cspSource
     }; script-src 'nonce-${nonce}';">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="${styleMainUri}" rel="stylesheet">
+       <link href="${styleMainUri}" rel="stylesheet">
+       <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+        
         	</head>
       <body>
       <p class="logo"><pre>
@@ -113,12 +115,21 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
       </pre></p>
       <div id="versionDisplay"></div>
       <div id="Progress"></div>
+      <div id=utilityButtons>
       <button id="getVersionButton">Get latest version</button>
       <button id="updateKeployButton">Update Your Keploy</button>
+      </div>
       <div id="osButtons">
-        <button id="updateKeployLinuxButton">Linux</button>
-        <button id="updateKeployWindowsButton">Windows</button>
-        <button id="updateKeployMacButton">Mac</button>
+        <button id="updateKeployLinuxButton">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-plain.svg" />
+      </button>
+        <button id="updateKeployWindowsButton">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows11/windows11-original.svg" />
+        </button>
+        <button id="updateKeployMacButton">
+        
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apple/apple-original.svg" />
+        </button>
       </div>
       <div id="additionalUpdateButtons">
           <button id="updateKeployDockerButton">Update Keploy Docker</button>
