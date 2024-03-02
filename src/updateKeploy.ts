@@ -27,7 +27,7 @@ const execShell = (cmd: string) => {
 };
 export async function downloadAndUpdate(downloadUrl: string): Promise<void> {
     try {
-        const output = await execShell('keploy --version');
+        const output = await execShell('/usr/local/bin/keploybin --version');
         const keployIndex = output.indexOf('Keploy');
         let keployVersion = '';
         if (keployIndex !== -1) {
