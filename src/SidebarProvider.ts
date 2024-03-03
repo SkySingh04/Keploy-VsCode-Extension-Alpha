@@ -2,12 +2,19 @@ import * as vscode from "vscode";
 import { getNonce } from "./getNonce";
 import { downloadAndUpdate } from './updateKeploy';
 import { downloadAndUpdateDocker } from './updateKeploy';
+import { startRecording } from './Record';
+
+const options: vscode.OpenDialogOptions = {
+  canSelectMany: false,
+  openLabel: 'Select file to record test cases for',
+  title: 'Select file to record test cases for',
+};
 
 export class SidebarProvider implements vscode.WebviewViewProvider {
   _view?: vscode.WebviewView;
   _doc?: vscode.TextDocument;
 
-  constructor(private readonly _extensionUri: vscode.Uri) {}
+  constructor(private readonly _extensionUri: vscode.Uri) { }
 
   public resolveWebviewView(webviewView: vscode.WebviewView) {
     this._view = webviewView;
@@ -21,7 +28,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
         vscode.Uri.joinPath(this._extensionUri, "out", "compiled"),
         vscode.Uri.joinPath(this._extensionUri, "media"),
         vscode.Uri.joinPath(this._extensionUri, "sidebar"),
-        
+
       ],
     };
 
@@ -66,8 +73,40 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
             this._view?.webview.postMessage({ type: 'error', value: `Failed to update Keploy Docker ${error}` });
           }
           break;
+        }
+        case "record": {
+          if (!data.value) {
+            return;
+          } try {
+            console.log('Record button clicked');
+            vscode.window.showOpenDialog(options).then(async fileUri => {
+              if (fileUri && fileUri[0]) {
+                console.log('Selected file: ' + fileUri[0].fsPath);
+                this._view?.webview.postMessage({ type: 'file', value: `${fileUri[0].fsPath}` });
+                // console.log(this._view?.webview.html.getElementById('filePathDiv'));
+                // this._view?.webview.html.getElementById('filePathDiv')!.innerHTML = `<p>Your Selected File is ${fileUri[0].fsPath}</p>`;
+              }
+            });
+          } catch (error) {
+            this._view?.webview.postMessage({ type: 'error', value: `Failed to record ${error}` });
+          }
+          break;
+        }
+        case 'startRecordingCommand' : {
+          if (!data.value) {
+            return;
+          }
+          try {
+            console.log('Start Recording button clicked');
+            await startRecording(data.command , data.filePath);
+          } catch (error) {
+            this._view?.webview.postMessage({ type: 'error', value: `Failed to record ${error}` });
+          }
+          break;
+        }
+          
       }
-    }});
+    });
   }
 
   public revive(panel: vscode.WebviewView) {
@@ -106,9 +145,8 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 					Use a content security policy to only allow loading images from https or from our extension directory,
 					and only allow scripts that have a specific nonce.
         -->
-        <meta http-equiv="Content-Security-Policy" content="img-src https: data:; style-src 'unsafe-inline' ${
-          webview.cspSource
-        }; script-src 'nonce-${nonce}';">    
+        <meta http-equiv="Content-Security-Policy" content="img-src https: data:; style-src 'unsafe-inline' ${webview.cspSource
+      }; script-src 'nonce-${nonce}';">    
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 				<link href="${styleResetUri}" rel="stylesheet">
 				<link href="${styleVSCodeUri}" rel="stylesheet">

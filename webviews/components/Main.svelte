@@ -15,9 +15,16 @@
     </pre>
     <div id="versionDisplay"></div>
     <div id="Progress"></div>
+    <div id="filePathDiv"></div>
+    <div id="commandInput">
+    <label for="command">Enter App Command:</label> 
+    <input type="text" id="command" name="command" />
+    <button id="startRecordingButton">Start Recording</button> 
+    </div>
     <div id=utilityButtons>
       <button id="getVersionButton">Get latest version</button>
       <button id="updateKeployButton">Update Your Keploy</button>
+      <button id="recordButton">Record Test Cases</button>
     </div>
     <div id="osButtons">
       <button id="updateKeployLinuxButton">
@@ -35,4 +42,7 @@
       <button id="updateKeployBinaryButton">Update Keploy Binary</button>
     </div>
     <div id="updateStatus"></div>
+    <div id="recordStatus">
+
+    </div>
   </body>

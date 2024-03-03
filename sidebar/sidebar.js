@@ -1,5 +1,26 @@
 const vscode = acquireVsCodeApi();
 const progressDiv = document.getElementById('Progress');
+    const commandInput = document.getElementById('commandInput');
+    const filePathDiv = document.getElementById('filePathDiv');
+let recordFilePath="";
+
+const recordButton = document.getElementById('recordButton');
+if (recordButton) {
+  handleRecordButtonClick();
+}
+async function handleRecordButtonClick () {
+  if (recordButton) {
+    recordButton.addEventListener('click', async () => {
+      console.log("recordButton clicked");
+      vscode.postMessage({
+        type: "record",
+        value: "Recording..."
+      });
+    });
+  }
+} 
+
+
 
 async function getKeployVersion() {
   // GitHub repository details
@@ -22,6 +43,7 @@ function updateVersionDisplay(version) {
      <p>${version}</p>`;
   }
 }
+
 
 
 const getVersionButton = document.getElementById('getVersionButton');
@@ -71,11 +93,6 @@ if (updateButton) {
         additionalUpdateButtons.style.display = "grid";
       }
     }
-
-    // vscode.postMessage({
-    //   type: "updateKeploy",
-    //   value: `Updating Keploy...`
-    // });
   });
 }
 
@@ -129,7 +146,7 @@ if (updateKeployBinaryButton) {
       type: "updateKeploy",
       value: `Updating Keploy...`
     });
-  })
+  });
 }
 
 const updateKeployDockerButton = document.getElementById('updateKeployDockerButton');
@@ -141,7 +158,25 @@ if (updateKeployDockerButton) {
       type: "updateKeployDocker",
       value: `Updating Keploy Docker...`
     });
-  })
+  });
+}
+
+const startRecordingButton = document.getElementById('startRecordingButton');
+if (startRecordingButton) {
+  const commandInput = document.getElementById('command');
+
+  startRecordingButton.addEventListener('click', async () => {
+    console.log("startRecordingButton clicked");
+    const commandValue = commandInput.value;
+console.log('Command value:', commandValue);
+    // Get the Progress div
+    vscode.postMessage({
+      type: "startRecordingCommand",
+      value: `Recording Command...`,
+      command: commandValue,
+      filePath: recordFilePath
+    });
+  });
 }
 
 // Handle messages sent from the extension
@@ -159,6 +194,16 @@ window.addEventListener('message', event => {
   else if (message.type === 'success') {
     console.log(message.value);
     progressDiv.innerHTML = `<p class="success">${message.value}</p>`;
+  }
+  else if (message.type === 'file') {
+    console.log(message.value);
+    if (filePathDiv) {
+        filePathDiv.innerHTML = `<p>Your Selected File is ${message.value}</p>`;
+        recordFilePath = message.value;
+    }
+    if (commandInput) {
+        commandInput.style.display = "block";
+    }
   }
 });
 

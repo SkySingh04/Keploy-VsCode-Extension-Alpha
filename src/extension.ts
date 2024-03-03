@@ -1,14 +1,10 @@
 import * as vscode from 'vscode';
 import getKeployVersion from './version';
-import {SidebarProvider} from './SidebarProvider';
-// import * as cp from "child_process";
-// import {downloadAndUpdate} from './updateKeploy';
-// import {exec} from "child_process";
-// import * as os from "os";
-  
+import { SidebarProvider } from './SidebarProvider';
+
 
 export function activate(context: vscode.ExtensionContext) {
-	const logo  = `
+    const logo = `
        ▓██▓▄
     ▓▓▓▓██▓█▓▄
      ████████▓▒
@@ -20,35 +16,29 @@ export function activate(context: vscode.ExtensionContext) {
         ▓
 `;
 
-const sidebarProvider = new SidebarProvider(context.extensionUri);
-context.subscriptions.push(
-  vscode.window.registerWebviewViewProvider(
-    "Keploy-Sidebar",
-    sidebarProvider
-  )
-);
+    const sidebarProvider = new SidebarProvider(context.extensionUri);
+    context.subscriptions.push(
+        vscode.window.registerWebviewViewProvider(
+            "Keploy-Sidebar",
+            sidebarProvider
+        )
+    );
+    
 
-	let hellocommand = vscode.commands.registerCommand('heykeploy.HeyKeploy', () => {
-		vscode.window.showInformationMessage(`Hey Keploy Community!`);
-	});
+    let hellocommand = vscode.commands.registerCommand('heykeploy.HeyKeploy', () => {
+        vscode.window.showInformationMessage(`Hey Keploy Community!`);
+    });
 
-	context.subscriptions.push(hellocommand);
-    // const keployversioncommand = vscode.commands.registerCommand('heykeploy.VersionKeploy', async () => {
-    //     const output = await execShell('keploy --version');
-    //     vscode.window.showInformationMessage(output);
-    //     // return output;
-    //     }
-    // );
-    // context.subscriptions.push(keployversioncommand);
+    context.subscriptions.push(hellocommand);
 
-	let versioncommand = vscode.commands.registerCommand('heykeploy.KeployVersion', () => {
-		const panel = vscode.window.createWebviewPanel(
+    let versioncommand = vscode.commands.registerCommand('heykeploy.KeployVersion', () => {
+        const panel = vscode.window.createWebviewPanel(
             'keployVersion', // Identifies the type of the webview. Used internally
             'Keploy Version', // Title of the panel displayed to the webviewuser
             vscode.ViewColumn.One, // Editor column to show the new  panel in
             {}
         );
-		
+
 
         // Get the Keploy version and update the Webview content
         getKeployVersion().then(version => {
@@ -65,12 +55,12 @@ context.subscriptions.push(
             // Display error message in case of failure
             vscode.window.showErrorMessage(`Error fetching Keploy version: ${error}`);
         });
-	}
-	);
+    }
+    );
 
-	context.subscriptions.push(versioncommand);
-   
+    context.subscriptions.push(versioncommand);
+
 }
 
 // This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }

@@ -14,7 +14,9 @@
     font-family: var(--vscode-font-family);
     background-color: var(--vscode-editor-background);
   }
-  
+  button {
+    background-color: var(--vscode-editor-background);
+  }
   ol,
   ul {
     padding-left: var(--container-paddding);
