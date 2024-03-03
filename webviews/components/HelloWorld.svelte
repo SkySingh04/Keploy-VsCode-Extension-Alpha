@@ -7,7 +7,7 @@
 </script>
 
 <main>
-    <h1>Hello World!</h1>
+    <h1>Huehueh World!</h1>
     <p>Counter: {count}</p>
     <button on:click={increment}>Increment</button>
 </main>
