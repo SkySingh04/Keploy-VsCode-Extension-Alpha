@@ -20,6 +20,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
         this._extensionUri,
         vscode.Uri.joinPath(this._extensionUri, "out", "compiled"),
         vscode.Uri.joinPath(this._extensionUri, "media"),
+        vscode.Uri.joinPath(this._extensionUri, "sidebar"),
         
       ],
     };
@@ -78,11 +79,18 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
       vscode.Uri.joinPath(this._extensionUri, "media", "reset.css")
     );
     const scriptUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, "out", "compiled/HelloWorld.js")
+      vscode.Uri.joinPath(this._extensionUri, "out", "compiled/Main.js")
+    );
+    const compiledCSSUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this._extensionUri, "out", "compiled/Main.css")
     );
     const styleMainUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, "out", "compiled/sidebar.css")
+      vscode.Uri.joinPath(this._extensionUri, "sidebar", "sidebar.css")
     );
+    const scriptMainUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this._extensionUri, "sidebar", "sidebar.js")
+    );
+
     const styleVSCodeUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this._extensionUri, "media", "vscode.css")
     );
@@ -105,9 +113,11 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 				<link href="${styleResetUri}" rel="stylesheet">
 				<link href="${styleVSCodeUri}" rel="stylesheet">
         <link href="${styleMainUri}" rel="stylesheet">
+        <link href="${compiledCSSUri}" rel="stylesheet">
 			</head>
       <body>
 				<script nonce="${nonce}" src="${scriptUri}"></script>
+        <script nonce="${nonce}" src="${scriptMainUri}"></script>
 			</body>
 			</html>`;
   }
