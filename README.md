@@ -8,10 +8,16 @@ Try it out: [Vscode Extension](https://marketplace.visualstudio.com/items?itemNa
 
 Keploy-VsCode offers the following features:
 
+- **Keploy Record** :  Record Testcases with Keploy 
+- **Keploy Update** :  Update your Keploy to the latest version
 - **Keploy Version Display**: Get the latest version of Keploy directly in your Visual Studio Code.
 
 
+
 ## Release Notes
+
+### 1.1.0
+- Added Support for Keploy Record
 
 ### 1.0.0
 - Integrated Svelte using rollup instead of using plain HTML!

@@ -1,4 +1,10 @@
 # Changelog
+
+## [1.1.0] - 2024-03-04
+
+- Added Support for Keploy Record
+
+
 ## [1.0.0] - 2024-03-04
 
 - Integrated Svelte using rollup instead of using plain HTML!

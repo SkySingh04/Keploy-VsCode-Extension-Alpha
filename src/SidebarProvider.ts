@@ -98,7 +98,8 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           }
           try {
             console.log('Start Recording button clicked');
-            await startRecording(data.command , data.filePath);
+            await startRecording(data.command , data.filePath)
+            this._view?.webview.postMessage({ type: 'success', value: 'Recording Started' });
           } catch (error) {
             this._view?.webview.postMessage({ type: 'error', value: `Failed to record ${error}` });
           }
