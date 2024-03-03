@@ -63,6 +63,6 @@ export default fs
       ],
       watch: {
         clearScreen: false,
-      },
+      }
     };
   });
