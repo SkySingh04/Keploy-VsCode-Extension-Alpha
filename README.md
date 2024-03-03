@@ -13,6 +13,9 @@ Keploy-VsCode offers the following features:
 
 ## Release Notes
 
+### 1.0.0
+- Integrated Svelte using rollup instead of using plain HTML!
+
 ### 0.2.2
 - Added better error handling.
 - More UI updates

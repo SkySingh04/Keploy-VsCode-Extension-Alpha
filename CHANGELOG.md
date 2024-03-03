@@ -1,4 +1,8 @@
 # Changelog
+## [1.0.0] - 2024-03-04
+
+- Integrated Svelte using rollup instead of using plain HTML!
+
 
 ## [0.2.2] - 2024-02-24
 
