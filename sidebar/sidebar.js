@@ -208,8 +208,10 @@ window.addEventListener('message', event => {
     }
   }
   else if (message.type === 'testcaserecorded') {
-    console.log("message.element", message.element);
-    recordedTestCasesDiv.innerHTML = `<p class="info">${message.element}</p>`;
+    console.log("message.textContent", message.textContent);
+    const testCaseElement = document.createElement('div');
+    testCaseElement.textContent = message.textContent;
+    recordedTestCasesDiv.innerHTML = `<p class="info">${testCaseElement}</p>`;
 
     
   }

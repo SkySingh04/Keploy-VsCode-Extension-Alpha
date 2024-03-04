@@ -5,7 +5,7 @@ export async function displayRecordedTestCases(logfilePath: string, webview: any
     console.log('Displaying recorded test cases');
     try{
     const logData = readFileSync(logfilePath, 'utf8');
-    console.log(logData);
+    // console.log(logData);
     // Split the log data into lines
     const logLines = logData.split('\n');
     // Filter out the lines containing the desired information
@@ -13,13 +13,13 @@ export async function displayRecordedTestCases(logfilePath: string, webview: any
     // Display the captured test cases in your frontend
     capturedTestLines.forEach(testLine => {
         const testCaseInfo = JSON.parse(testLine.substring(testLine.indexOf('{')));
-        const testCaseElement = document.createElement('div');
+        // const testCaseElement = document.createElement('div');
         console.log(testCaseInfo);
-        testCaseElement.textContent = `Test case "${testCaseInfo['testcase name']}" captured at ${testCaseInfo.path}`;
+        const textContent = `Test case "${testCaseInfo['testcase name']}" captured at ${testCaseInfo.path}`;
         webview.postMessage({
             type: 'testcaserecorded',
             value: 'Test Case has been recorded',
-            element: testCaseElement
+            textContent: textContent
         });
         // recordedTestCasesDiv.appendChild(testCaseElement);
     });}
