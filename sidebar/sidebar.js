@@ -198,7 +198,7 @@ window.addEventListener('message', event => {
   else if (message.type === 'file') {
     console.log(message.value);
     if (filePathDiv) {
-        filePathDiv.innerHTML = `<p>Your Selected File is ${message.value}</p>`;
+        filePathDiv.innerHTML = `<p class="info">Your Selected File is <br/> ${message.value}</p>`;
         recordFilePath = message.value;
     }
     if (commandInput) {

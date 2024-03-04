@@ -28,6 +28,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
         vscode.Uri.joinPath(this._extensionUri, "out", "compiled"),
         vscode.Uri.joinPath(this._extensionUri, "media"),
         vscode.Uri.joinPath(this._extensionUri, "sidebar"),
+        vscode.Uri.joinPath(this._extensionUri, "scripts"),
 
       ],
     };
@@ -98,8 +99,12 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           }
           try {
             console.log('Start Recording button clicked');
-            await startRecording(data.command , data.filePath)
+
+            const script =  vscode.Uri.joinPath(this._extensionUri, "scripts", "keploy_record_script.sh");
+            const logfilePath =  vscode.Uri.joinPath(this._extensionUri, "scripts", "keploy_record_script.log");
+            await startRecording(data.command , data.filePath , script.fsPath , logfilePath.fsPath);
             this._view?.webview.postMessage({ type: 'success', value: 'Recording Started' });
+            this._view?.webview.postMessage({ type: 'writeRecord', value: 'Write Recorded test cases ', logfilePath: logfilePath.fsPath });
           } catch (error) {
             this._view?.webview.postMessage({ type: 'error', value: `Failed to record ${error}` });
           }
