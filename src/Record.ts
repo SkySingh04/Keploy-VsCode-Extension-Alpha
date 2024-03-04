@@ -1,12 +1,13 @@
 import * as vscode from 'vscode';
-import {exec} from 'child_process';
 import * as os from 'os';
 import { execShell } from './execShell';
-export async function startRecording(command: string , filepath: string){
-    console.log("Somehiw reached till here yay");
+import { spawn } from './nodepty';
+
+export async function startRecording(command: string, filepath: string) {
+    console.log("Somehow reached till here yay");
     console.log(command);
     console.log(filepath);
-    try{
+    try {
         return new Promise<void>((resolve, reject) => {
             try {
                 let bashPath: string;
@@ -17,45 +18,46 @@ export async function startRecording(command: string , filepath: string){
                     // Otherwise, assume Bash is available at the standard location
                     bashPath = '/bin/bash';
                 }
-                // Create a new terminal instance with the Bash shell
-                const terminal = vscode.window.createTerminal({
-                    name: 'Keploy Terminal',
-                    shellPath: bashPath
-                });
-                // Show the terminal
-                terminal.show();
+                console.log("Bash path: " + bashPath);
 
-                const recordCmd = `keploy record -c ${command} ${filepath}`;
-                console.log(recordCmd);
-                const executeCommand = async (command: string) => {
-                    return new Promise<void>((resolve, reject) => {
-                        terminal.sendText(command);
-                        resolve();
-                        vscode.window.onDidCloseTerminal(t => {
-                            if (t.exitStatus && t.exitStatus.code) {
-                                vscode.window.showInformationMessage(`Exit code: ${t.exitStatus.code}`);
-                                console.log(`Exit code: ${t.exitStatus.code}`);
-                            }
-                            ;
-                          });
-                    });
-                };
-                Promise.all([executeCommand(recordCmd)]).then(() => {
-                    resolve();
-                }).catch(error => {
-                    reject(error);
-                }
-                )
+                // Spawn a new shell process using node-pty
+                const shell = spawn(bashPath, [], {
+                    name: 'xterm-color',
+                    cols: 80,
+                    rows: 30,
+                    cwd: process.cwd(),
+                    env: process.env
+                });
+
+                console.log("Shell spawned");
+
+                // Send the record command to the shell
+                shell.write(`keploy record -c ${command} ${filepath}\r`);
+
+                // Capture the output of the command
+                let output = '';
+                shell.onData((data: string) => {
+                    output += data;
+                });
+
+                // Resolve the promise when the shell process exits
+                shell.onExit((e: { exitCode: number; signal?: number | undefined; }) => {
+                    if (e.exitCode === 0) {
+                        resolve(); // Fix: Resolve with void value
+                    } else {
+                        reject(new Error(`Shell process exited with code ${e.exitCode}`));
+                    }
+                });
+
             } catch (error) {
                 console.log(error);
-                vscode.window.showErrorMessage('Error occurred Keplo Record: ' + error);
+                vscode.window.showErrorMessage('Error occurred Keploy Record: ' + error);
                 reject(error);
             }
-        })
-    }
-    catch(error){
+        });
+    } catch (error) {
         console.log(error);
-        vscode.window.showErrorMessage('Error occurred Keplo Record: ' + error);
-        throw error;    
+        vscode.window.showErrorMessage('Error occurred Keploy Record: ' + error);
+        throw error;
     }
 }
