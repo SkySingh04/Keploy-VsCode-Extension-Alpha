@@ -1,66 +1,81 @@
 import * as vscode from 'vscode';
-import {exec} from 'child_process';
-import * as os from 'os';
-import { execShell } from './execShell';
-import path from 'path';
-export async function startRecording(command: string , filepath: string , scriptPath: string , logfilePath : string): Promise<void> {
-    console.log("Somehiw reached till here yay");
-    console.log(command);
-    console.log(filepath);
+import { readFileSync } from 'fs';
+
+export async function displayRecordedTestCases(logfilePath: string, webview: any): Promise<void> {
+    console.log('Displaying recorded test cases');
     try{
+    const logData = readFileSync(logfilePath, 'utf8');
+    console.log(logData);
+    // Split the log data into lines
+    const logLines = logData.split('\n');
+    // Filter out the lines containing the desired information
+    const capturedTestLines = logLines.filter(line => line.includes('🟠 Keploy has captured test cases'));
+    // Display the captured test cases in your frontend
+    capturedTestLines.forEach(testLine => {
+        const testCaseInfo = JSON.parse(testLine.substring(testLine.indexOf('{')));
+        const testCaseElement = document.createElement('div');
+        console.log(testCaseInfo);
+        testCaseElement.textContent = `Test case "${testCaseInfo['testcase name']}" captured at ${testCaseInfo.path}`;
+        webview.postMessage({
+            type: 'testcaserecorded',
+            value: 'Test Case has been recorded',
+            element: testCaseElement
+        });
+        // recordedTestCasesDiv.appendChild(testCaseElement);
+    });}
+    catch(error){
+        console.log(error);
+        vscode.window.showErrorMessage('Error occurred Keplo Record: ' + error);
+        throw error;
+    }
+}
+import { window as vsWindow } from 'vscode';
+
+export async function startRecording(command: string, filepath: string, scriptPath: string, logfilePath: string, webview: any): Promise<void> {
+    try {
         return new Promise<void>((resolve, reject) => {
             try {
                 let bashPath: string;
                 if (process.platform === 'win32') {
-                    // If on Windows, use the correct path to WSL's Bash shell
                     bashPath = 'wsl.exe';
                 } else {
-                    // Otherwise, assume Bash is available at the standard location
                     bashPath = '/bin/bash';
                 }
-                // Spawn a new shell process using node-pty                // Create a new terminal instance with the Bash shell
+
                 const terminal = vscode.window.createTerminal({
                     name: 'Keploy Terminal',
                     shellPath: bashPath,
                 });
 
-                // Show the terminal
                 terminal.show();
-                // const scriptPath = path.join(__dirname, 'keploy_record.sh');
-                console.log(scriptPath);
+
+                const recordCmd = `sudo ${scriptPath} ${command} "${filepath}" ${logfilePath} ; exit 0`;
+                // const exitCmd = 'exit';
+                terminal.sendText(recordCmd);
                 
-                const recordCmd = `sudo ${scriptPath} ${command} "${filepath}" ${logfilePath}`;
-                console.log(recordCmd);
-                const executeCommand = async (command: string) => {
-                    return new Promise<void>((resolve, reject) => {
-                        terminal.sendText(command);
-                        resolve();
-                        vscode.window.onDidCloseTerminal(t => {
-                            if (t.exitStatus && t.exitStatus.code) {
-                                vscode.window.showInformationMessage(`Exit code: ${t.exitStatus.code}`);
-                                console.log(`Exit code: ${t.exitStatus.code}`);
-                            }
-                            ;
-                          });
-                    });
-                };
-                Promise.all([executeCommand(recordCmd)]).then(() => {
-                    resolve();
-                }).catch(error => {
-                    reject(error);
-                }
-                )
+                // terminal.sendText('exit', true);
+
+                // Listen for terminal close event
+                const disposable = vscode.window.onDidCloseTerminal(eventTerminal => {
+                    console.log('Terminal closed');
+                    if (eventTerminal === terminal) {
+                        disposable.dispose(); // Dispose the listener
+                        displayRecordedTestCases(logfilePath, webview); // Call function when terminal is closed
+                        resolve(); // Resolve the promise
+                    }
+                });
+
             } catch (error) {
                 console.log(error);
                 vscode.window.showErrorMessage('Error occurred Keplo Record: ' + error);
                 reject(error);
             }
-        })
+        });
     }
-    catch(error){
+    catch (error) {
         console.log(error);
         vscode.window.showErrorMessage('Error occurred Keplo Record: ' + error);
-        throw error;    
+        throw error;
     }
 }
 

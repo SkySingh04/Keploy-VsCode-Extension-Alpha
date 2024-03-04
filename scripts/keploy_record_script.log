@@ -11,14 +11,22 @@
   
 version: 2.0.0-alpha72
 
-🐰 Keploy: 2024-03-04T20:07:22+05:30 	[34mINFO[0m	Keploy config not found, continuing without configuration
-🐰 Keploy: 2024-03-04T20:07:22+05:30 	[34mINFO[0m		{"keploy test and mock path": "/home/akash/keploy"}
-🐰 Keploy: 2024-03-04T20:07:24+05:30 	[34mINFO[0m	keploy initialized and probes added to the kernel.
-set the certificate path in environment /tmp/ca.crt139310902
-🐰 Keploy: 2024-03-04T20:07:24+05:30 	[34mINFO[0m	Proxy started at port:16789
-🐰 Keploy: 2024-03-04T20:07:24+05:30 	[34mINFO[0m	starting TCP DNS server at addr :26789
-🐰 Keploy: 2024-03-04T20:07:24+05:30 	[33mWARN[0m	user application terminated unexpectedly hence stopping keploy, please check application logs if this behaviour is not expected
-🐰 Keploy: 2024-03-04T20:07:24+05:30 	[34mINFO[0m	Exiting keploy program gracefully.
-🐰 Keploy: 2024-03-04T20:07:25+05:30 	[34mINFO[0m	eBPF resources released successfully...
-🐰 Keploy: 2024-03-04T20:07:25+05:30 	[34mINFO[0m	Tcp Dns server stopped
-🐰 Keploy: 2024-03-04T20:07:25+05:30 	[34mINFO[0m	proxy stopped...
+🐰 Keploy: 2024-03-05T05:06:51+05:30 	[34mINFO[0m	Keploy config not found, continuing without configuration
+🐰 Keploy: 2024-03-05T05:06:51+05:30 	[34mINFO[0m		{"keploy test and mock path": "/home/akash/keploy"}
+🐰 Keploy: 2024-03-05T05:06:54+05:30 	[34mINFO[0m	keploy initialized and probes added to the kernel.
+set the certificate path in environment /tmp/ca.crt1130132495
+🐰 Keploy: 2024-03-05T05:06:54+05:30 	[34mINFO[0m	starting TCP DNS server at addr :26789
+🐰 Keploy: 2024-03-05T05:06:54+05:30 	[34mINFO[0m	Proxy started at port:16789
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /:param                   --> main.getURL (3 handlers)
+[GIN-debug] POST   /url                      --> main.putURL (3 handlers)
+🐰 Keploy: 2024-03-05T05:06:54+05:30 	[31mERROR[0m	userApplication failed to run with the following error. Please check application logs	{"error": "exit status 1"}
+🐰 Keploy: 2024-03-05T05:06:54+05:30 	[34mINFO[0m	Exiting keploy program gracefully.
+🐰 Keploy: 2024-03-05T05:06:55+05:30 	[34mINFO[0m	eBPF resources released successfully...
+🐰 Keploy: 2024-03-05T05:06:55+05:30 	[34mINFO[0m	Tcp Dns server stopped
+🐰 Keploy: 2024-03-05T05:06:55+05:30 	[34mINFO[0m	proxy stopped...

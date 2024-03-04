@@ -53,7 +53,7 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "rollup": "rollup -c --bundleConfigAsCjs",
-    "watch": "concurrently \"rollup -c -w --bundleConfigAsCjs\" \"tsc -watch -p ./\"",
+    "watch": "rollup -c --bundleConfigAsCjs && tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "vscode-test"

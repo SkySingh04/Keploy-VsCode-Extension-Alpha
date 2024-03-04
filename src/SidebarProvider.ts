@@ -5,6 +5,7 @@ import { downloadAndUpdateDocker } from './updateKeploy';
 import { startRecording } from './Record';
 
 const options: vscode.OpenDialogOptions = {
+  canSelectFiles: true,
   canSelectMany: false,
   openLabel: 'Select file to record test cases for',
   title: 'Select file to record test cases for',
@@ -102,9 +103,9 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
             const script =  vscode.Uri.joinPath(this._extensionUri, "scripts", "keploy_record_script.sh");
             const logfilePath =  vscode.Uri.joinPath(this._extensionUri, "scripts", "keploy_record_script.log");
-            await startRecording(data.command , data.filePath , script.fsPath , logfilePath.fsPath);
-            this._view?.webview.postMessage({ type: 'success', value: 'Recording Started' });
-            this._view?.webview.postMessage({ type: 'writeRecord', value: 'Write Recorded test cases ', logfilePath: logfilePath.fsPath });
+            await startRecording(data.command , data.filePath , script.fsPath , logfilePath.fsPath , this._view?.webview );
+            // this._view?.webview.postMessage({ type: 'success', value: 'Recording Started' });
+            // this._view?.webview.postMessage({ type: 'writeRecord', value: 'Write Recorded test cases ', logfilePath: logfilePath.fsPath });
           } catch (error) {
             this._view?.webview.postMessage({ type: 'error', value: `Failed to record ${error}` });
           }
@@ -161,7 +162,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 			</head>
       <body>
 				<script nonce="${nonce}" src="${scriptUri}"></script>
-        <script nonce="${nonce}" src="${scriptMainUri}"></script>
+        <script type="module" nonce="${nonce}" src="${scriptMainUri}"></script>
 			</body>
 			</html>`;
   }

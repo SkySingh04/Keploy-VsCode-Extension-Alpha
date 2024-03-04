@@ -1,14 +1,16 @@
 const vscode = acquireVsCodeApi();
 const progressDiv = document.getElementById('Progress');
-    const commandInput = document.getElementById('commandInput');
-    const filePathDiv = document.getElementById('filePathDiv');
-let recordFilePath="";
+const commandInput = document.getElementById('commandInput');
+const filePathDiv = document.getElementById('filePathDiv');
+const recordedTestCasesDiv = document.getElementById('recordedTestCases');
+
+let recordFilePath = "";
 
 const recordButton = document.getElementById('recordButton');
 if (recordButton) {
   handleRecordButtonClick();
 }
-async function handleRecordButtonClick () {
+async function handleRecordButtonClick() {
   if (recordButton) {
     recordButton.addEventListener('click', async () => {
       console.log("recordButton clicked");
@@ -18,7 +20,7 @@ async function handleRecordButtonClick () {
       });
     });
   }
-} 
+}
 
 
 
@@ -27,7 +29,7 @@ async function getKeployVersion() {
   const repoOwner = "keploy";
   const repoName = "keploy";
 
-  const apiURL =`https://api.github.com/repos/${repoOwner}/${repoName}/releases/latest`;
+  const apiURL = `https://api.github.com/repos/${repoOwner}/${repoName}/releases/latest`;
 
   // Get the latest release
   const response = await fetch(apiURL);
@@ -97,7 +99,7 @@ if (updateButton) {
 }
 
 
-const updateKeployLinuxButton =  document.getElementById('updateKeployLinuxButton');
+const updateKeployLinuxButton = document.getElementById('updateKeployLinuxButton');
 if (updateKeployLinuxButton) {
   updateKeployLinuxButton.addEventListener('click', async () => {
     console.log("updateKeployLinuxButton clicked");
@@ -108,7 +110,7 @@ if (updateKeployLinuxButton) {
     updateKeployDockerButton.style.display = "block";
   });
 }
-const updateKeployWindowsButton =  document.getElementById('updateKeployWindowsButton');
+const updateKeployWindowsButton = document.getElementById('updateKeployWindowsButton');
 if (updateKeployWindowsButton) {
   updateKeployWindowsButton.addEventListener('click', async () => {
     console.log("updateKeployWindowsButton clicked");
@@ -119,7 +121,7 @@ if (updateKeployWindowsButton) {
     updateKeployDockerButton.style.display = "block";
   });
 }
-const updateKeployMacButton =  document.getElementById('updateKeployMacButton');
+const updateKeployMacButton = document.getElementById('updateKeployMacButton');
 if (updateKeployMacButton) {
   updateKeployMacButton.addEventListener('click', async () => {
     console.log("updateKeployWindowsButton clicked");
@@ -137,7 +139,7 @@ if (updateKeployBinaryButton) {
   updateKeployBinaryButton.addEventListener('click', async () => {
     console.log("updateKeployBinaryButton clicked");
     // Get the Progress div
-    
+
     // if (progressDiv) {
     //   // Set the text to "Updating"
     //   progressDiv.innerHTML = "<p class='info'>Feature is being worked on</p>";
@@ -168,7 +170,7 @@ if (startRecordingButton) {
   startRecordingButton.addEventListener('click', async () => {
     console.log("startRecordingButton clicked");
     const commandValue = commandInput.value;
-console.log('Command value:', commandValue);
+    console.log('Command value:', commandValue);
     // Get the Progress div
     vscode.postMessage({
       type: "startRecordingCommand",
@@ -184,8 +186,8 @@ window.addEventListener('message', event => {
   const message = event.data;
   console.log("message", message);
   if (message.type === 'updateStatus') {
-      console.log("message.value", message.value);
-      progressDiv.innerHTML = `<p class="info">${message.value}</p>`;
+    console.log("message.value", message.value);
+    progressDiv.innerHTML = `<p class="info">${message.value}</p>`;
   }
   else if (message.type === 'error') {
     console.error(message.value);
@@ -198,13 +200,45 @@ window.addEventListener('message', event => {
   else if (message.type === 'file') {
     console.log(message.value);
     if (filePathDiv) {
-        filePathDiv.innerHTML = `<p class="info">Your Selected File is <br/> ${message.value}</p>`;
-        recordFilePath = message.value;
+      filePathDiv.innerHTML = `<p class="info">Your Selected File is <br/> ${message.value}</p>`;
+      recordFilePath = message.value;
     }
     if (commandInput) {
-        commandInput.style.display = "block";
+      commandInput.style.display = "block";
     }
   }
+  else if (message.type === 'testcaserecorded') {
+    console.log("message.element", message.element);
+    recordedTestCasesDiv.innerHTML = `<p class="info">${message.element}</p>`;
+
+    
+  }
+
+  // else if (message.type === "writeRecord") {
+  //   const recordedTestCasesDiv = document.getElementById('recordedTestCases');
+  //   const logFilePath = message.logFilePath;
+  //   // read the logFile to get the test cases adn then display it to the user
+  //   try {
+  //     // Read the log file
+  //     const logData = readFileSync(logFilePath, 'utf8');
+
+  //     // Split the log data into lines
+  //     const logLines = logData.split('\n');
+
+  //     // Filter out the lines containing the desired information
+  //     const capturedTestLines = logLines.filter(line => line.includes('🟠 Keploy has captured test cases'));
+
+  //     // Display the captured test cases in your frontend
+  //     capturedTestLines.forEach(testLine => {
+  //       const testCaseInfo = JSON.parse(testLine.substring(testLine.indexOf('{')));
+  //       const testCaseElement = document.createElement('div');
+  //       testCaseElement.textContent = `Test case "${testCaseInfo['testcase name']}" captured at ${testCaseInfo.path}`;
+  //       recordedTestCasesDiv.appendChild(testCaseElement);
+  //     });
+  //   } catch (err) {
+  //     console.error('Error reading log file:', err);
+  //   }
+  // }
 });
 
 
