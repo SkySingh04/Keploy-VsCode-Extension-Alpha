@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.2] - 2024-03-05
+
+- Added support for installing Keploy
+- Better UI Updates
+
 ## [1.1.0] - 2024-03-04
 
 - Added Support for Keploy Record
