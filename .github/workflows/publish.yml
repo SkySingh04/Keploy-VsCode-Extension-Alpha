@@ -27,4 +27,4 @@ jobs:
         run: vsce package
       
       - name: Publish Extension
-        run: vsce publish -p ${{ secrets.VSCODE_TOKEN }}
+        run: vsce publish -p ${{ secrets.VS_MARKETPLACE_TOKEN }}
