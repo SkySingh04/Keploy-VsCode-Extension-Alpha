@@ -1,0 +1,10 @@
+🐰 Keploy: 2024-03-05T06:28:50+05:30 	[34mINFO[0m	Keploy config not found, continuing without configuration
+🐰 Keploy: 2024-03-05T06:28:50+05:30 	[34mINFO[0m		{"keploy test and mock path": "/home/akash/Desktop/KeployVScodeExtension/keploy"}
+🐰 Keploy: 2024-03-05T06:28:52+05:30 	[34mINFO[0m	keploy initialized and probes added to the kernel.
+🐰 Keploy: 2024-03-05T06:28:52+05:30 	[34mINFO[0m	Proxy started at port:16789
+🐰 Keploy: 2024-03-05T06:28:52+05:30 	[34mINFO[0m	starting TCP DNS server at addr :26789
+🐰 Keploy: 2024-03-05T06:28:52+05:30 	[31mERROR[0m	failed to dial the connection to destination server	{"Client IP Address": "192.168.1.8:59368", "Client ConnectionID": 2, "Destination IP Address": "127.0.0.1:27017", "Destination ConnectionID": 3, "error": "dial tcp 127.0.0.1:27017: connect: connection refused", "proxy port": 16789, "server address": "127.0.0.1:27017"}
+🐰 Keploy: 2024-03-05T06:28:52+05:30 	[31mERROR[0m	failed to dial the connection to destination server	{"Client IP Address": "192.168.1.8:59362", "Client ConnectionID": 0, "Destination IP Address": "127.0.0.1:27017", "Destination ConnectionID": 1, "error": "dial tcp 127.0.0.1:27017: connect: connection refused", "proxy port": 16789, "server address": "127.0.0.1:27017"}
+🐰 Keploy: 2024-03-05T06:29:02+05:30 	[31mERROR[0m	failed to dial the connection to destination server	{"Client IP Address": "192.168.1.8:35952", "Client ConnectionID": 4, "Destination IP Address": "127.0.0.1:27017", "Destination ConnectionID": 5, "error": "dial tcp 127.0.0.1:27017: connect: connection refused", "proxy port": 16789, "server address": "127.0.0.1:27017"}
+🐰 Keploy: 2024-03-05T06:29:02+05:30 	[31mERROR[0m	failed to dial the connection to destination server	{"Client IP Address": "192.168.1.8:35956", "Client ConnectionID": 6, "Destination IP Address": "127.0.0.1:27017", "Destination ConnectionID": 7, "error": "dial tcp 127.0.0.1:27017: connect: connection refused", "proxy port": 16789, "server address": "127.0.0.1:27017"}
+🐰 Keploy: 2024-03-05T06:29:09+05:30 	[34mINFO[0m	Received signal to exit keploy program..

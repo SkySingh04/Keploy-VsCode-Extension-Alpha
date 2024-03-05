@@ -11,6 +11,14 @@ export async function displayRecordedTestCases(logfilePath: string, webview: any
     // Filter out the lines containing the desired information
     const capturedTestLines = logLines.filter(line => line.includes('🟠 Keploy has captured test cases'));
     // Display the captured test cases in your frontend
+    if (capturedTestLines.length === 0) {
+        webview.postMessage({
+            type: 'testcaserecorded',
+            value: 'Test Case has been recorded',
+            textContent: "No test cases captured. Please try again."
+        });
+        return;
+    }
     capturedTestLines.forEach(testLine => {
         const testCaseInfo = JSON.parse(testLine.substring(testLine.indexOf('{')));
         // const testCaseElement = document.createElement('div');

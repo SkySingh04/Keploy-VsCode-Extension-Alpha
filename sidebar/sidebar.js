@@ -225,6 +225,7 @@ window.addEventListener('message', event => {
     testCaseElement.textContent = message.textContent;
     recordedTestCasesDiv.appendChild(testCaseElement); // Append the testCaseElement itself instead of its text content
   }
+  
 
   // else if (message.type === "writeRecord") {
   //   const recordedTestCasesDiv = document.getElementById('recordedTestCases');
