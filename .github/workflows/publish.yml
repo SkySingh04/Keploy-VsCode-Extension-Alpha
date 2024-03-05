@@ -12,9 +12,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: List checkout files
-        run: ls -a
-
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -25,15 +22,6 @@ jobs:
 
       - name: Install VSCE
         run: npm install -g @vscode/vsce
-      
-      - name: Open .vscodeignore file
-        run: cat .vscodeignore
-      
-      - name: List vsce files
-        run : vsce ls
         
-      - name: Package Extension
-        run: vsce package
-      
       # - name: Publish Extension
       #   run: vsce publish -p ${{ secrets.VS_MARKETPLACE_TOKEN }}
