@@ -10,3 +10,5 @@ vsc-extension-quickstart.md
 **/.vscode-test.*
 !src/*
 !.vscodeignore
+!.out/*
+!.scripts/*
