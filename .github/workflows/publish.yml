@@ -26,8 +26,8 @@ jobs:
       - name: Install VSCE
         run: npm install -g vsce
       
-      - name: Open .vscecodeignore file
-        run: cat .vscecodeignore
+      - name: Open .vscodeignore file
+        run: cat .vscodeignore
       
       - name: List vsce files
         run : vsce ls
