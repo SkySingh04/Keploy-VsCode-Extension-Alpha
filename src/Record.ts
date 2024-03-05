@@ -29,7 +29,17 @@ export async function displayRecordedTestCases(logfilePath: string, webview: any
         throw error;
     }
 }
-import { window as vsWindow } from 'vscode';
+
+export async function stopRecording(){
+    try{
+    vscode.window.activeTerminal?.sendText("^C");
+    return;
+    }
+    catch(error){
+        console.log(error);
+        throw error;
+    }
+}
 
 export async function startRecording(command: string, filepath: string, scriptPath: string, logfilePath: string, webview: any): Promise<void> {
     try {

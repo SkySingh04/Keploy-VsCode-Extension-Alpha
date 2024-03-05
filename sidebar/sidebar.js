@@ -3,7 +3,8 @@ const progressDiv = document.getElementById('Progress');
 const commandInput = document.getElementById('commandInput');
 const filePathDiv = document.getElementById('filePathDiv');
 const recordedTestCasesDiv = document.getElementById('recordedTestCases');
-
+const stopRecordingButton = document.getElementById("stopRecordingButton");
+const startRecordingButton = document.getElementById('startRecordingButton');
 let recordFilePath = "";
 
 const recordButton = document.getElementById('recordButton');
@@ -163,12 +164,13 @@ if (updateKeployDockerButton) {
   });
 }
 
-const startRecordingButton = document.getElementById('startRecordingButton');
+
 if (startRecordingButton) {
   const commandInput = document.getElementById('command');
-
   startRecordingButton.addEventListener('click', async () => {
     console.log("startRecordingButton clicked");
+    stopRecordingButton.style.display = 'block';
+    
     const commandValue = commandInput.value;
     console.log('Command value:', commandValue);
     // Get the Progress div
@@ -177,6 +179,16 @@ if (startRecordingButton) {
       value: `Recording Command...`,
       command: commandValue,
       filePath: recordFilePath
+    });
+  });
+}
+if(stopRecordingButton){
+  stopRecordingButton.addEventListener('click', async () => {
+    console.log("stopRecordingButton clicked");
+    // Get the Progress div
+    vscode.postMessage({
+      type: "stopRecordingCommand",
+      value: `Stop Recording`
     });
   });
 }
@@ -209,11 +221,9 @@ window.addEventListener('message', event => {
   }
   else if (message.type === 'testcaserecorded') {
     console.log("message.textContent", message.textContent);
-    const testCaseElement = document.createElement('div');
+    const testCaseElement = document.createElement('p');
     testCaseElement.textContent = message.textContent;
-    recordedTestCasesDiv.innerHTML = `<p class="info">${testCaseElement}</p>`;
-
-    
+    recordedTestCasesDiv.appendChild(testCaseElement); // Append the testCaseElement itself instead of its text content
   }
 
   // else if (message.type === "writeRecord") {

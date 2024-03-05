@@ -50,7 +50,7 @@ button{
     display: flex;
     justify-content: center;
 }
-#Progress .info{
+.info{
     color: #d1a30a;
     text-align: center;
     margin-top: 20px;
@@ -204,7 +204,20 @@ button{
 #commandInput{
     display: none;
 }
-
+#recordingbuttons{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap : 5px;
+}
+#stopRecordingButton{
+    display: none;
+}
+#filePathDiv{
+    padding: 4px;
+    margin: 4px;
+    color: #d1a30a;
+    text-align: center;
+}
 /* .logodiv{
     display: flex;
     justify-content: center;

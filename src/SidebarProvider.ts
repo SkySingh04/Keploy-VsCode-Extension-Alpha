@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import { getNonce } from "./getNonce";
 import { downloadAndUpdate } from './updateKeploy';
 import { downloadAndUpdateDocker } from './updateKeploy';
-import { startRecording } from './Record';
+import { startRecording , stopRecording } from './Record';
 
 const options: vscode.OpenDialogOptions = {
   canSelectFiles: true,
@@ -110,6 +110,19 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
             this._view?.webview.postMessage({ type: 'error', value: `Failed to record ${error}` });
           }
           break;
+        }
+        case 'stopRecordingCommand' : {
+          if (!data.value) {
+            return;
+          }
+          try{
+            console.log("Stopping recording");
+            await stopRecording();
+
+          }
+          catch(error){
+            this._view?.webview.postMessage({ type: 'error', value: `Failed to Stop record ${error}` });
+          }
         }
           
       }

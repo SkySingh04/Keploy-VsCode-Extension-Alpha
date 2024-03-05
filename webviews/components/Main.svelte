@@ -20,7 +20,10 @@
     <label for="command">Enter App Command:</label> 
     <input type="text" id="command" name="command" />
     <div id="recordedTestCases"></div>
+    <div id="recordingbuttons">
     <button id="startRecordingButton">Start Recording</button> 
+    <button id="stopRecordingButton">Stop Recording</button>
+    </div> 
     </div>
     <div id=utilityButtons>
       <button id="getVersionButton">Get latest version</button>
