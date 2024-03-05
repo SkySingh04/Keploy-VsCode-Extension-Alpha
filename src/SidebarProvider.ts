@@ -1,7 +1,6 @@
 import * as vscode from "vscode";
 import { getNonce } from "./getNonce";
-import { downloadAndUpdate } from './updateKeploy';
-import { downloadAndUpdateDocker } from './updateKeploy';
+import { downloadAndUpdate , downloadAndInstallKeployBinary ,downloadAndUpdateDocker  } from './updateKeploy';
 import { startRecording , stopRecording } from './Record';
 
 const options: vscode.OpenDialogOptions = {
@@ -57,13 +56,28 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
             return;
           }
           try {
-            await downloadAndUpdate("https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz");
+            await downloadAndUpdate("https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" , this._view?.webview);
             this._view?.webview.postMessage({ type: 'success', value: 'Keploy binary updated!' });
           } catch (error) {
             this._view?.webview.postMessage({ type: 'error', value: `Failed to update Keploy binary: ${error}` });
           }
           break;
         }
+        case "installKeploy": {
+          if (!data.value) {
+            return;
+          }
+          try {
+            console.log('Installing Keploy binary...');
+            await downloadAndInstallKeployBinary("https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz", this._view?.webview);
+
+            this._view?.webview.postMessage({ type: 'success', value: 'Keploy binary installed!' });
+          } catch (error) {
+            this._view?.webview.postMessage({ type: 'error', value: `Failed to install Keploy binary: ${error}` });
+          }
+          break;
+        }
+
         case "updateKeployDocker": {
           if (!data.value) {
             return;

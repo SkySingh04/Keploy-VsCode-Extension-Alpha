@@ -78,62 +78,17 @@ if (getVersionButton) {
 const updateButton = document.getElementById('updateKeployButton');
 if (updateButton) {
   updateButton.addEventListener('click', async () => {
-    const osbuttonDiv = document.getElementById('osButtons');
-    if (osbuttonDiv) {
-      if (osbuttonDiv.style.display === "grid") {
-        osbuttonDiv.style.display = "none";
+    const updateButtons = document.getElementById('updateButtons');
+    if (updateButtons) {
+      if (updateButtons.style.display === "grid") {
+        updateButtons.style.display = "none";
       }
       else {
-        osbuttonDiv.style.display = "grid";
-      }
-    }
-    const additionalUpdateButtons = document.getElementById('additionalUpdateButtons');
-    if (additionalUpdateButtons) {
-      if (additionalUpdateButtons.style.display === "grid") {
-        additionalUpdateButtons.style.display = "none";
-      }
-      else {
-        additionalUpdateButtons.style.display = "grid";
+        updateButtons.style.display = "grid";
       }
     }
   });
 }
-
-
-const updateKeployLinuxButton = document.getElementById('updateKeployLinuxButton');
-if (updateKeployLinuxButton) {
-  updateKeployLinuxButton.addEventListener('click', async () => {
-    console.log("updateKeployLinuxButton clicked");
-    // Get the Progress div
-    const updateKeployDockerButton = document.getElementById('updateKeployDockerButton');
-    const updateKeployBinaryButton = document.getElementById('updateKeployBinaryButton');
-    updateKeployBinaryButton.style.display = "block";
-    updateKeployDockerButton.style.display = "block";
-  });
-}
-const updateKeployWindowsButton = document.getElementById('updateKeployWindowsButton');
-if (updateKeployWindowsButton) {
-  updateKeployWindowsButton.addEventListener('click', async () => {
-    console.log("updateKeployWindowsButton clicked");
-    // Get the Progress div
-    const updateKeployDockerButton = document.getElementById('updateKeployDockerButton');
-    const updateKeployBinaryButton = document.getElementById('updateKeployBinaryButton');
-    updateKeployBinaryButton.style.display = "block";
-    updateKeployDockerButton.style.display = "block";
-  });
-}
-const updateKeployMacButton = document.getElementById('updateKeployMacButton');
-if (updateKeployMacButton) {
-  updateKeployMacButton.addEventListener('click', async () => {
-    console.log("updateKeployWindowsButton clicked");
-    // Get the Progress div
-    const updateKeployDockerButton = document.getElementById('updateKeployDockerButton');
-    const updateKeployBinaryButton = document.getElementById('updateKeployBinaryButton');
-    updateKeployBinaryButton.style.display = "none";
-    updateKeployDockerButton.style.display = "block";
-  });
-}
-
 
 const updateKeployBinaryButton = document.getElementById('updateKeployBinaryButton');
 if (updateKeployBinaryButton) {

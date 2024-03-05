@@ -30,18 +30,7 @@
       <button id="updateKeployButton">Update Your Keploy</button>
       <button id="recordButton">Record Test Cases</button>
     </div>
-    <div id="osButtons">
-      <button id="updateKeployLinuxButton">
-        <img alt="" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-plain.svg" />
-      </button>
-      <button id="updateKeployWindowsButton">
-        <img alt="" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows11/windows11-original.svg" />
-      </button>
-      <button id="updateKeployMacButton">
-        <img alt="" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apple/apple-original.svg" />
-      </button>
-    </div>
-    <div id="additionalUpdateButtons">
+    <div id="updateButtons">
       <button id="updateKeployDockerButton">Update Keploy Docker</button>
       <button id="updateKeployBinaryButton">Update Keploy Binary</button>
     </div>

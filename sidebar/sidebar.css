@@ -69,7 +69,7 @@ button{
 }
 
 #updateKeployDockerButton{
-    display: none;
+    /* display: none; */
     background-color: #00b1d9;
     color: black;
     height: 100px;
@@ -91,7 +91,7 @@ button{
 }
 
 #updateKeployBinaryButton{
-    display: none;
+    /* display: none; */
     background-color: #ebcc00;
     color: black;
     height: 100px;
@@ -114,8 +114,8 @@ button{
     background-color: #6e6101;
 }
 
-#additionalUpdateButtons{
-    display: grid;
+#updateButtons{
+    display: none;
     grid-template-columns: 1fr 1fr;
     grid-gap: 10px;
     margin-top: 20px;
@@ -213,6 +213,12 @@ button{
     display: none;
 }
 #filePathDiv{
+    padding: 4px;
+    margin: 4px;
+    color: #d1a30a;
+    text-align: center;
+}
+#recordedTestCases{
     padding: 4px;
     margin: 4px;
     color: #d1a30a;
