@@ -3,7 +3,7 @@ name: Publish Extension
 on:
   push:
     branches:
-      - main
+      - CIFIX
 
 jobs:
   deploy:
@@ -20,8 +20,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Publish to Visual Studio Marketplace
-        uses: HaaLeo/publish-vscode-extension@v1
-        with:
-          pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
-          registryUrl: https://marketplace.visualstudio.com
+      - name: Install VSCE
+        run: npm install -g vsce
+      
+      - name: Package Extension
+        run: vsce package
+      
+      - name: Publish Extension
+        run: vsce publish -p ${{ secrets.VSCODE_TOKEN }}
