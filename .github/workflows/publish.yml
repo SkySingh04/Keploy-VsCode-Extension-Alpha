@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '18'
 
       - name: Install dependencies
         run: npm install
@@ -27,7 +27,7 @@ jobs:
         run: npm install -g vsce
       
       - name: Open .vscecodeignore file
-        run: echo .vscecodeignore
+        run: cat .vscecodeignore
       
       - name: List vsce files
         run : vsce ls
