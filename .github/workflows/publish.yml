@@ -1,9 +1,10 @@
 name: Publish Extension
 
 on:
-  push:
-    branches:
-      - master
+  workflow_run:
+    workflows: ["test"]
+    types:
+      - completed
 
 jobs:
   deploy:
@@ -28,3 +29,4 @@ jobs:
         with:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
+          skipDuplicate: true
