@@ -148,7 +148,24 @@ class SidebarProvider {
                         console.log('Start Recording button clicked');
                         const script = vscode.Uri.joinPath(this._extensionUri, "scripts", "keploy_record_script.sh");
                         const logfilePath = vscode.Uri.joinPath(this._extensionUri, "scripts", "keploy_record_script.log");
-                        yield (0, Record_1.startRecording)(data.command, data.filePath, script.fsPath, logfilePath.fsPath, (_k = this._view) === null || _k === void 0 ? void 0 : _k.webview);
+                        let wslscriptPath = script.fsPath;
+                        let wsllogPath = logfilePath.fsPath;
+                        if (process.platform === 'win32') {
+                            //convert filepaths to windows format
+                            wslscriptPath = wslscriptPath.replace(/\\/g, '/');
+                            wsllogPath = wsllogPath.replace(/\\/g, '/');
+                            //add /mnt/ to the start of the path
+                            wslscriptPath = '/mnt/' + wslscriptPath;
+                            wsllogPath = '/mnt/' + wsllogPath;
+                            // remove : from the path
+                            wslscriptPath = wslscriptPath.replace(/:/g, '');
+                            wsllogPath = wsllogPath.replace(/:/g, '');
+                        }
+                        console.log("script path" + wslscriptPath);
+                        console.log(wsllogPath);
+                        // console.log(script.fsPath);
+                        // console.log(logfilePath.fsPath);
+                        yield (0, Record_1.startRecording)(data.command, data.filePath, wslscriptPath, wsllogPath, script.fsPath, logfilePath.fsPath, (_k = this._view) === null || _k === void 0 ? void 0 : _k.webview);
                         // this._view?.webview.postMessage({ type: 'success', value: 'Recording Started' });
                         // this._view?.webview.postMessage({ type: 'writeRecord', value: 'Write Recorded test cases ', logfilePath: logfilePath.fsPath });
                     }
@@ -197,7 +214,22 @@ class SidebarProvider {
                         console.log('Start Testing button clicked');
                         const script = vscode.Uri.joinPath(this._extensionUri, "scripts", "keploy_test_script.sh");
                         const logfilePath = vscode.Uri.joinPath(this._extensionUri, "scripts", "keploy_test_script.log");
-                        yield (0, Test_1.startTesting)(data.command, data.filePath, script.fsPath, logfilePath.fsPath, (_p = this._view) === null || _p === void 0 ? void 0 : _p.webview);
+                        let wslscriptPath = script.fsPath;
+                        let wsllogPath = logfilePath.fsPath;
+                        if (process.platform === 'win32') {
+                            //convert filepaths to windows format
+                            wslscriptPath = wslscriptPath.replace(/\\/g, '/');
+                            wsllogPath = wsllogPath.replace(/\\/g, '/');
+                            //add /mnt/ to the start of the path
+                            wslscriptPath = '/mnt/' + wslscriptPath;
+                            wsllogPath = '/mnt/' + wsllogPath;
+                            // remove : from the path
+                            wslscriptPath = wslscriptPath.replace(/:/g, '');
+                            wsllogPath = wsllogPath.replace(/:/g, '');
+                        }
+                        console.log("script path" + wslscriptPath);
+                        console.log(wsllogPath);
+                        yield (0, Test_1.startTesting)(data.command, data.filePath, wslscriptPath, wsllogPath, script.fsPath, logfilePath.fsPath, (_p = this._view) === null || _p === void 0 ? void 0 : _p.webview);
                     }
                     catch (error) {
                         (_q = this._view) === null || _q === void 0 ? void 0 : _q.webview.postMessage({ type: 'error', value: `Failed to test ${error}` });

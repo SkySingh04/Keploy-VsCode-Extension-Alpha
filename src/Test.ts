@@ -72,7 +72,7 @@ export async function displayTestCases(logfilePath: string, webview: any): Promi
 }
 
 
-export async function startTesting(command: string, filepath: string, scriptPath: string, logfilePath: string, webview: any): Promise<void> {
+export async function startTesting(command: string, filepath: string,wslscriptPath: string, wsllogfilePath: string, scriptPath: string, logfilePath: string, webview: any): Promise<void> {
     try {
         return new Promise<void>((resolve, reject) => {
             try {
@@ -89,11 +89,15 @@ export async function startTesting(command: string, filepath: string, scriptPath
                 });
 
                 terminal.show();
-
+                if (process.platform === 'win32') {
+                    const testCmd = `${wslscriptPath} ${command} "${filepath}" ${wsllogfilePath} ;exit 0 `;
+                    terminal.sendText(testCmd);
+                }
+                else{
                 const testCmd = `sudo ${scriptPath} ${command} "${filepath}" ${logfilePath} ;exit 0 `;
                 // const exitCmd = 'exit';
                 terminal.sendText(testCmd);
-
+                }
                 // terminal.sendText('exit', true);
 
                 // Listen for terminal close event

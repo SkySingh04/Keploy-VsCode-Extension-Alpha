@@ -106,7 +106,7 @@ function displayTestCases(logfilePath, webview) {
     });
 }
 exports.displayTestCases = displayTestCases;
-function startTesting(command, filepath, scriptPath, logfilePath, webview) {
+function startTesting(command, filepath, wslscriptPath, wsllogfilePath, scriptPath, logfilePath, webview) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             return new Promise((resolve, reject) => {
@@ -123,9 +123,15 @@ function startTesting(command, filepath, scriptPath, logfilePath, webview) {
                         shellPath: bashPath,
                     });
                     terminal.show();
-                    const testCmd = `sudo ${scriptPath} ${command} "${filepath}" ${logfilePath} ;exit 0 `;
-                    // const exitCmd = 'exit';
-                    terminal.sendText(testCmd);
+                    if (process.platform === 'win32') {
+                        const testCmd = `${wslscriptPath} ${command} "${filepath}" ${wsllogfilePath} ;exit 0 `;
+                        terminal.sendText(testCmd);
+                    }
+                    else {
+                        const testCmd = `sudo ${scriptPath} ${command} "${filepath}" ${logfilePath} ;exit 0 `;
+                        // const exitCmd = 'exit';
+                        terminal.sendText(testCmd);
+                    }
                     // terminal.sendText('exit', true);
                     // Listen for terminal close event
                     const disposable = vscode.window.onDidCloseTerminal(eventTerminal => {
