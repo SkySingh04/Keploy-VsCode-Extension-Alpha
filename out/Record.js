@@ -46,7 +46,7 @@ function displayRecordedTestCases(logfilePath, webview) {
             catch (error) {
                 (0, fs_1.appendFile)(logfilePath, "", function (err) {
                     if (err) {
-                        throw err;
+                        console.log("err here" + err);
                     }
                 });
                 logData = (0, fs_1.readFileSync)(logfilePath, 'utf8');

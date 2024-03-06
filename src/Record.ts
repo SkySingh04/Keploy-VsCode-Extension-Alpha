@@ -10,7 +10,7 @@ export async function displayRecordedTestCases(logfilePath: string, webview: any
         }
         catch (error) {
             appendFile(logfilePath, "", function (err) {
-                if (err) { throw err; }
+                if (err) { console.log("err here" +  err); }
             });
             logData = readFileSync(logfilePath, 'utf8');
         }
