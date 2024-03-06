@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.0] - 2024-03-07
+
+-  Added Support for Test command
+-  Implemented Integration tests In CI pipeline
+
+
 ## [1.2.2] - 2024-03-05
 
 - Added support for installing Keploy

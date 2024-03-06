@@ -9,12 +9,18 @@ Try it out: [Vscode Extension](https://marketplace.visualstudio.com/items?itemNa
 Keploy-VsCode offers the following features:
 
 - **Keploy Record** :  Record Testcases with Keploy 
+- **Keploy Test** : Replay Recorded Testcases with Keploy
 - **Keploy Update** :  Update your Keploy to the latest version
 - **Keploy Version Display**: Get the latest version of Keploy directly in your Visual Studio Code.
 
 
 
 ## Release Notes
+
+### 2.1.0
+-  Wrote Integration tests for the extension
+-  Implemented Integration tests In CI pipeline
+
 
 ### 2.0.0
 - Added support for Keploy Test Command
