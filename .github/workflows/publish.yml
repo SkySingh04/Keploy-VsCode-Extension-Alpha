@@ -19,6 +19,9 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+      
+      - name: Run Test Script
+        run: npm run test
 
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
