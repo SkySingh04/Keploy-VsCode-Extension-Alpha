@@ -40,6 +40,10 @@
     <button id="updateKeployButton">Update Your Keploy</button>
     <button id="recordButton">Record Test Cases</button>
     <button id="testButton">Run Test Cases</button>
+    <div id="updateButtons">
+      <button id="updateKeployBinaryButton">Update Keploy Binary</button>
+      <button id="updateKeployDockerButton">Update Keploy Docker</button>
+    </div>
     <div id="updateStatus"></div>
     <div id="recordStatus"></div>
   </div></body
