@@ -1,16 +1,25 @@
 const vscode = acquireVsCodeApi();
 const progressDiv = document.getElementById('Progress');
-const commandInput = document.getElementById('commandInput');
 const filePathDiv = document.getElementById('filePathDiv');
 const recordedTestCasesDiv = document.getElementById('recordedTestCases');
+const testResultsDiv = document.getElementById('TestCases');
+const recordCommandInput = document.getElementById('recordCommand');
+const testCommandInput = document.getElementById('testCommand');
 const stopRecordingButton = document.getElementById("stopRecordingButton");
 const startRecordingButton = document.getElementById('startRecordingButton');
-let recordFilePath = "";
+const startTestButton = document.getElementById('startTestButton');
+const stopTestButton = document.getElementById('stopTestButton');
+let FilePath = "";
 
 const recordButton = document.getElementById('recordButton');
 if (recordButton) {
   handleRecordButtonClick();
 }
+const testButton = document.getElementById('testButton');
+if (testButton) {
+  handleTestButtonClick();
+}
+
 async function handleRecordButtonClick() {
   if (recordButton) {
     recordButton.addEventListener('click', async () => {
@@ -23,6 +32,17 @@ async function handleRecordButtonClick() {
   }
 }
 
+async function handleTestButtonClick() {
+  if (testButton) {
+    testButton.addEventListener('click', async () => {
+      console.log("testButton clicked");
+      vscode.postMessage({
+        type: "test",
+        value: "Testing..."
+      });
+    });
+  }
+}
 
 
 async function getKeployVersion() {
@@ -121,19 +141,18 @@ if (updateKeployDockerButton) {
 
 
 if (startRecordingButton) {
-  const commandInput = document.getElementById('command');
   startRecordingButton.addEventListener('click', async () => {
     console.log("startRecordingButton clicked");
     stopRecordingButton.style.display = 'block';
     
-    const commandValue = commandInput.value;
+    const commandValue = recordCommandInput.value;
     console.log('Command value:', commandValue);
     // Get the Progress div
     vscode.postMessage({
       type: "startRecordingCommand",
       value: `Recording Command...`,
       command: commandValue,
-      filePath: recordFilePath
+      filePath: FilePath
     });
   });
 }
@@ -147,6 +166,33 @@ if(stopRecordingButton){
     });
   });
 }
+if (startTestButton) {
+  startTestButton.addEventListener('click', async () => {
+    console.log("startTestButton clicked");
+    stopTestButton.style.display = 'block';
+    const commandValue = testCommandInput.value;
+    console.log('Command value:', commandValue);
+    // Get the Progress div
+    vscode.postMessage({
+      type: "startTestingCommand",
+      value: `Testing Command...`,
+      command: commandValue,
+      filePath: FilePath
+    });
+  });
+}
+if(stopTestButton){
+  stopTestButton.addEventListener('click', async () => {
+    console.log("stopTestButton clicked");
+    // Get the Progress div
+    vscode.postMessage({
+      type: "stopTestingCommand",
+      value: `Stop Testing`
+    });
+  });
+}
+
+
 
 // Handle messages sent from the extension
 window.addEventListener('message', event => {
@@ -164,14 +210,15 @@ window.addEventListener('message', event => {
     console.log(message.value);
     progressDiv.innerHTML = `<p class="success">${message.value}</p>`;
   }
-  else if (message.type === 'file') {
+  else if (message.type === 'recordfile') {
     console.log(message.value);
     if (filePathDiv) {
       filePathDiv.innerHTML = `<p class="info">Your Selected File is <br/> ${message.value}</p>`;
-      recordFilePath = message.value;
+      FilePath = message.value;
     }
-    if (commandInput) {
-      commandInput.style.display = "block";
+    const recordCommandDiv = document.getElementById('recordCommandInput');
+    if (recordCommandDiv) {
+      recordCommandDiv.style.display = "block";
     }
   }
   else if (message.type === 'testcaserecorded') {
@@ -180,33 +227,25 @@ window.addEventListener('message', event => {
     testCaseElement.textContent = message.textContent;
     recordedTestCasesDiv.appendChild(testCaseElement); // Append the testCaseElement itself instead of its text content
   }
-  
+  else if(message.type === "testResults"){
+    console.log("message.value", message.value);
+      console.log("message.textSummary", message.textSummary);
+      const testCaseElement = document.createElement('p');
+      testCaseElement.textContent = message.textSummary;
+      testResultsDiv.appendChild(testCaseElement); // Append the testCaseElement itself instead of its text content
+  }
+  else if(message.type === "testfile"){
+    console.log("message.value", message.value);
+    if (filePathDiv) {
+      filePathDiv.innerHTML = `<p class="info">Your Selected File is <br/> ${message.value}</p>`;
+      FilePath = message.value;
+    }
+    const testCommandDiv = document.getElementById('testCommandInput');
+    if (testCommandDiv) {
+      testCommandDiv.style.display = "block";
+    }
 
-  // else if (message.type === "writeRecord") {
-  //   const recordedTestCasesDiv = document.getElementById('recordedTestCases');
-  //   const logFilePath = message.logFilePath;
-  //   // read the logFile to get the test cases adn then display it to the user
-  //   try {
-  //     // Read the log file
-  //     const logData = readFileSync(logFilePath, 'utf8');
-
-  //     // Split the log data into lines
-  //     const logLines = logData.split('\n');
-
-  //     // Filter out the lines containing the desired information
-  //     const capturedTestLines = logLines.filter(line => line.includes('🟠 Keploy has captured test cases'));
-
-  //     // Display the captured test cases in your frontend
-  //     capturedTestLines.forEach(testLine => {
-  //       const testCaseInfo = JSON.parse(testLine.substring(testLine.indexOf('{')));
-  //       const testCaseElement = document.createElement('div');
-  //       testCaseElement.textContent = `Test case "${testCaseInfo['testcase name']}" captured at ${testCaseInfo.path}`;
-  //       recordedTestCasesDiv.appendChild(testCaseElement);
-  //     });
-  //   } catch (err) {
-  //     console.error('Error reading log file:', err);
-  //   }
-  // }
+  }
 });
 
 

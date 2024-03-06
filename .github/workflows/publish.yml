@@ -20,8 +20,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install VSCE
-        run: npm install -g @vscode/vsce
-        
-      # - name: Publish Extension
-      #   run: vsce publish -p ${{ secrets.VS_MARKETPLACE_TOKEN }}
+      - name: Publish to Visual Studio Marketplace
+        uses: HaaLeo/publish-vscode-extension@v1
+        with:
+          pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+          registryUrl: https://marketplace.visualstudio.com

@@ -1,11 +1,19 @@
 import * as vscode from 'vscode';
-import { readFileSync } from 'fs';
+import { readFileSync  , appendFile} from 'fs';
 
 export async function displayRecordedTestCases(logfilePath: string, webview: any): Promise<void> {
-    console.log('Displaying recorded test cases');
-    try{
-    const logData = readFileSync(logfilePath, 'utf8');
-    // console.log(logData);
+    console.log('Displaying Recorded test  cases');
+    let logData;
+    try {
+        try {
+            logData = readFileSync(logfilePath, 'utf8');
+        }
+        catch (error) {
+            appendFile(logfilePath, "", function (err) {
+                if (err) { throw err; }
+            });
+            logData = readFileSync(logfilePath, 'utf8');
+        }
     // Split the log data into lines
     const logLines = logData.split('\n');
     // Filter out the lines containing the desired information
@@ -33,7 +41,7 @@ export async function displayRecordedTestCases(logfilePath: string, webview: any
     });}
     catch(error){
         console.log(error);
-        vscode.window.showErrorMessage('Error occurred Keplo Record: ' + error);
+        vscode.window.showErrorMessage('Error occurred Keploy Record: ' + error);
         throw error;
     }
 }
@@ -85,14 +93,14 @@ export async function startRecording(command: string, filepath: string, scriptPa
 
             } catch (error) {
                 console.log(error);
-                vscode.window.showErrorMessage('Error occurred Keplo Record: ' + error);
+                vscode.window.showErrorMessage('Error occurred Keploy Record: ' + error);
                 reject(error);
             }
         });
     }
     catch (error) {
         console.log(error);
-        vscode.window.showErrorMessage('Error occurred Keplo Record: ' + error);
+        vscode.window.showErrorMessage('Error occurred Keploy Record: ' + error);
         throw error;
     }
 }

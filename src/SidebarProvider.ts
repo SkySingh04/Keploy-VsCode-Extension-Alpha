@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { getNonce } from "./getNonce";
 import { downloadAndUpdate , downloadAndInstallKeployBinary ,downloadAndUpdateDocker  } from './updateKeploy';
 import { startRecording , stopRecording } from './Record';
+import { startTesting , stopTesting } from "./Test";
 
 const options: vscode.OpenDialogOptions = {
   canSelectFiles: true,
@@ -98,7 +99,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
             vscode.window.showOpenDialog(options).then(async fileUri => {
               if (fileUri && fileUri[0]) {
                 console.log('Selected file: ' + fileUri[0].fsPath);
-                this._view?.webview.postMessage({ type: 'file', value: `${fileUri[0].fsPath}` });
+                this._view?.webview.postMessage({ type: 'recordfile', value: `${fileUri[0].fsPath}` });
                 // console.log(this._view?.webview.html.getElementById('filePathDiv'));
                 // this._view?.webview.html.getElementById('filePathDiv')!.innerHTML = `<p>Your Selected File is ${fileUri[0].fsPath}</p>`;
               }
@@ -137,8 +138,54 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           catch(error){
             this._view?.webview.postMessage({ type: 'error', value: `Failed to Stop record ${error}` });
           }
+          break;
         }
-          
+
+        case "test":{
+          if (!data.value) {
+            return;
+          }
+          try {
+            console.log('Test button clicked');
+            vscode.window.showOpenDialog(options).then(async fileUri => {
+              if (fileUri && fileUri[0]) {
+                console.log('Selected file: ' + fileUri[0].fsPath);
+                this._view?.webview.postMessage({ type: 'testfile', value: `${fileUri[0].fsPath}` });
+              }
+            });
+          } catch (error) {
+            this._view?.webview.postMessage({ type: 'error', value: `Failed to test ${error}` });
+          }
+          break;
+        }
+
+        case 'startTestingCommand' : {
+          if (!data.value) {
+            return;
+          }
+          try {
+            console.log('Start Testing button clicked');
+            const script =  vscode.Uri.joinPath(this._extensionUri, "scripts", "keploy_test_script.sh");
+            const logfilePath =  vscode.Uri.joinPath(this._extensionUri, "scripts", "keploy_test_script.log");
+            await startTesting(data.command , data.filePath , script.fsPath , logfilePath.fsPath , this._view?.webview );
+          } catch (error) {
+            this._view?.webview.postMessage({ type: 'error', value: `Failed to test ${error}` });
+          }
+          break;
+        } 
+        case 'stopTestingCommand' : {
+          if (!data.value) {
+            return;
+          }
+          try{
+            console.log("Stopping Testing");
+            await stopTesting();
+          }
+          catch(error){
+            this._view?.webview.postMessage({ type: 'error', value: `Failed to Stop Testing ${error}` });
+          }
+          break;
+        }
       }
     });
   }

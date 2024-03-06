@@ -201,8 +201,12 @@ button{
     grid-gap: 5px;
     margin-top: 20px;
 }
-#commandInput{
+#recordCommandInput{
     display: none;
+}
+#testCommandInput{
+    display: none;
+
 }
 #recordingbuttons{
     display: grid;
@@ -211,6 +215,10 @@ button{
 }
 #stopRecordingButton{
     display: none;
+}
+#stopTestButton{
+    display: none;
+
 }
 #filePathDiv{
     padding: 4px;
@@ -224,6 +232,25 @@ button{
     color: #d1a30a;
     text-align: center;
 }
+#testSummary{
+    padding: 4px;
+    margin: 4px;
+    color: #d1a30a;
+    text-align: center;
+}
+#testSummary p{
+    padding: 4px;
+    margin: 4px;
+    color: #d1a30a;
+    text-align: center;
+}
+#recordedTestCases p{
+    padding: 4px;
+    margin: 4px;
+    color: #d1a30a;
+    text-align: center;
+}
+
 /* .logodiv{
     display: flex;
     justify-content: center;
