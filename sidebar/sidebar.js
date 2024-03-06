@@ -230,7 +230,7 @@ window.addEventListener('message', event => {
   else if(message.type === "testResults"){
     console.log("message.value", message.value);
       console.log("message.textSummary", message.textSummary);
-      const testCaseElement = document.createElement('p');
+      const testCaseElement = document.createElement('pre');
       testCaseElement.textContent = message.textSummary;
       testResultsDiv.appendChild(testCaseElement); // Append the testCaseElement itself instead of its text content
   }

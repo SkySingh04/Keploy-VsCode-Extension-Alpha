@@ -34,7 +34,6 @@ export async function displayTestCases(logfilePath: string, webview: any): Promi
 
         // Extract the desired part
         const testSummary = logLines.slice(startIndex, endIndex + 1).join('\n');
-        console.log(testSummary);
         // Display the captured test cases in your frontend
         if (testSummary.length === 0) {
             webview.postMessage({
@@ -44,11 +43,25 @@ export async function displayTestCases(logfilePath: string, webview: any): Promi
             });
             return;
         }
-        webview.postMessage({
+        //remove ansi escape codes
+        const ansiRegex = /[\u001B\u009B][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
+        const cleanSummary = testSummary.replace(ansiRegex, '');
+        console.log(cleanSummary);
+        const testSummaryList = cleanSummary.split('\n');
+        console.log(testSummaryList);
+        testSummaryList.forEach((line, index) => {
+            webview.postMessage({
                 type: 'testResults',
                 value: 'Test Summary Generated',
-                textSummary: testSummary
+                textSummary: line
             });
+        }); 
+        
+        // webview.postMessage({
+        //         type: 'testResults',
+        //         value: 'Test Summary Generated',
+        //         textSummary: cleanSummary
+        //     });
             // recordedTestCasesDiv.appendChild(testCaseElement);
         }
     catch (error) {

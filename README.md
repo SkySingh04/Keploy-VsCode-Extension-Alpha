@@ -16,6 +16,9 @@ Keploy-VsCode offers the following features:
 
 ## Release Notes
 
+### 2.0.0
+- Added support for Keploy Test Command
+
 ### 1.2.2
 - Added support for installing Keploy
 - Better UI Updates

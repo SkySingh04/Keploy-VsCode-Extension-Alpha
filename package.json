@@ -1,8 +1,8 @@
 {
   "name": "heykeploy",
-  "displayName": "Keploy-VScode",
+  "displayName": "Keploy",
   "description": "Hello Keploy Community!",
-  "version": "1.2.7",
+  "version": "2.0.0",
   "publisher": "Akash-Singh04",
   "icon": "media/logo.png",
   "repository": {
