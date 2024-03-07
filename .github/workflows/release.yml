@@ -1,8 +1,10 @@
 name: Release
+
 on:
-    push:
-      branches:
-        - release
+    workflow_run:
+      workflows: ["Test VsCode Extension"]
+      types:
+        - completed
 
 jobs:
   package:
