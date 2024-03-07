@@ -3,3 +3,4 @@ node_modules
 .vscode-test/
 keploy_record_script.log
 keploy_test_script.log
+intellijpublish.yml
