@@ -70,7 +70,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           }
           try {
             console.log('Installing Keploy binary...');
-            await downloadAndInstallKeployBinary("https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz", this._view?.webview);
+            await downloadAndInstallKeployBinary( this._view?.webview);
 
             this._view?.webview.postMessage({ type: 'success', value: 'Keploy binary installed!' });
           } catch (error) {

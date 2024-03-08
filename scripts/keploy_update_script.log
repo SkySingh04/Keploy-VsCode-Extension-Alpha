@@ -1,0 +1,4 @@
+#!/bin/bash
+
+output=$(keploy --version) || exit 1
+echo "$output" >> "$1"

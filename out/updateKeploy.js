@@ -42,17 +42,22 @@ const version_1 = __importDefault(require("./version"));
 function downloadAndUpdate(downloadUrl, webview) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const output = yield (0, execShell_1.execShell)('keploy --version');
+            let output = '';
+            if (process.platform === 'win32') {
+                output = yield (0, execShell_1.execShell)('keploy  --version');
+            }
+            else {
+                output = yield (0, execShell_1.execShell)('/usr/local/bin/keploybin --version');
+            }
+            // const output = await execShell('alias keploy');
+            console.log('output:', output);
             const keployIndex = output.indexOf('Keploy');
+            console.log('keployIndex:', keployIndex);
             let keployVersion = '';
             if (keployIndex !== -1) {
                 keployVersion = output.substring(keployIndex + 'Keploy'.length).trim();
             }
             console.log('Current Keploy version:', keployVersion);
-            if (!keployVersion) {
-                vscode.window.showErrorMessage('You dont have Keploy installed. Please install Keploy first');
-                return;
-            }
             const latestVersion = yield (0, version_1.default)();
             // Remove "v" from the beginning of the latest version string, if present
             const formattedLatestVersion = latestVersion.startsWith('v') ? latestVersion.substring(1) : latestVersion;
@@ -63,7 +68,7 @@ function downloadAndUpdate(downloadUrl, webview) {
             }
             console.log('Downloading and updating Keploy binary...');
             vscode.window.showInformationMessage('Downloading and updating Keploy binary...');
-            downloadAndInstallKeployBinary(downloadUrl, webview).then(() => {
+            downloadAndInstallKeployBinary(webview).then(() => {
                 vscode.window.showInformationMessage('Updated Keploy binary successfully!');
             }).catch(error => {
                 console.error('Failed to update Keploy binary:', error);
@@ -75,7 +80,7 @@ function downloadAndUpdate(downloadUrl, webview) {
             if (error.toString().includes("keploybin: not found") || error.toString().includes("keploybin: command not found") || error.toString().includes("keploybin: no such file or directory")) {
                 //post message to webview
                 webview.postMessage({ type: 'onError', value: `Keploy binary not found. Installing Keploy binary first.` });
-                downloadAndInstallKeployBinary(downloadUrl, webview).then(() => {
+                downloadAndInstallKeployBinary(webview).then(() => {
                     vscode.window.showInformationMessage('Updated Keploy binary successfully!');
                 }).catch(error => {
                     console.error('Failed to update Keploy binary here:', error);
@@ -109,7 +114,7 @@ function downloadAndUpdateDocker() {
     });
 }
 exports.downloadAndUpdateDocker = downloadAndUpdateDocker;
-function downloadAndInstallKeployBinary(downloadUrl, webview) {
+function downloadAndInstallKeployBinary(webview) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log('Downloading and installing Keploy binary...');
         return new Promise((resolve, reject) => {
