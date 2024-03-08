@@ -67,21 +67,43 @@ export async function downloadAndUpdate(downloadUrl: string , webview : any): Pr
 
 export async function downloadAndUpdateDocker(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
+        try {
         console.log('Downloading and updating Keploy Docker image...');
-        const dockerCmd = 'docker pull ghcr.io/keploy/keploy:latest';
-        execShell(dockerCmd).then(() => {
-            vscode.window.showInformationMessage('Updated Keploy Docker image successfully!');
-            resolve();
-        }).catch(error => {
-            console.error('Failed to update Keploy Docker image:', error);
-            vscode.window.showErrorMessage('Failed to update Keploy Docker image: ' + error);
-            reject(error);
+        let bashPath: string;
+            if (process.platform === 'win32') {
+                // If on Windows, use the correct path to WSL's Bash shell
+                bashPath = 'wsl.exe';
+            } else {
+                // Otherwise, assume Bash is available at the standard location
+                bashPath = '/bin/bash';
+            }
+        const terminal = vscode.window.createTerminal({
+            name: 'Keploy Terminal',
+            shellPath: bashPath
+        });
+
+        // Show the terminal
+        terminal.show();
+
+        const dockerCmd = 'docker pull ghcr.io/keploy/keploy:latest && exit 0';
+        terminal.sendText(dockerCmd);
+        vscode.window.showInformationMessage('Downloading and updating Keploy binary...');
+            // Listen for terminal close event
+            const disposable = vscode.window.onDidCloseTerminal(eventTerminal => {
+                console.log('Terminal closed');
+                if (eventTerminal === terminal) {
+                    disposable.dispose(); // Dispose the listener
+                    resolve(); 
+                }
+            });
+    
+        }   catch (error) {
+            reject(error); // Reject the promise if an error occurs during execution
         }
+    }
         );
     }
-    );
-}
-
+    
 export async function downloadAndInstallKeployBinary( webview : any): Promise<void> {
     console.log('Downloading and installing Keploy binary...');
     return new Promise<void>((resolve, reject) => {

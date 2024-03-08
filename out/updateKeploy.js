@@ -100,16 +100,38 @@ exports.downloadAndUpdate = downloadAndUpdate;
 function downloadAndUpdateDocker() {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise((resolve, reject) => {
-            console.log('Downloading and updating Keploy Docker image...');
-            const dockerCmd = 'docker pull ghcr.io/keploy/keploy:latest';
-            (0, execShell_1.execShell)(dockerCmd).then(() => {
-                vscode.window.showInformationMessage('Updated Keploy Docker image successfully!');
-                resolve();
-            }).catch(error => {
-                console.error('Failed to update Keploy Docker image:', error);
-                vscode.window.showErrorMessage('Failed to update Keploy Docker image: ' + error);
-                reject(error);
-            });
+            try {
+                console.log('Downloading and updating Keploy Docker image...');
+                let bashPath;
+                if (process.platform === 'win32') {
+                    // If on Windows, use the correct path to WSL's Bash shell
+                    bashPath = 'wsl.exe';
+                }
+                else {
+                    // Otherwise, assume Bash is available at the standard location
+                    bashPath = '/bin/bash';
+                }
+                const terminal = vscode.window.createTerminal({
+                    name: 'Keploy Terminal',
+                    shellPath: bashPath
+                });
+                // Show the terminal
+                terminal.show();
+                const dockerCmd = 'docker pull ghcr.io/keploy/keploy:latest && exit 0';
+                terminal.sendText(dockerCmd);
+                vscode.window.showInformationMessage('Downloading and updating Keploy binary...');
+                // Listen for terminal close event
+                const disposable = vscode.window.onDidCloseTerminal(eventTerminal => {
+                    console.log('Terminal closed');
+                    if (eventTerminal === terminal) {
+                        disposable.dispose(); // Dispose the listener
+                        resolve();
+                    }
+                });
+            }
+            catch (error) {
+                reject(error); // Reject the promise if an error occurs during execution
+            }
         });
     });
 }
