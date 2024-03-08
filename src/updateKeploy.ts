@@ -4,7 +4,7 @@ import getKeployVersion from './version';
 
 export async function downloadAndUpdate(downloadUrl: string , webview : any): Promise<void> {
     try {
-        const output = await execShell('/usr/local/bin/keploybin --version');
+        const output = await execShell('keploy --version');
         const keployIndex = output.indexOf('Keploy');
         let keployVersion = '';
         if (keployIndex !== -1) {
@@ -33,21 +33,22 @@ export async function downloadAndUpdate(downloadUrl: string , webview : any): Pr
             vscode.window.showInformationMessage('Updated Keploy binary successfully!');
         }
         ).catch(error => {
+
             console.error('Failed to update Keploy binary:', error);
-            vscode.window.showErrorMessage('Failed to update Keploy binary: ' + error);
+            vscode.window.showErrorMessage('Failed to update Keploy binary oh no: ' + error);
             throw error;
         }
         );
         
     } catch (error : any) {
-        if (error.toString().includes("keploybin: not found")) {
+        if (error.toString().includes("keploybin: not found") || error.toString().includes("keploybin: command not found") || error.toString().includes("keploybin: no such file or directory")){
             //post message to webview
             webview.postMessage({ type: 'onError', value: `Keploy binary not found. Installing Keploy binary first.` });
             downloadAndInstallKeployBinary(downloadUrl, webview).then(() => {
                 vscode.window.showInformationMessage('Updated Keploy binary successfully!');
             }
             ).catch(error => {
-                console.error('Failed to update Keploy binary:', error);
+                console.error('Failed to update Keploy binary here:', error);
                 vscode.window.showErrorMessage('Failed to update Keploy binary: ' + error);
                 throw error;
             }
@@ -81,7 +82,6 @@ export async function downloadAndInstallKeployBinary(downloadUrl : string , webv
     console.log('Downloading and installing Keploy binary...');
     return new Promise<void>((resolve, reject) => {
 
-        let aliasPath = "/usr/local/bin/keploybin";
         try {
             let bashPath: string;
             if (process.platform === 'win32') {
@@ -100,30 +100,17 @@ export async function downloadAndInstallKeployBinary(downloadUrl : string , webv
             // Show the terminal
             terminal.show();
 
-            const curlCmd = `curl --silent --location ${downloadUrl} | tar xz -C /tmp `;
-            const moveCmd = `sudo mv /tmp/keploy ${aliasPath}`;
-
-            // Execute commands asynchronously
-            const executeCommand = async (command: string) => {
-                return new Promise<void>((resolve, reject) => {
-                    terminal.sendText(command);
-                    // terminal.sendText('echo $?'); // Output the exit status
-                    // (window as any).onDidWriteTerminalData((event: any) => console.log(event.data.trim()))
-                    setTimeout(() => resolve(), 8000); // Assuming commands will complete within 3 seconds
-                    //we need to figure out a way to find out if command is completed successfully or not
-                });
-            };
-
-            // Execute commands sequentially
-            Promise.all([
-                executeCommand(curlCmd),
-                executeCommand(moveCmd)
-            ]).then(() => {
-                // Display an information message
-                vscode.window.showInformationMessage('Downloading and updating Keploy binary...');
-                resolve(); // Resolve the promise if all commands succeed
-            }).catch(error => {
-                reject(error); // Reject the promise if any command fails
+            const curlCmd = " curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh && exit 0";
+            terminal.sendText(curlCmd);
+            
+            vscode.window.showInformationMessage('Downloading and updating Keploy binary...');
+            // Listen for terminal close event
+            const disposable = vscode.window.onDidCloseTerminal(eventTerminal => {
+                console.log('Terminal closed');
+                if (eventTerminal === terminal) {
+                    disposable.dispose(); // Dispose the listener
+                    resolve(); 
+                }
             });
         } catch (error) {
             reject(error); // Reject the promise if an error occurs during execution
