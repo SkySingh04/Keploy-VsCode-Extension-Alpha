@@ -1,25 +1,9 @@
 import * as vscode from 'vscode';
-import { execShell } from './execShell';
-import getKeployVersion from './version';
+import {getKeployVersion , getCurrentKeployVersion} from './version';
 
 export async function downloadAndUpdate(downloadUrl: string , webview : any): Promise<void> {
     try {
-        let output = '';
-        if(process.platform === 'win32'){
-            output= await execShell('keploy  --version');
-        }else{
-            output= await execShell('/usr/local/bin/keploybin --version');
-        }
-        // const output = await execShell('alias keploy');
-
-        console.log('output:', output);
-        const keployIndex = output.indexOf('Keploy');
-        console.log('keployIndex:', keployIndex);
-        let keployVersion = '';
-        if (keployIndex !== -1) {
-            keployVersion = output.substring(keployIndex + 'Keploy'.length).trim();
-        }
-        console.log('Current Keploy version:', keployVersion);
+        const keployVersion = await getCurrentKeployVersion();
         const latestVersion = await getKeployVersion();
         // Remove "v" from the beginning of the latest version string, if present
         const formattedLatestVersion = latestVersion.startsWith('v') ? latestVersion.substring(1) : latestVersion;
@@ -85,7 +69,7 @@ export async function downloadAndUpdateDocker(): Promise<void> {
         // Show the terminal
         terminal.show();
 
-        const dockerCmd = 'docker pull ghcr.io/keploy/keploy:latest && exit 0';
+        const dockerCmd = 'docker pull ghcr.io/keploy/keploy:latest ; exit 0';
         terminal.sendText(dockerCmd);
         vscode.window.showInformationMessage('Downloading and updating Keploy binary...');
             // Listen for terminal close event
@@ -98,7 +82,9 @@ export async function downloadAndUpdateDocker(): Promise<void> {
             });
     
         }   catch (error) {
-            reject(error); // Reject the promise if an error occurs during execution
+            throw error;
+            // reject(error); // Reject the promise if an error occurs during execution
+            
         }
     }
         );
