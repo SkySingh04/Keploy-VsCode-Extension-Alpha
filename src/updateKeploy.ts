@@ -29,7 +29,7 @@ export async function downloadAndUpdate(downloadUrl: string , webview : any): Pr
         );
         
     } catch (error : any) {
-        if (error.toString().includes("keploybin: not found") || error.toString().includes("keploybin: command not found") || error.toString().includes("keploybin: no such file or directory")){
+        if (error.toString().includes("not found") || error.toString().includes("command not found") || error.toString().includes("no such file or directory")){
             //post message to webview
             webview.postMessage({ type: 'onError', value: `Keploy binary not found. Installing Keploy binary first.` });
             downloadAndInstallKeployBinary(webview).then(() => {
