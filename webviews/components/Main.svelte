@@ -17,17 +17,35 @@
   #buttonsDiv {
     display: grid;
     place-items: center;
+    margin: auto 0;
   }
   #lastTestResults {
     display: grid;
     place-items: center;
     margin: 20px auto;
   }
+  #configurationsDiv{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+  }
+  #configurations{
+    font-size: 1.3em;
+  }
+  #configurationsButtons{
+    text-align: center  ;
+  }
   hr{
     margin: 0;
     width: 80%;
     text-align: center;
     margin: 20px auto ;
+  }
+  button {
+    margin: 10px;
+    width: 75%;
+    border-radius: 5px;
+    border: none;
   }
 </style>
 <body>
@@ -43,7 +61,20 @@
     <button id="recordButton">Record Test Cases</button>
   <button id="testButton">Run Test Cases</button>
   <button id="runCustomCommandButton" disabled=true>Run Custom Command</button>
-
   </div>
-  
+  <hr />
+  <div id="configurationsDiv">
+    <div id="configurations">
+    <h4>Your Configurations</h4>
+    <ul>
+      <li>Config 1</li>
+      <li>Config 2</li>
+      <li>Config 3</li>
+    </ul>
+    </div>
+    <div id="configurationsButtons">
+      <button id="customizeConfigButton">Customize</button>
+      <button id="resetConfigButton">Reset</button>
+    </div>
+  </div>
 </body>
