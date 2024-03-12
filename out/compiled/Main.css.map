@@ -1,8 +1,12 @@
 {
   "version": 3,
   "file": "Main.css",
-  "sources": [],
-  "sourcesContent": [],
+  "sources": [
+    "Main.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\n    import { onMount } from \"svelte\";\n    let lastTestResults;\n  onMount(()=>{\n    lastTestResults.innerText = 'Feature not implemented yet.';\n  })\n</script>\n<style>\n  #topGrid {\n    display: grid;\n    place-items: center;\n    grid-template-columns: 1fr 1fr;\n  }\n  #topGrid img {\n    width: 50%;\n  }\n  #buttonsDiv {\n    display: grid;\n    place-items: center;\n  }\n  #lastTestResults {\n    display: grid;\n    place-items: center;\n    margin: 20px auto;\n  }\n  hr{\n    margin: 0;\n    width: 80%;\n    text-align: center;\n    margin: 20px auto ;\n  }\n</style>\n<body>\n  <div id=\"topGrid\">\n    <img src=\"https://avatars.githubusercontent.com/u/92252339?s=200&v=4\" alt=\"Keploy Logo\" />\n    <div class=\"lastTestResultsContainer\">\n      <h2>Last Test Results</h2>\n      <div id=\"lastTestResults\" bind:this={lastTestResults}></div>\n      </div>\n  </div>\n  <hr />\n  <div id=\"buttonsDiv\">\n    <button id=\"recordButton\">Record Test Cases</button>\n  <button id=\"testButton\">Run Test Cases</button>\n  <button id=\"runCustomCommandButton\" disabled=true>Run Custom Command</button>\n\n  </div>\n  \n</body>"
+  ],
   "names": [],
-  "mappings": ""
+  "mappings": "AAQE,oCAAS,CACP,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,MAAM,CACnB,qBAAqB,CAAE,GAAG,CAAC,GAC7B,CACA,sBAAQ,CAAC,iBAAI,CACX,KAAK,CAAE,GACT,CACA,uCAAY,CACV,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,MACf,CACA,4CAAiB,CACf,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,MAAM,CACnB,MAAM,CAAE,IAAI,CAAC,IACf,CACA,8BAAE,CACA,MAAM,CAAE,CAAC,CACT,KAAK,CAAE,GAAG,CACV,UAAU,CAAE,MAAM,CAClB,MAAM,CAAE,IAAI,CAAC,IAAI,CACnB"
 }

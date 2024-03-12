@@ -1,50 +1,49 @@
 <script>
+    import { onMount } from "svelte";
+    let lastTestResults;
+  onMount(()=>{
+    lastTestResults.innerText = 'Feature not implemented yet.';
+  })
 </script>
-
+<style>
+  #topGrid {
+    display: grid;
+    place-items: center;
+    grid-template-columns: 1fr 1fr;
+  }
+  #topGrid img {
+    width: 50%;
+  }
+  #buttonsDiv {
+    display: grid;
+    place-items: center;
+  }
+  #lastTestResults {
+    display: grid;
+    place-items: center;
+    margin: 20px auto;
+  }
+  hr{
+    margin: 0;
+    width: 80%;
+    text-align: center;
+    margin: 20px auto ;
+  }
+</style>
 <body>
-  <p class="logo"></p>
-  <pre>
-      ▓██▓▄
-    ▓▓▓▓██▓█▓▄
-      ████████▓▒
-            ▀▓▓███▄                   
-          ▄▌▌▓▓████▄    
-        ▓█████████▌▓▓   
-        ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  
-        ▓▌                      
-        ▓
-    </pre>
-  <div id="versionDisplay"></div>
-  <div id="Progress"></div>
-  <div id="filePathDiv"></div>
-  <div id="recordCommandInput">
-    <label for="command">Enter App Command:</label>
-    <input type="text" id="recordCommand" name="command" />
-    <div id="recordedTestCases"></div>
-    <div id="recordingbuttons">
-      <button id="startRecordingButton">Start Recording</button>
-      <button id="stopRecordingButton">Stop Recording</button>
-    </div>
+  <div id="topGrid">
+    <img src="https://avatars.githubusercontent.com/u/92252339?s=200&v=4" alt="Keploy Logo" />
+    <div class="lastTestResultsContainer">
+      <h2>Last Test Results</h2>
+      <div id="lastTestResults" bind:this={lastTestResults}></div>
+      </div>
   </div>
-  <div id="testCommandInput">
-    <label for="command">Enter App Command:</label>
-    <input type="text" id="testCommand" name="command" />
-    <div id="TestCases"></div>
-    <div id="testbuttons">
-      <button id="startTestButton">Start Testing</button>
-      <button id="stopTestButton">Stop Testing</button>
-    </div>
-  </div>
-  <div id="utilityButtons">
-    <button id="getVersionButton">Get latest version</button>
-    <button id="updateKeployButton">Update Your Keploy</button>
+  <hr />
+  <div id="buttonsDiv">
     <button id="recordButton">Record Test Cases</button>
-    <button id="testButton">Run Test Cases</button>
-    <div id="updateButtons">
-      <button id="updateKeployBinaryButton">Update Keploy Binary</button>
-      <button id="updateKeployDockerButton">Update Keploy Docker</button>
-    </div>
-    <div id="updateStatus"></div>
-    <div id="recordStatus"></div>
-  </div></body
->
+  <button id="testButton">Run Test Cases</button>
+  <button id="runCustomCommandButton" disabled=true>Run Custom Command</button>
+
+  </div>
+  
+</body>
