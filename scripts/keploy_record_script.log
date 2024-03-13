@@ -11,17 +11,15 @@
   
 version: 2.0.0-alpha76
 
-🐰 Keploy: 2024-03-13T07:20:26+05:30 	[34mINFO[0m	Keploy config not found, continuing without configuration
-🐰 Keploy: 2024-03-13T07:20:26+05:30 	[34mINFO[0m		{"keploy test and mock path": "/home/akash/Desktop/samples-go/gin-mongo/keploy"}
-🐰 Keploy: 2024-03-13T07:20:29+05:30 	[34mINFO[0m	keploy initialized and probes added to the kernel.
-🐰 Keploy: 2024-03-13T07:20:29+05:30 	[34mINFO[0m	Java detected and CA already exists	{"path": "/usr/lib/jvm/java-11-openjdk-amd64/lib/security/cacerts"}
-🐰 Keploy: 2024-03-13T07:20:29+05:30 	[34mINFO[0m	Java detected and CA already exists	{"path": "/usr/lib/jvm/java-11-openjdk-amd64/lib/security/cacerts"}
-🐰 Keploy: 2024-03-13T07:20:30+05:30 	[34mINFO[0m	Proxy started at port:16789
-🐰 Keploy: 2024-03-13T07:20:30+05:30 	[34mINFO[0m	starting TCP DNS server at addr :26789
-🐰 Keploy: 2024-03-13T07:20:30+05:30 	[34mINFO[0m	Received signal to exit keploy program..
-🐰 Keploy: 2024-03-13T07:20:30+05:30 	[34mINFO[0m	keploy has initiated the shutdown of the user application.
-🐰 Keploy: 2024-03-13T07:20:30+05:30 	[33mWARN[0m	userApplication has exited with exit code: 127
-🐰 Keploy: 2024-03-13T07:20:30+05:30 	[34mINFO[0m	keploy terminated user application
-🐰 Keploy: 2024-03-13T07:20:30+05:30 	[34mINFO[0m	eBPF resources released successfully...
-🐰 Keploy: 2024-03-13T07:20:30+05:30 	[34mINFO[0m	Tcp Dns server stopped
-🐰 Keploy: 2024-03-13T07:20:30+05:30 	[34mINFO[0m	proxy stopped...
+🐰 Keploy: 2024-03-13T09:59:00+05:30 	[34mINFO[0m	Keploy config not found, continuing without configuration
+🐰 Keploy: 2024-03-13T09:59:00+05:30 	[34mINFO[0m		{"keploy test and mock path": "/home/akash/keploy"}
+🐰 Keploy: 2024-03-13T09:59:02+05:30 	[34mINFO[0m	keploy initialized and probes added to the kernel.
+🐰 Keploy: 2024-03-13T09:59:03+05:30 	[34mINFO[0m	Java detected and CA already exists	{"path": "/usr/lib/jvm/java-11-openjdk-amd64/lib/security/cacerts"}
+🐰 Keploy: 2024-03-13T09:59:03+05:30 	[34mINFO[0m	Java detected and CA already exists	{"path": "/usr/lib/jvm/java-11-openjdk-amd64/lib/security/cacerts"}
+🐰 Keploy: 2024-03-13T09:59:03+05:30 	[34mINFO[0m	Proxy started at port:16789
+🐰 Keploy: 2024-03-13T09:59:03+05:30 	[34mINFO[0m	starting TCP DNS server at addr :26789
+🐰 Keploy: 2024-03-13T09:59:03+05:30 	[31mERROR[0m	userApplication failed to run with the following error. Please check application logs	{"error": "exit status 127"}
+🐰 Keploy: 2024-03-13T09:59:03+05:30 	[34mINFO[0m	Exiting keploy program gracefully.
+🐰 Keploy: 2024-03-13T09:59:04+05:30 	[34mINFO[0m	eBPF resources released successfully...
+🐰 Keploy: 2024-03-13T09:59:04+05:30 	[34mINFO[0m	Tcp Dns server stopped
+🐰 Keploy: 2024-03-13T09:59:04+05:30 	[34mINFO[0m	proxy stopped...

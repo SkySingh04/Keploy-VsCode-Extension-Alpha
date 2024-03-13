@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { readFileSync, appendFile } from 'fs';
 
 export async function displayTestCases(logfilePath: string, webview: any): Promise<void> {
+
     console.log('Displaying test cases');
     let logData;
     try {
