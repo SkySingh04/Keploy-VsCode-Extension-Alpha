@@ -9,41 +9,52 @@ const stopRecordingButton = document.getElementById("stopRecordingButton");
 const startRecordingButton = document.getElementById('startRecordingButton');
 const startTestButton = document.getElementById('startTestButton');
 const stopTestButton = document.getElementById('stopTestButton');
+const openRecordPageButton = document.getElementById('openRecordPageButton');
+const navigateHomeButton = document.getElementById('navigateHomeButton');
 let FilePath = "";
 
-const recordButton = document.getElementById('recordButton');
-if (recordButton) {
-  handleRecordButtonClick();
-}
-const testButton = document.getElementById('testButton');
-if (testButton) {
-  handleTestButtonClick();
-}
+//cleanup required
 
-async function handleRecordButtonClick() {
-  if (recordButton) {
-    recordButton.addEventListener('click', async () => {
-      console.log("recordButton clicked");
-      vscode.postMessage({
-        type: "record",
-        value: "Recording..."
-      });
+if (openRecordPageButton) {
+  openRecordPageButton.addEventListener('click', async () => {
+    console.log("openRecordPageButton clicked");
+    vscode.postMessage({
+      type: "navigate",
+      value: "Record"
     });
-  }
+  });
 }
-
-async function handleTestButtonClick() {
-  if (testButton) {
-    testButton.addEventListener('click', async () => {
-      console.log("testButton clicked");
-      vscode.postMessage({
-        type: "test",
-        value: "Testing..."
-      });
+if (navigateHomeButton) {
+  navigateHomeButton.addEventListener('click', async () => {
+    console.log("navigateHomeButton clicked");
+    vscode.postMessage({
+      type: "navigate",
+      value: "Main"
     });
-  }
+  });
 }
 
+
+const selectRecordFolderButton = document.getElementById('selectRecordFolderButton');
+if (selectRecordFolderButton) {
+  selectRecordFolderButton.addEventListener('click', async () => {
+    console.log("selectRecordFolderButton clicked");
+    vscode.postMessage({
+      type: "selectRecordFolder",
+      value: "Selecting Record Folder..."
+    });
+  });
+}
+const selectTestFolderButton = document.getElementById('selectTestFolderButton');
+if (selectTestFolderButton) {
+  selectTestFolderButton.addEventListener('click', async () => {
+    console.log("selectTestFolderButton clicked");
+    vscode.postMessage({
+      type: "selectTestFolder",
+      value: "Selecting Test Folder..."
+    });
+  });
+}
 
 async function getKeployVersion() {
   // GitHub repository details
@@ -212,13 +223,12 @@ window.addEventListener('message', event => {
   }
   else if (message.type === 'recordfile') {
     console.log(message.value);
-    if (filePathDiv) {
-      filePathDiv.innerHTML = `<p class="info">Your Selected File is <br/> ${message.value}</p>`;
+    const recordProjectFolder = document.getElementById('recordProjectFolder');
+    if (recordProjectFolder) {
+      // recordProjectFolder.innerHTML = `<p class="info">Your Selected File is <br/> ${message.value}</p>`;
+      //set the value of the input tag
+      recordProjectFolder.value = message.value;
       FilePath = message.value;
-    }
-    const recordCommandDiv = document.getElementById('recordCommandInput');
-    if (recordCommandDiv) {
-      recordCommandDiv.style.display = "block";
     }
   }
   else if (message.type === 'testcaserecorded') {

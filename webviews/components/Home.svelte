@@ -4,9 +4,6 @@
   let lastTestResults;
 onMount(()=>{
   lastTestResults.innerText = 'Feature not implemented yet.';
-  document.getElementById('recordButton').addEventListener('click',()=>{
-  window.location.href = '/record';
-})
 })
 //onclick of record button redirect to record.svelte page by adding new webview
 

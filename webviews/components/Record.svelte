@@ -1,16 +1,39 @@
 
 
 <script>
+    import { onMount } from "svelte";
+
+  //enable the startRecordingButton when the recordProjectFolder and recordCommand are filled
+  onMount(()=>{
+    document.getElementById('recordProjectFolder').addEventListener('input',()=>{
+      if(document.getElementById('recordProjectFolder').value && document.getElementById('recordCommand').value){
+        document.getElementById('startRecordingButton').disabled = false;
+      }
+    })
+    document.getElementById('recordCommand').addEventListener('input',()=>{
+      if(document.getElementById('recordProjectFolder').value && document.getElementById('recordCommand').value){
+        document.getElementById('startRecordingButton').disabled = false;
+      }
+    })
+    //change the value of the generatedRecordCommand when the recordCommand is filled
+    document.getElementById('recordCommand').addEventListener('input',()=>{
+      document.getElementById('generatedRecordCommand').innerText = `keploy record -c "${document.getElementById('recordCommand').value}"`;
+    })
+
+
+  })
 </script>
 
 <body>
+    <button id="navigateHomeButton" class="secondary"> Home </button>
+  
   <div id="selectFolderDiv">
-    <button id="selectFolderButton" class="secondary"
+    <button id="selectRecordFolderButton" class="secondary"
       >Select Project Folder</button
     >
     <input
       type="text"
-      id="projectFolder"
+      id="recordProjectFolder"
       name="projectFolder"
       placeholder="Enter Manual Path"
     />
@@ -55,6 +78,7 @@
     <div id="recordCommandDiv">
       <h1 id="generatedRecordCommand">keploy record -c ""</h1>
     </div>
+    <button id="stopRecordingButton">Stop Recording</button>
     <div id="recordedTestCases"></div>
   </div>
 </body>
@@ -105,5 +129,19 @@
   #generatedRecordCommand{
     margin: 0 auto;
     text-align: center;
+  }
+  #navigateHomeButton{
+    width: 20%;
+    font-size: small;
+    text-align: center;
+    margin: 0;
+  }
+  #stopRecordingButton{
+    width: 75%;
+    background-color: red;
+    margin: 10px auto ;
+  }
+  #startRecordingButton:disabled{
+    background-color: rgb(80, 79, 79);
   }
 </style>
