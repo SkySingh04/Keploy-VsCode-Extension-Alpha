@@ -50,6 +50,9 @@ button {
   border-radius: 5px;
   border: none;
 }
+#runCustomCommandButton:disabled{
+  background-color: rgb(80, 79, 79);
+}
 </style>
 <body>
 <div id="topGrid">
@@ -76,8 +79,8 @@ button {
   </ul>
   </div>
   <div id="configurationsButtons">
-    <button id="customizeConfigButton">Customize</button>
-    <button id="resetConfigButton">Reset</button>
+    <button id="customizeConfigButton" disabled=true>Customize</button>
+    <button id="resetConfigButton" disabled=true>Reset</button>
   </div>
 </div>
 </body>

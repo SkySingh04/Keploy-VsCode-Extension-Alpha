@@ -2,14 +2,15 @@ const vscode = acquireVsCodeApi();
 const progressDiv = document.getElementById('Progress');
 const filePathDiv = document.getElementById('filePathDiv');
 const recordedTestCasesDiv = document.getElementById('recordedTestCases');
-const testResultsDiv = document.getElementById('TestCases');
+const testResultsDiv = document.getElementById('testResults');
 const recordCommandInput = document.getElementById('recordCommand');
 const testCommandInput = document.getElementById('testCommand');
 const stopRecordingButton = document.getElementById("stopRecordingButton");
 const startRecordingButton = document.getElementById('startRecordingButton');
-const startTestButton = document.getElementById('startTestButton');
-const stopTestButton = document.getElementById('stopTestButton');
+const startTestButton = document.getElementById('startTestingButton');
+const stopTestButton = document.getElementById('stopTestingButton');
 const openRecordPageButton = document.getElementById('openRecordPageButton');
+const openTestPageButton = document.getElementById('openTestPageButton');
 const navigateHomeButton = document.getElementById('navigateHomeButton');
 let FilePath = "";
 
@@ -24,6 +25,7 @@ if (openRecordPageButton) {
     });
   });
 }
+
 if (navigateHomeButton) {
   navigateHomeButton.addEventListener('click', async () => {
     console.log("navigateHomeButton clicked");
@@ -32,6 +34,16 @@ if (navigateHomeButton) {
       value: "Main"
     });
   });
+}
+if(openTestPageButton){
+  openTestPageButton.addEventListener('click', async () => {
+    console.log("openTestPageButton clicked");
+    vscode.postMessage({
+      type: "navigate",
+      value: "Test"
+    });
+  });
+
 }
 
 
@@ -125,12 +137,6 @@ const updateKeployBinaryButton = document.getElementById('updateKeployBinaryButt
 if (updateKeployBinaryButton) {
   updateKeployBinaryButton.addEventListener('click', async () => {
     console.log("updateKeployBinaryButton clicked");
-    // Get the Progress div
-
-    // if (progressDiv) {
-    //   // Set the text to "Updating"
-    //   progressDiv.innerHTML = "<p class='info'>Feature is being worked on</p>";
-    // }
     vscode.postMessage({
       type: "updateKeploy",
       value: `Updating Keploy...`
@@ -158,7 +164,7 @@ if (startRecordingButton) {
     
     const commandValue = recordCommandInput.value;
     console.log('Command value:', commandValue);
-    // Get the Progress div
+    FilePath = document.getElementById('recordProjectFolder').value;
     vscode.postMessage({
       type: "startRecordingCommand",
       value: `Recording Command...`,
@@ -183,7 +189,7 @@ if (startTestButton) {
     stopTestButton.style.display = 'block';
     const commandValue = testCommandInput.value;
     console.log('Command value:', commandValue);
-    // Get the Progress div
+    FilePath = document.getElementById('testProjectFolder').value;
     vscode.postMessage({
       type: "startTestingCommand",
       value: `Testing Command...`,
@@ -225,8 +231,6 @@ window.addEventListener('message', event => {
     console.log(message.value);
     const recordProjectFolder = document.getElementById('recordProjectFolder');
     if (recordProjectFolder) {
-      // recordProjectFolder.innerHTML = `<p class="info">Your Selected File is <br/> ${message.value}</p>`;
-      //set the value of the input tag
       recordProjectFolder.value = message.value;
       FilePath = message.value;
     }
@@ -247,9 +251,9 @@ window.addEventListener('message', event => {
       testResultsDiv.appendChild(testCaseElement); // Append the testCaseElement itself instead of its text content
   }
   else if(message.type === "testfile"){
-    console.log("message.value", message.value);
-    if (filePathDiv) {
-      filePathDiv.innerHTML = `<p class="info">Your Selected File is <br/> ${message.value}</p>`;
+    const testProjectFolder = document.getElementById('testProjectFolder');
+    if (testProjectFolder) {
+      testProjectFolder.value = message.value;
       FilePath = message.value;
     }
     const testCommandDiv = document.getElementById('testCommandInput');

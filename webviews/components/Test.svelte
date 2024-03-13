@@ -1,6 +1,28 @@
 
 <script>
+      import { onMount } from "svelte";
+
+  //enable the startTestingButton when the testProjectFolder and testCommand are filled
+  onMount(()=>{
+    document.getElementById('testProjectFolder').addEventListener('input',()=>{
+      if(document.getElementById('testProjectFolder').value && document.getElementById('testCommand').value){
+        document.getElementById('startTestingButton').disabled = false;
+      }
+    })
+    document.getElementById('testCommand').addEventListener('input',()=>{
+      if(document.getElementById('testProjectFolder').value && document.getElementById('testCommand').value){
+        document.getElementById('startTestingButton').disabled = false;
+      }
+    })
+    //change the value of the generatedtestCommand when the testCommand is filled
+    document.getElementById('testCommand').addEventListener('input',()=>{
+      document.getElementById('generatedTestCommand').innerText = `keploy test -c "${document.getElementById('testCommand').value}"`;
+    })
+
+
+  })
 </script>
+<button id="navigateHomeButton" class="secondary"> Home </button>
 
 <body>
   <div id="selectFolderDiv">
@@ -9,8 +31,8 @@
     >
     <input
       type="text"
-      id="projectFolder"
-      name="projectFolder"
+      id="testProjectFolder"
+      name="testProjectFolder"
       placeholder="Enter Manual Path"
     />
   </div>
@@ -20,8 +42,8 @@
     >
     <input
       type="text"
-      id="recordCommand"
-      name="recordCommand"
+      id="testCommand"
+      name="testCommand"
       placeholder="Enter App Command"
     />
   </div>
@@ -39,7 +61,7 @@
       </select>
     </div>
   </div>
-  <select id="selectTestCases">
+  <select id="selectTestCases" >
     <option value="Run all test cases">Run all test cases</option>
     <option value="Test-Case-1">Test-Case-1</option>
     <option value="Test-Case-2">Test-Case-2</option>
@@ -55,10 +77,11 @@
       />
       <h3>Command</h3>
     </div>
-    <div id="recordCommandDiv">
-      <h1 id="generatedRecordCommand">keploy test -c ""</h1>
+    <div id="testCommandDiv">
+      <h1 id="generatedTestCommand">keploy test -c ""</h1>
     </div>
-    <div id="recordedTestCases"></div>
+    <button id="stopTestingButton">Stop Testing</button>
+    <div id="testResults"></div>
   </div>
 </body>
 
@@ -109,8 +132,26 @@
     width: 2fr;
     margin: auto 0;
   }
-  #generatedRecordCommand{
+  #generatedTestCommand{
     margin: 0 auto;
     text-align: center;
   }
+  #startTestingButton:disabled{
+    background-color: rgb(80, 79, 79);
+  }
+  #navigateHomeButton{
+    width: 20%;
+    font-size: small;
+    text-align: center;
+    margin: 0;
+  }
+  #stopTestingButton{
+    width: 75%;
+    background-color: red;
+    margin: 10px auto ;
+  }
+  #testResults{
+    margin: 20px auto;
+    text-align: center;
+    }
 </style>

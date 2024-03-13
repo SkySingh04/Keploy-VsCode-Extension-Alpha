@@ -41,7 +41,6 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
       ],
     };
-    //change this to main.js
     const scriptUri = webviewView.webview.asWebviewUri(
       vscode.Uri.joinPath(this._extensionUri, "out", "compiled/Home.js")
     );
@@ -114,8 +113,6 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
               if (fileUri && fileUri[0]) {
                 console.log('Selected file: ' + fileUri[0].fsPath);
                 this._view?.webview.postMessage({ type: 'recordfile', value: `${fileUri[0].fsPath}` });
-                // console.log(this._view?.webview.html.getElementById('filePathDiv'));
-                // this._view?.webview.html.getElementById('filePathDiv')!.innerHTML = `<p>Your Selected File is ${fileUri[0].fsPath}</p>`;
               }
             });
           } catch (error) {
@@ -172,12 +169,12 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           break;
         }
 
-        case "test":{
+        case "selectTestFolder":{
           if (!data.value) {
             return;
           }
           try {
-            console.log('Test button clicked');
+            console.log('Opening Test Dialogue Box...');
             vscode.window.showOpenDialog(testOptions).then(async fileUri => {
               if (fileUri && fileUri[0]) {
                 console.log('Selected file: ' + fileUri[0].fsPath);

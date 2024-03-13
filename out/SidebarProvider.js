@@ -67,7 +67,6 @@ class SidebarProvider {
                 vscode.Uri.joinPath(this._extensionUri, "scripts"),
             ],
         };
-        //change this to main.js
         const scriptUri = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "out", "compiled/Home.js"));
         const compiledCSSUri = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "out", "compiled/Home.css"));
         webviewView.webview.html = this._getHtmlForWebview(webviewView.webview, compiledCSSUri, scriptUri);
@@ -139,8 +138,6 @@ class SidebarProvider {
                             if (fileUri && fileUri[0]) {
                                 console.log('Selected file: ' + fileUri[0].fsPath);
                                 (_u = this._view) === null || _u === void 0 ? void 0 : _u.webview.postMessage({ type: 'recordfile', value: `${fileUri[0].fsPath}` });
-                                // console.log(this._view?.webview.html.getElementById('filePathDiv'));
-                                // this._view?.webview.html.getElementById('filePathDiv')!.innerHTML = `<p>Your Selected File is ${fileUri[0].fsPath}</p>`;
                             }
                         }));
                     }
@@ -196,12 +193,12 @@ class SidebarProvider {
                     }
                     break;
                 }
-                case "test": {
+                case "selectTestFolder": {
                     if (!data.value) {
                         return;
                     }
                     try {
-                        console.log('Test button clicked');
+                        console.log('Opening Test Dialogue Box...');
                         vscode.window.showOpenDialog(testOptions).then((fileUri) => __awaiter(this, void 0, void 0, function* () {
                             var _v;
                             if (fileUri && fileUri[0]) {
