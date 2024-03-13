@@ -40,23 +40,6 @@ var app = (function () {
 		return a != a ? b == b : a !== b || (a && typeof a === 'object') || typeof a === 'function';
 	}
 
-	let src_url_equal_anchor;
-
-	/**
-	 * @param {string} element_src
-	 * @param {string} url
-	 * @returns {boolean}
-	 */
-	function src_url_equal(element_src, url) {
-		if (element_src === url) return true;
-		if (!src_url_equal_anchor) {
-			src_url_equal_anchor = document.createElement('a');
-		}
-		// This is actually faster than doing URL(..).href
-		src_url_equal_anchor.href = url;
-		return element_src === src_url_equal_anchor.href;
-	}
-
 	/** @returns {boolean} */
 	function is_empty(obj) {
 		return Object.keys(obj).length === 0;
@@ -171,29 +154,6 @@ var app = (function () {
 	/** @returns {void} */
 	function set_current_component(component) {
 		current_component = component;
-	}
-
-	function get_current_component() {
-		if (!current_component) throw new Error('Function called outside component initialization');
-		return current_component;
-	}
-
-	/**
-	 * The `onMount` function schedules a callback to run as soon as the component has been mounted to the DOM.
-	 * It must be called during the component's initialisation (but doesn't need to live *inside* the component;
-	 * it can be called from an external module).
-	 *
-	 * If a function is returned _synchronously_ from `onMount`, it will be called when the component is unmounted.
-	 *
-	 * `onMount` does not run inside a [server-side component](https://svelte.dev/docs#run-time-server-side-component-api).
-	 *
-	 * https://svelte.dev/docs/svelte#onmount
-	 * @template T
-	 * @param {() => import('./private.js').NotFunction<T> | Promise<import('./private.js').NotFunction<T>> | (() => any)} fn
-	 * @returns {void}
-	 */
-	function onMount(fn) {
-		get_current_component().$$.on_mount.push(fn);
 	}
 
 	const dirty_components = [];
@@ -714,181 +674,244 @@ var app = (function () {
 
 	function create_fragment(ctx) {
 		let body;
-		let div2;
-		let img;
-		let img_src_value;
+		let p;
 		let t0;
-		let div1;
-		let h2;
+		let pre;
 		let t2;
 		let div0;
 		let t3;
-		let hr0;
+		let div1;
 		let t4;
-		let div3;
-		let button0;
-		let t6;
-		let button1;
-		let t8;
-		let button2;
-		let t10;
-		let hr1;
-		let t11;
-		let div6;
-		let div4;
-		let h4;
-		let t13;
-		let ul;
-		let li0;
-		let t15;
-		let li1;
-		let t17;
-		let li2;
-		let t19;
+		let div2;
+		let t5;
 		let div5;
+		let label0;
+		let t7;
+		let input0;
+		let t8;
+		let div3;
+		let t9;
+		let div4;
+		let button0;
+		let t11;
+		let button1;
+		let t13;
+		let div8;
+		let label1;
+		let t15;
+		let input1;
+		let t16;
+		let div6;
+		let t17;
+		let div7;
+		let button2;
+		let t19;
 		let button3;
 		let t21;
+		let div12;
 		let button4;
+		let t23;
+		let button5;
+		let t25;
+		let button6;
+		let t27;
+		let button7;
+		let t29;
+		let div9;
+		let button8;
+		let t31;
+		let button9;
+		let t33;
+		let div10;
+		let t34;
+		let div11;
 
 		const block = {
 			c: function create() {
 				body = element("body");
-				div2 = element("div");
-				img = element("img");
+				p = element("p");
 				t0 = space();
-				div1 = element("div");
-				h2 = element("h2");
-				h2.textContent = "Last Test Results";
+				pre = element("pre");
+				pre.textContent = "      ▓██▓▄\n    ▓▓▓▓██▓█▓▄\n      ████████▓▒\n            ▀▓▓███▄                   \n          ▄▌▌▓▓████▄    \n        ▓█████████▌▓▓   \n        ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  \n        ▓▌                      \n        ▓\n    ";
 				t2 = space();
 				div0 = element("div");
 				t3 = space();
-				hr0 = element("hr");
+				div1 = element("div");
 				t4 = space();
-				div3 = element("div");
-				button0 = element("button");
-				button0.textContent = "Record Test Cases";
-				t6 = space();
-				button1 = element("button");
-				button1.textContent = "Run Test Cases";
-				t8 = space();
-				button2 = element("button");
-				button2.textContent = "Run Custom Command";
-				t10 = space();
-				hr1 = element("hr");
-				t11 = space();
-				div6 = element("div");
-				div4 = element("div");
-				h4 = element("h4");
-				h4.textContent = "Your Configurations";
-				t13 = space();
-				ul = element("ul");
-				li0 = element("li");
-				li0.textContent = "Config 1";
-				t15 = space();
-				li1 = element("li");
-				li1.textContent = "Config 2";
-				t17 = space();
-				li2 = element("li");
-				li2.textContent = "Config 3";
-				t19 = space();
+				div2 = element("div");
+				t5 = space();
 				div5 = element("div");
+				label0 = element("label");
+				label0.textContent = "Enter App Command:";
+				t7 = space();
+				input0 = element("input");
+				t8 = space();
+				div3 = element("div");
+				t9 = space();
+				div4 = element("div");
+				button0 = element("button");
+				button0.textContent = "Start Recording";
+				t11 = space();
+				button1 = element("button");
+				button1.textContent = "Stop Recording";
+				t13 = space();
+				div8 = element("div");
+				label1 = element("label");
+				label1.textContent = "Enter App Command:";
+				t15 = space();
+				input1 = element("input");
+				t16 = space();
+				div6 = element("div");
+				t17 = space();
+				div7 = element("div");
+				button2 = element("button");
+				button2.textContent = "Start Testing";
+				t19 = space();
 				button3 = element("button");
-				button3.textContent = "Customize";
+				button3.textContent = "Stop Testing";
 				t21 = space();
+				div12 = element("div");
 				button4 = element("button");
-				button4.textContent = "Reset";
-				if (!src_url_equal(img.src, img_src_value = "https://avatars.githubusercontent.com/u/92252339?s=200&v=4")) attr_dev(img, "src", img_src_value);
-				attr_dev(img, "alt", "Keploy Logo");
-				attr_dev(img, "class", "svelte-6xqc7s");
-				add_location(img, file, 52, 4, 913);
-				add_location(h2, file, 54, 6, 1053);
-				attr_dev(div0, "id", "lastTestResults");
-				attr_dev(div0, "class", "svelte-6xqc7s");
-				add_location(div0, file, 55, 6, 1086);
-				attr_dev(div1, "class", "lastTestResultsContainer");
-				add_location(div1, file, 53, 4, 1008);
-				attr_dev(div2, "id", "topGrid");
-				attr_dev(div2, "class", "svelte-6xqc7s");
-				add_location(div2, file, 51, 2, 890);
-				attr_dev(hr0, "class", "svelte-6xqc7s");
-				add_location(hr0, file, 58, 2, 1171);
-				attr_dev(button0, "id", "recordButton");
-				attr_dev(button0, "class", "svelte-6xqc7s");
-				add_location(button0, file, 60, 4, 1206);
-				attr_dev(button1, "id", "testButton");
-				attr_dev(button1, "class", "svelte-6xqc7s");
-				add_location(button1, file, 61, 2, 1261);
-				attr_dev(button2, "id", "runCustomCommandButton");
-				button2.disabled = "true";
-				attr_dev(button2, "class", "svelte-6xqc7s");
-				add_location(button2, file, 62, 2, 1311);
-				attr_dev(div3, "id", "buttonsDiv");
-				attr_dev(div3, "class", "svelte-6xqc7s");
-				add_location(div3, file, 59, 2, 1180);
-				attr_dev(hr1, "class", "svelte-6xqc7s");
-				add_location(hr1, file, 64, 2, 1400);
-				add_location(h4, file, 67, 4, 1472);
-				add_location(li0, file, 69, 6, 1516);
-				add_location(li1, file, 70, 6, 1540);
-				add_location(li2, file, 71, 6, 1564);
-				add_location(ul, file, 68, 4, 1505);
-				attr_dev(div4, "id", "configurations");
-				attr_dev(div4, "class", "svelte-6xqc7s");
-				add_location(div4, file, 66, 4, 1442);
-				attr_dev(button3, "id", "customizeConfigButton");
-				attr_dev(button3, "class", "svelte-6xqc7s");
-				add_location(button3, file, 75, 6, 1646);
-				attr_dev(button4, "id", "resetConfigButton");
-				attr_dev(button4, "class", "svelte-6xqc7s");
-				add_location(button4, file, 76, 6, 1706);
-				attr_dev(div5, "id", "configurationsButtons");
-				attr_dev(div5, "class", "svelte-6xqc7s");
-				add_location(div5, file, 74, 4, 1607);
-				attr_dev(div6, "id", "configurationsDiv");
-				attr_dev(div6, "class", "svelte-6xqc7s");
-				add_location(div6, file, 65, 2, 1409);
-				add_location(body, file, 50, 0, 881);
+				button4.textContent = "Get latest version";
+				t23 = space();
+				button5 = element("button");
+				button5.textContent = "Update Your Keploy";
+				t25 = space();
+				button6 = element("button");
+				button6.textContent = "Record Test Cases";
+				t27 = space();
+				button7 = element("button");
+				button7.textContent = "Run Test Cases";
+				t29 = space();
+				div9 = element("div");
+				button8 = element("button");
+				button8.textContent = "Update Keploy Binary";
+				t31 = space();
+				button9 = element("button");
+				button9.textContent = "Update Keploy Docker";
+				t33 = space();
+				div10 = element("div");
+				t34 = space();
+				div11 = element("div");
+				attr_dev(p, "class", "logo");
+				add_location(p, file, 4, 2, 29);
+				add_location(pre, file, 5, 2, 52);
+				attr_dev(div0, "id", "versionDisplay");
+				add_location(div0, file, 16, 2, 273);
+				attr_dev(div1, "id", "Progress");
+				add_location(div1, file, 17, 2, 307);
+				attr_dev(div2, "id", "filePathDiv");
+				add_location(div2, file, 18, 2, 335);
+				attr_dev(label0, "for", "command");
+				add_location(label0, file, 20, 4, 400);
+				attr_dev(input0, "type", "text");
+				attr_dev(input0, "id", "recordCommand");
+				attr_dev(input0, "name", "command");
+				add_location(input0, file, 21, 4, 452);
+				attr_dev(div3, "id", "recordedTestCases");
+				add_location(div3, file, 22, 4, 512);
+				attr_dev(button0, "id", "startRecordingButton");
+				add_location(button0, file, 24, 6, 585);
+				attr_dev(button1, "id", "stopRecordingButton");
+				add_location(button1, file, 25, 6, 650);
+				attr_dev(div4, "id", "recordingbuttons");
+				add_location(div4, file, 23, 4, 551);
+				attr_dev(div5, "id", "recordCommandInput");
+				add_location(div5, file, 19, 2, 366);
+				attr_dev(label1, "for", "command");
+				add_location(label1, file, 29, 4, 761);
+				attr_dev(input1, "type", "text");
+				attr_dev(input1, "id", "testCommand");
+				attr_dev(input1, "name", "command");
+				add_location(input1, file, 30, 4, 813);
+				attr_dev(div6, "id", "TestCases");
+				add_location(div6, file, 31, 4, 871);
+				attr_dev(button2, "id", "startTestButton");
+				add_location(button2, file, 33, 6, 931);
+				attr_dev(button3, "id", "stopTestButton");
+				add_location(button3, file, 34, 6, 989);
+				attr_dev(div7, "id", "testbuttons");
+				add_location(div7, file, 32, 4, 902);
+				attr_dev(div8, "id", "testCommandInput");
+				add_location(div8, file, 28, 2, 729);
+				attr_dev(button4, "id", "getVersionButton");
+				add_location(button4, file, 38, 4, 1091);
+				attr_dev(button5, "id", "updateKeployButton");
+				add_location(button5, file, 39, 4, 1153);
+				attr_dev(button6, "id", "recordButton");
+				add_location(button6, file, 40, 4, 1217);
+				attr_dev(button7, "id", "testButton");
+				add_location(button7, file, 41, 4, 1274);
+				attr_dev(button8, "id", "updateKeployBinaryButton");
+				add_location(button8, file, 43, 6, 1357);
+				attr_dev(button9, "id", "updateKeployDockerButton");
+				add_location(button9, file, 44, 6, 1431);
+				attr_dev(div9, "id", "updateButtons");
+				add_location(div9, file, 42, 4, 1326);
+				attr_dev(div10, "id", "updateStatus");
+				add_location(div10, file, 46, 4, 1514);
+				attr_dev(div11, "id", "recordStatus");
+				add_location(div11, file, 47, 4, 1548);
+				attr_dev(div12, "id", "utilityButtons");
+				add_location(div12, file, 37, 2, 1061);
+				add_location(body, file, 3, 0, 20);
 			},
 			l: function claim(nodes) {
 				throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
 			},
 			m: function mount(target, anchor) {
 				insert_dev(target, body, anchor);
-				append_dev(body, div2);
-				append_dev(div2, img);
-				append_dev(div2, t0);
-				append_dev(div2, div1);
-				append_dev(div1, h2);
-				append_dev(div1, t2);
-				append_dev(div1, div0);
-				/*div0_binding*/ ctx[1](div0);
+				append_dev(body, p);
+				append_dev(body, t0);
+				append_dev(body, pre);
+				append_dev(body, t2);
+				append_dev(body, div0);
 				append_dev(body, t3);
-				append_dev(body, hr0);
+				append_dev(body, div1);
 				append_dev(body, t4);
-				append_dev(body, div3);
-				append_dev(div3, button0);
-				append_dev(div3, t6);
-				append_dev(div3, button1);
-				append_dev(div3, t8);
-				append_dev(div3, button2);
-				append_dev(body, t10);
-				append_dev(body, hr1);
-				append_dev(body, t11);
-				append_dev(body, div6);
-				append_dev(div6, div4);
-				append_dev(div4, h4);
-				append_dev(div4, t13);
-				append_dev(div4, ul);
-				append_dev(ul, li0);
-				append_dev(ul, t15);
-				append_dev(ul, li1);
-				append_dev(ul, t17);
-				append_dev(ul, li2);
-				append_dev(div6, t19);
-				append_dev(div6, div5);
-				append_dev(div5, button3);
-				append_dev(div5, t21);
-				append_dev(div5, button4);
+				append_dev(body, div2);
+				append_dev(body, t5);
+				append_dev(body, div5);
+				append_dev(div5, label0);
+				append_dev(div5, t7);
+				append_dev(div5, input0);
+				append_dev(div5, t8);
+				append_dev(div5, div3);
+				append_dev(div5, t9);
+				append_dev(div5, div4);
+				append_dev(div4, button0);
+				append_dev(div4, t11);
+				append_dev(div4, button1);
+				append_dev(body, t13);
+				append_dev(body, div8);
+				append_dev(div8, label1);
+				append_dev(div8, t15);
+				append_dev(div8, input1);
+				append_dev(div8, t16);
+				append_dev(div8, div6);
+				append_dev(div8, t17);
+				append_dev(div8, div7);
+				append_dev(div7, button2);
+				append_dev(div7, t19);
+				append_dev(div7, button3);
+				append_dev(body, t21);
+				append_dev(body, div12);
+				append_dev(div12, button4);
+				append_dev(div12, t23);
+				append_dev(div12, button5);
+				append_dev(div12, t25);
+				append_dev(div12, button6);
+				append_dev(div12, t27);
+				append_dev(div12, button7);
+				append_dev(div12, t29);
+				append_dev(div12, div9);
+				append_dev(div9, button8);
+				append_dev(div9, t31);
+				append_dev(div9, button9);
+				append_dev(div12, t33);
+				append_dev(div12, div10);
+				append_dev(div12, t34);
+				append_dev(div12, div11);
 			},
 			p: noop,
 			i: noop,
@@ -897,8 +920,6 @@ var app = (function () {
 				if (detaching) {
 					detach_dev(body);
 				}
-
-				/*div0_binding*/ ctx[1](null);
 			}
 		};
 
@@ -913,39 +934,16 @@ var app = (function () {
 		return block;
 	}
 
-	function instance($$self, $$props, $$invalidate) {
+	function instance($$self, $$props) {
 		let { $$slots: slots = {}, $$scope } = $$props;
 		validate_slots('Main', slots, []);
-		let lastTestResults;
-
-		onMount(() => {
-			$$invalidate(0, lastTestResults.innerText = 'Feature not implemented yet.', lastTestResults);
-		});
-
 		const writable_props = [];
 
 		Object.keys($$props).forEach(key => {
 			if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Main> was created with unknown prop '${key}'`);
 		});
 
-		function div0_binding($$value) {
-			binding_callbacks[$$value ? 'unshift' : 'push'](() => {
-				lastTestResults = $$value;
-				$$invalidate(0, lastTestResults);
-			});
-		}
-
-		$$self.$capture_state = () => ({ onMount, lastTestResults });
-
-		$$self.$inject_state = $$props => {
-			if ('lastTestResults' in $$props) $$invalidate(0, lastTestResults = $$props.lastTestResults);
-		};
-
-		if ($$props && "$$inject" in $$props) {
-			$$self.$inject_state($$props.$$inject);
-		}
-
-		return [lastTestResults, div0_binding];
+		return [];
 	}
 
 	class Main extends SvelteComponentDev {
@@ -965,6 +963,7 @@ var app = (function () {
 	const app = new Main({
 	    target: document.body,
 	});
+	//
 
 	return app;
 

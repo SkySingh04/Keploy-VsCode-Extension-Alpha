@@ -1,50 +1,86 @@
-<script>
-</script>
 
+<script>
+  import { onMount } from "svelte";
+  let lastTestResults;
+onMount(()=>{
+  lastTestResults.innerText = 'Feature not implemented yet.';
+  document.getElementById('recordButton').addEventListener('click',()=>{
+  window.location.href = '/record';
+})
+})
+//onclick of record button redirect to record.svelte page by adding new webview
+
+</script>
+<style>
+#topGrid {
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr 1fr;
+}
+#topGrid img {
+  width: 50%;
+}
+#buttonsDiv {
+  display: grid;
+  place-items: center;
+  margin: auto 0;
+}
+#lastTestResults {
+  display: grid;
+  place-items: center;
+  margin: 20px auto;
+}
+#configurationsDiv{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+}
+#configurations{
+  font-size: 1.3em;
+}
+#configurationsButtons{
+  text-align: center  ;
+}
+hr{
+  margin: 0;
+  width: 80%;
+  text-align: center;
+  margin: 20px auto ;
+}
+button {
+  margin: 10px;
+  width: 75%;
+  border-radius: 5px;
+  border: none;
+}
+</style>
 <body>
-  <p class="logo"></p>
-  <pre>
-      ▓██▓▄
-    ▓▓▓▓██▓█▓▄
-      ████████▓▒
-            ▀▓▓███▄                   
-          ▄▌▌▓▓████▄    
-        ▓█████████▌▓▓   
-        ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  
-        ▓▌                      
-        ▓
-    </pre>
-  <div id="versionDisplay"></div>
-  <div id="Progress"></div>
-  <div id="filePathDiv"></div>
-  <div id="recordCommandInput">
-    <label for="command">Enter App Command:</label>
-    <input type="text" id="recordCommand" name="command" />
-    <div id="recordedTestCases"></div>
-    <div id="recordingbuttons">
-      <button id="startRecordingButton">Start Recording</button>
-      <button id="stopRecordingButton">Stop Recording</button>
+<div id="topGrid">
+  <img class="keploylogo" src="https://avatars.githubusercontent.com/u/92252339?s=200&v=4" alt="Keploy Logo" />
+  <div class="lastTestResultsContainer">
+    <h2>Last Test Results</h2>
+    <div id="lastTestResults" bind:this={lastTestResults}></div>
     </div>
+</div>
+<hr />
+<div id="buttonsDiv">
+  <button id="openRecordPageButton">Record Test Cases</button>
+<button id="openTestPageButton">Run Test Cases</button>
+<button id="runCustomCommandButton" disabled=true>Run Custom Command</button>
+</div>
+<hr />
+<div id="configurationsDiv">
+  <div id="configurations">
+  <h4>Your Configurations</h4>
+  <ul>
+    <li>Config 1</li>
+    <li>Config 2</li>
+    <li>Config 3</li>
+  </ul>
   </div>
-  <div id="testCommandInput">
-    <label for="command">Enter App Command:</label>
-    <input type="text" id="testCommand" name="command" />
-    <div id="TestCases"></div>
-    <div id="testbuttons">
-      <button id="startTestButton">Start Testing</button>
-      <button id="stopTestButton">Stop Testing</button>
-    </div>
+  <div id="configurationsButtons">
+    <button id="customizeConfigButton">Customize</button>
+    <button id="resetConfigButton">Reset</button>
   </div>
-  <div id="utilityButtons">
-    <button id="getVersionButton">Get latest version</button>
-    <button id="updateKeployButton">Update Your Keploy</button>
-    <button id="recordButton">Record Test Cases</button>
-    <button id="testButton">Run Test Cases</button>
-    <div id="updateButtons">
-      <button id="updateKeployBinaryButton">Update Keploy Binary</button>
-      <button id="updateKeployDockerButton">Update Keploy Docker</button>
-    </div>
-    <div id="updateStatus"></div>
-    <div id="recordStatus"></div>
-  </div></body
->
+</div>
+</body>
