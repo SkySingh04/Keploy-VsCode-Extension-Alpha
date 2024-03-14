@@ -81,7 +81,11 @@
       <h1 id="generatedTestCommand">keploy test -c ""</h1>
     </div>
     <button id="stopTestingButton">Stop Testing</button>
-    <div id="testResults"></div>
+    <h3 id="testStatus"> </h3>
+    <div id="testResults">
+    </div>
+    <button id="viewCompleteSummaryButton" disabled=true>View Complete Test Summary</button>
+
   </div>
 </body>
 
@@ -153,5 +157,17 @@
   #testResults{
     margin: 20px auto;
     text-align: center;
+    display: grid;
+    place-items: center;
+    grid-template-columns: 1fr;
+    }
+    #testStatus{
+      text-align: center;
+      display: none;
+    }
+    #viewCompleteSummaryButton{
+      display: none;
+      width: 75%;
+      margin: 10px auto;
     }
 </style>

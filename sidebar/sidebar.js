@@ -13,8 +13,11 @@ const openRecordPageButton = document.getElementById('openRecordPageButton');
 const openTestPageButton = document.getElementById('openTestPageButton');
 const navigateHomeButton = document.getElementById('navigateHomeButton');
 const recordStatus = document.getElementById('recordStatus');
+const testStatus = document.getElementById('testStatus');
 const upperOutputDiv = document.getElementById('upperOutputDiv');
 const generatedRecordCommandDiv = document.getElementById('recordCommandDiv');
+const generatedTestCommandDiv = document.getElementById('testCommandDiv');
+const viewCompleteSummaryButton = document.getElementById('viewCompleteSummaryButton');
 let FilePath = "";
 
 //cleanup required
@@ -203,10 +206,10 @@ if (startTestButton) {
 if(stopTestButton){
   stopTestButton.addEventListener('click', async () => {
     console.log("stopTestButton clicked");
-    vscode.postMessage({
-      type: "navigate",
-      value: `Testresults`
-    });
+    // vscode.postMessage({
+    //   type: "navigate",
+    //   value: `Testresults`
+    // });
     vscode.postMessage({
       type: "stopTestingCommand",
       value: `Stop Testing`
@@ -251,7 +254,7 @@ window.addEventListener('message', event => {
       recordStatus.classList.add("error");
       const errorMessage = document.createElement('p class="error"');
       errorMessage.textContent = message.textContent;
-      recordedTestCasesDiv.appendChild(errorMessage); // Append the testCaseElement itself instead of its text content
+      recordedTestCasesDiv.appendChild(errorMessage); 
       return;
     }
     if (message.noTestCases === true) {
@@ -273,15 +276,33 @@ window.addEventListener('message', event => {
     );
 
     testCaseElement.textContent = message.textContent;
-    recordedTestCasesDiv.appendChild(testCaseElement); // Append the testCaseElement itself instead of its text content
+    recordedTestCasesDiv.appendChild(testCaseElement); 
   }
   else if(message.type === "testResults"){
       console.log("message.value", message.value);
       stopTestButton.style.display = 'none';
+      upperOutputDiv.style.display = "none";
+      generatedTestCommandDiv.style.display = "none";
+      testStatus.style.display = "block";
+      viewCompleteSummaryButton.style.display = "block";
+      if(message.error === true){
+        testStatus.textContent = message.value;
+        testStatus.classList.add("error");
+        return;
+      }
       console.log("message.textSummary", message.textSummary);
-      const testCaseElement = document.createElement('pre');
+      const testCaseElement = document.createElement('p');
+      if(message.textSummary.includes("test passed")){
+        testCaseElement.classList.add("success");
+      }
+      else if (message.textSummary.includes("test failed")){
+        testCaseElement.classList.add("error");
+      }
+      else{
+        testCaseElement.classList.add("info");
+      }
       testCaseElement.textContent = message.textSummary;
-      testResultsDiv.appendChild(testCaseElement); // Append the testCaseElement itself instead of its text content
+      testResultsDiv.appendChild(testCaseElement); 
   }
   else if(message.type === "testfile"){
     const testProjectFolder = document.getElementById('testProjectFolder');
