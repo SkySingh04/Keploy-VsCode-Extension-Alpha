@@ -25,7 +25,7 @@
 </script>
 
 <body>
-    <button id="navigateHomeButton" class="secondary"> Home </button>
+    <a id="navigateHomeButton" class="homebutton"> Home </a>
   
   <div id="selectFolderDiv">
     <button id="selectRecordFolderButton" class="secondary"
@@ -79,7 +79,10 @@
       <h1 id="generatedRecordCommand">keploy record -c ""</h1>
     </div>
     <button id="stopRecordingButton">Stop Recording</button>
-    <div id="recordedTestCases"></div>
+    <h3 id="recordStatus"> </h3>
+    <div id="recordedTestCases">
+      
+    </div>
   </div>
 </body>
 
@@ -144,4 +147,18 @@
   #startRecordingButton:disabled{
     background-color: rgb(80, 79, 79);
   }
+  #recordStatus{
+    text-align: center;
+    display: none;
+    margin: 20px;
+    font-weight: bold;
+  }
+  #recordedTestCases{
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+
+  }
+  
+  
 </style>

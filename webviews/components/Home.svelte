@@ -31,12 +31,14 @@ onMount(()=>{
   display: grid;
   grid-template-columns: 1fr 1fr;
   place-items: center;
+  text-align: center;
 }
 #configurations{
   font-size: 1.3em;
 }
 #configurationsButtons{
   text-align: center  ;
+  font-size: x-small;
 }
 hr{
   margin: 0;
@@ -79,7 +81,7 @@ button {
   </ul>
   </div>
   <div id="configurationsButtons">
-    <button id="customizeConfigButton" disabled=true>Customize</button>
+    <button id="customizeConfigButton" disabled=true>Change</button>
     <button id="resetConfigButton" disabled=true>Reset</button>
   </div>
 </div>

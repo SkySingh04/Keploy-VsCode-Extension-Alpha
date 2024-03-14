@@ -22,7 +22,7 @@
 
   })
 </script>
-<button id="navigateHomeButton" class="secondary"> Home </button>
+<a id="navigateHomeButton" class="homebutton"> Home </a>
 
 <body>
   <div id="selectFolderDiv">

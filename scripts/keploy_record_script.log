@@ -11,15 +11,29 @@
   
 version: 2.0.0-alpha76
 
-🐰 Keploy: 2024-03-13T09:59:00+05:30 	[34mINFO[0m	Keploy config not found, continuing without configuration
-🐰 Keploy: 2024-03-13T09:59:00+05:30 	[34mINFO[0m		{"keploy test and mock path": "/home/akash/keploy"}
-🐰 Keploy: 2024-03-13T09:59:02+05:30 	[34mINFO[0m	keploy initialized and probes added to the kernel.
-🐰 Keploy: 2024-03-13T09:59:03+05:30 	[34mINFO[0m	Java detected and CA already exists	{"path": "/usr/lib/jvm/java-11-openjdk-amd64/lib/security/cacerts"}
-🐰 Keploy: 2024-03-13T09:59:03+05:30 	[34mINFO[0m	Java detected and CA already exists	{"path": "/usr/lib/jvm/java-11-openjdk-amd64/lib/security/cacerts"}
-🐰 Keploy: 2024-03-13T09:59:03+05:30 	[34mINFO[0m	Proxy started at port:16789
-🐰 Keploy: 2024-03-13T09:59:03+05:30 	[34mINFO[0m	starting TCP DNS server at addr :26789
-🐰 Keploy: 2024-03-13T09:59:03+05:30 	[31mERROR[0m	userApplication failed to run with the following error. Please check application logs	{"error": "exit status 127"}
-🐰 Keploy: 2024-03-13T09:59:03+05:30 	[34mINFO[0m	Exiting keploy program gracefully.
-🐰 Keploy: 2024-03-13T09:59:04+05:30 	[34mINFO[0m	eBPF resources released successfully...
-🐰 Keploy: 2024-03-13T09:59:04+05:30 	[34mINFO[0m	Tcp Dns server stopped
-🐰 Keploy: 2024-03-13T09:59:04+05:30 	[34mINFO[0m	proxy stopped...
+🐰 Keploy: 2024-03-14T08:01:24+05:30 	[34mINFO[0m	Keploy config not found, continuing without configuration
+🐰 Keploy: 2024-03-14T08:01:24+05:30 	[34mINFO[0m		{"keploy test and mock path": "/home/akash/Desktop/samples-go/gin-mongo/keploy"}
+🐰 Keploy: 2024-03-14T08:01:26+05:30 	[34mINFO[0m	keploy initialized and probes added to the kernel.
+🐰 Keploy: 2024-03-14T08:01:26+05:30 	[34mINFO[0m	Java detected and CA already exists	{"path": "/usr/lib/jvm/java-11-openjdk-amd64/lib/security/cacerts"}
+🐰 Keploy: 2024-03-14T08:01:27+05:30 	[34mINFO[0m	Java detected and CA already exists	{"path": "/usr/lib/jvm/java-11-openjdk-amd64/lib/security/cacerts"}
+🐰 Keploy: 2024-03-14T08:01:27+05:30 	[34mINFO[0m	Found an available port to start proxy server	{"port": 1024}
+🐰 Keploy: 2024-03-14T08:01:27+05:30 	[34mINFO[0m	Proxy started at port:1024
+🐰 Keploy: 2024-03-14T08:01:27+05:30 	[34mINFO[0m	starting TCP DNS server at addr :26789
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /:param                   --> main.getURL (3 handlers)
+[GIN-debug] POST   /url                      --> main.putURL (3 handlers)
+🐰 Keploy: 2024-03-14T08:01:27+05:30 	[31mERROR[0m	userApplication failed to run with the following error. Please check application logs	{"error": "exit status 1"}
+🐰 Keploy: 2024-03-14T08:01:27+05:30 	[34mINFO[0m	Exiting keploy program gracefully.
+🐰 Keploy: 2024-03-14T08:01:28+05:30 	[34mINFO[0m	eBPF resources released successfully...
+🐰 Keploy: 2024-03-14T08:01:28+05:30 	[34mINFO[0m	Tcp Dns server stopped
+🐰 Keploy: 2024-03-14T08:01:28+05:30 	[34mINFO[0m	proxy stopped...
+🐰 Keploy: 2024-03-14T08:12:53+05:30 	[31mERROR[0m	failed to dial the connection to destination server	{"Client IP Address": "192.168.1.8:33856", "Client ConnectionID": 8, "Destination IP Address": "127.0.0.1:27017", "Destination ConnectionID": 9, "error": "dial tcp 127.0.0.1:27017: connect: connection refused", "proxy port": 16789, "server address": "127.0.0.1:27017"}
+🐰 Keploy: 2024-03-14T08:13:03+05:30 	[31mERROR[0m	failed to dial the connection to destination server	{"Client IP Address": "192.168.1.8:59910", "Client ConnectionID": 10, "Destination IP Address": "127.0.0.1:27017", "Destination ConnectionID": 11, "error": "dial tcp 127.0.0.1:27017: connect: connection refused", "proxy port": 16789, "server address": "127.0.0.1:27017"}
+🐰 Keploy: 2024-03-14T08:13:03+05:30 	[31mERROR[0m	failed to dial the connection to destination server	{"Client IP Address": "192.168.1.8:59908", "Client ConnectionID": 12, "Destination IP Address": "127.0.0.1:27017", "Destination ConnectionID": 13, "error": "dial tcp 127.0.0.1:27017: connect: connection refused", "proxy port": 16789, "server address": "127.0.0.1:27017"}
+🐰 Keploy: 2024-03-14T08:13:13+05:30 	[31mERROR[0m	failed to dial the connection to destination server	{"Client IP Address": "192.168.1.8:43104", "Client ConnectionID": 14, "Destination IP Address": "127.0.0.1:27017", "Destination ConnectionID": 15, "error": "dial tcp 127.0.0.1:27017: connect: connection refused", "proxy port": 16789, "server address": "127.0.0.1:27017"}
+🐰 Keploy: 2024-03-14T08:13:13+05:30 	[31mERROR[0m	failed to dial the connection to destination server	{"Client IP Address": "192.168.1.8:43114", "Client ConnectionID": 16, "Destination IP Address": "127.0.0.1:27017", "Destination ConnectionID": 17, "error": "dial tcp 127.0.0.1:27017: connect: connection refused", "proxy port": 16789, "server address": "127.0.0.1:27017"}

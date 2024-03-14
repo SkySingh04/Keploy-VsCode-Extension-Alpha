@@ -12,6 +12,9 @@ const stopTestButton = document.getElementById('stopTestingButton');
 const openRecordPageButton = document.getElementById('openRecordPageButton');
 const openTestPageButton = document.getElementById('openTestPageButton');
 const navigateHomeButton = document.getElementById('navigateHomeButton');
+const recordStatus = document.getElementById('recordStatus');
+const upperOutputDiv = document.getElementById('upperOutputDiv');
+const generatedRecordCommandDiv = document.getElementById('recordCommandDiv');
 let FilePath = "";
 
 //cleanup required
@@ -161,8 +164,8 @@ if (startRecordingButton) {
   startRecordingButton.addEventListener('click', async () => {
     console.log("startRecordingButton clicked");
     stopRecordingButton.style.display = 'block';
-    
     const commandValue = recordCommandInput.value;
+    recordedTestCasesDiv.innerHTML = "";
     console.log('Command value:', commandValue);
     FilePath = document.getElementById('recordProjectFolder').value;
     vscode.postMessage({
@@ -176,7 +179,6 @@ if (startRecordingButton) {
 if(stopRecordingButton){
   stopRecordingButton.addEventListener('click', async () => {
     console.log("stopRecordingButton clicked");
-    // Get the Progress div
     vscode.postMessage({
       type: "stopRecordingCommand",
       value: `Stop Recording`
@@ -201,7 +203,10 @@ if (startTestButton) {
 if(stopTestButton){
   stopTestButton.addEventListener('click', async () => {
     console.log("stopTestButton clicked");
-    // Get the Progress div
+    vscode.postMessage({
+      type: "navigate",
+      value: `Testresults`
+    });
     vscode.postMessage({
       type: "stopTestingCommand",
       value: `Stop Testing`
@@ -238,7 +243,35 @@ window.addEventListener('message', event => {
   else if (message.type === 'testcaserecorded') {
     console.log("message.textContent", message.textContent);
     stopRecordingButton.style.display = 'none';
-    const testCaseElement = document.createElement('p');
+    recordStatus.style.display = "block";
+    upperOutputDiv.style.display = "none";
+    generatedRecordCommandDiv.style.display = "none";
+    if(message.error === true){
+      recordStatus.textContent = `Failed To Record Test Cases`;
+      recordStatus.classList.add("error");
+      const errorMessage = document.createElement('p class="error"');
+      errorMessage.textContent = message.textContent;
+      recordedTestCasesDiv.appendChild(errorMessage); // Append the testCaseElement itself instead of its text content
+      return;
+    }
+    if (message.noTestCases === true) {
+      recordStatus.textContent = `No Test Cases Recorded`;
+      recordStatus.classList.add("info");
+      return;
+    }
+    recordStatus.textContent = `Test Cases Recorded`;
+    recordStatus.classList.add("success");
+    console.log(message.textContent);
+    const testCaseElement = document.createElement('button');
+    testCaseElement.classList.add("recordedTestCase");
+    testCaseElement.addEventListener('click', async () => {
+      vscode.postMessage({
+        type: "openRecordedTestFile",
+        value: message.path
+      });
+    }
+    );
+
     testCaseElement.textContent = message.textContent;
     recordedTestCasesDiv.appendChild(testCaseElement); // Append the testCaseElement itself instead of its text content
   }

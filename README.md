@@ -57,7 +57,7 @@ Keploy-VsCode offers the following features:
 
 ### 0.1.2
 
-- Added Keploy Update to update the keploy binary 
+- Added Keploy Update to update the keploy binary zzzzzzzz
 
 ### 0.1.1
 
