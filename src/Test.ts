@@ -1,8 +1,7 @@
 import * as vscode from 'vscode';
 import { readFileSync, appendFile } from 'fs';
 
-export async function displayTestCases(logfilePath: string, webview: any): Promise<void> {
-
+export async function displayTestCases(logfilePath: string, webview: any , isHomePage : boolean): Promise<void> {
     console.log('Displaying test cases');
     let logData;
     try {
@@ -27,7 +26,8 @@ export async function displayTestCases(logfilePath: string, webview: any): Promi
                 type: 'testResults',
                 value: 'Test Failed',
                 textSummary: "Error Replaying Test Cases. Please try again.",
-                error : true
+                error : true,
+                isHomePage : isHomePage
             });
             return;
         }
@@ -40,7 +40,8 @@ export async function displayTestCases(logfilePath: string, webview: any): Promi
                 type: 'testResults',
                 value: 'Test Failed',
                 textSummary: "Error Replaying Test Cases. Please try again.",
-                error : true
+                error : true,
+                isHomePage : isHomePage
             });
             return;
         }
@@ -53,7 +54,8 @@ export async function displayTestCases(logfilePath: string, webview: any): Promi
                 type: 'testResults',
                 value: 'Test Failed',
                 textSummary: "Error Replaying Test Cases. Please try again.",
-                error : true
+                error : true,
+                isHomePage : isHomePage
             });
             return;
         }
@@ -75,7 +77,8 @@ export async function displayTestCases(logfilePath: string, webview: any): Promi
             webview.postMessage({
                 type: 'testResults',
                 value: 'Test Summary Generated',
-                textSummary: line
+                textSummary: line,
+                isHomePage : isHomePage
             });
         }); 
         
@@ -121,7 +124,7 @@ export async function startTesting(command: string, filepath: string,wslscriptPa
                     console.log('Terminal closed');
                     if (eventTerminal === terminal) {
                         disposable.dispose(); // Dispose the listener
-                        displayTestCases(logfilePath, webview); // Call function when terminal is closed
+                        displayTestCases(logfilePath, webview ,  false); // Call function when terminal is closed
                         resolve(); // Resolve the promise
                     }
                 });

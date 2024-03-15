@@ -35,7 +35,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.stopTesting = exports.startTesting = exports.displayTestCases = void 0;
 const vscode = __importStar(require("vscode"));
 const fs_1 = require("fs");
-function displayTestCases(logfilePath, webview) {
+function displayTestCases(logfilePath, webview, isHomePage) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log('Displaying test cases');
         let logData;
@@ -63,7 +63,8 @@ function displayTestCases(logfilePath, webview) {
                     type: 'testResults',
                     value: 'Test Failed',
                     textSummary: "Error Replaying Test Cases. Please try again.",
-                    error: true
+                    error: true,
+                    isHomePage: isHomePage
                 });
                 return;
             }
@@ -75,7 +76,8 @@ function displayTestCases(logfilePath, webview) {
                     type: 'testResults',
                     value: 'Test Failed',
                     textSummary: "Error Replaying Test Cases. Please try again.",
-                    error: true
+                    error: true,
+                    isHomePage: isHomePage
                 });
                 return;
             }
@@ -87,7 +89,8 @@ function displayTestCases(logfilePath, webview) {
                     type: 'testResults',
                     value: 'Test Failed',
                     textSummary: "Error Replaying Test Cases. Please try again.",
-                    error: true
+                    error: true,
+                    isHomePage: isHomePage
                 });
                 return;
             }
@@ -109,7 +112,8 @@ function displayTestCases(logfilePath, webview) {
                 webview.postMessage({
                     type: 'testResults',
                     value: 'Test Summary Generated',
-                    textSummary: line
+                    textSummary: line,
+                    isHomePage: isHomePage
                 });
             });
         }
@@ -153,7 +157,7 @@ function startTesting(command, filepath, wslscriptPath, wsllogfilePath, scriptPa
                         console.log('Terminal closed');
                         if (eventTerminal === terminal) {
                             disposable.dispose(); // Dispose the listener
-                            displayTestCases(logfilePath, webview); // Call function when terminal is closed
+                            displayTestCases(logfilePath, webview, false); // Call function when terminal is closed
                             resolve(); // Resolve the promise
                         }
                     });

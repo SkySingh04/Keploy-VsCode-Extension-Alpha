@@ -18,6 +18,8 @@ const upperOutputDiv = document.getElementById('upperOutputDiv');
 const generatedRecordCommandDiv = document.getElementById('recordCommandDiv');
 const generatedTestCommandDiv = document.getElementById('testCommandDiv');
 const viewCompleteSummaryButton = document.getElementById('viewCompleteSummaryButton');
+const lastTestResultsDiv = document.getElementById('lastTestResults');
+const loader = document.getElementById('loader');
 let FilePath = "";
 
 //cleanup required
@@ -44,6 +46,8 @@ if (navigateHomeButton) {
 if(openTestPageButton){
   openTestPageButton.addEventListener('click', async () => {
     console.log("openTestPageButton clicked");
+    // testResultsDiv.style.display = "none";
+    // testResultsDiv.innerHTML = "";
     vscode.postMessage({
       type: "navigate",
       value: "Test"
@@ -167,6 +171,7 @@ if (startRecordingButton) {
   startRecordingButton.addEventListener('click', async () => {
     console.log("startRecordingButton clicked");
     stopRecordingButton.style.display = 'block';
+    loader.style.display = "block";
     const commandValue = recordCommandInput.value;
     recordedTestCasesDiv.innerHTML = "";
     console.log('Command value:', commandValue);
@@ -182,6 +187,7 @@ if (startRecordingButton) {
 if(stopRecordingButton){
   stopRecordingButton.addEventListener('click', async () => {
     console.log("stopRecordingButton clicked");
+    loader.style.display = "none";
     vscode.postMessage({
       type: "stopRecordingCommand",
       value: `Stop Recording`
@@ -191,6 +197,7 @@ if(stopRecordingButton){
 if (startTestButton) {
   startTestButton.addEventListener('click', async () => {
     console.log("startTestButton clicked");
+    loader.style.display = "block";
     stopTestButton.style.display = 'block';
     const commandValue = testCommandInput.value;
     console.log('Command value:', commandValue);
@@ -206,10 +213,6 @@ if (startTestButton) {
 if(stopTestButton){
   stopTestButton.addEventListener('click', async () => {
     console.log("stopTestButton clicked");
-    // vscode.postMessage({
-    //   type: "navigate",
-    //   value: `Testresults`
-    // });
     vscode.postMessage({
       type: "stopTestingCommand",
       value: `Stop Testing`
@@ -280,18 +283,9 @@ window.addEventListener('message', event => {
   }
   else if(message.type === "testResults"){
       console.log("message.value", message.value);
-      stopTestButton.style.display = 'none';
-      upperOutputDiv.style.display = "none";
-      generatedTestCommandDiv.style.display = "none";
-      testStatus.style.display = "block";
-      viewCompleteSummaryButton.style.display = "block";
-      if(message.error === true){
-        testStatus.textContent = message.value;
-        testStatus.classList.add("error");
-        return;
-      }
-      console.log("message.textSummary", message.textSummary);
+      loader.style.display = "none";
       const testCaseElement = document.createElement('p');
+      testCaseElement.textContent = message.textSummary;
       if(message.textSummary.includes("test passed")){
         testCaseElement.classList.add("success");
       }
@@ -301,7 +295,34 @@ window.addEventListener('message', event => {
       else{
         testCaseElement.classList.add("info");
       }
-      testCaseElement.textContent = message.textSummary;
+      if(message.isHomePage){
+        if(message.error === true){
+          if(lastTestResultsDiv){
+            lastTestResultsDiv.innerHTML = `<p class="error">${message.value}</p>`;
+          }
+          return;
+        }
+        else{
+          lastTestResultsDiv.appendChild(testCaseElement);
+        }
+
+      return;
+      }
+      testResultsDiv.innerHTML = "";
+      stopTestButton.style.display = 'none';
+      upperOutputDiv.style.display = "none";
+      generatedTestCommandDiv.style.display = "none";
+      testStatus.style.display = "block";
+      viewCompleteSummaryButton.style.display = "block";
+      if(message.error === true){
+        if(testStatus){
+          testStatus.textContent = message.value;
+          testStatus.classList.add("error");
+        }
+        else{
+          testResultsDiv.innerHTML = `<p class="error">${message.value}</p>`;
+        }
+      }
       testResultsDiv.appendChild(testCaseElement); 
   }
   else if(message.type === "testfile"){

@@ -2,9 +2,7 @@
 
 <script>
     import { onMount } from "svelte";
-
-  //enable the startRecordingButton when the recordProjectFolder and recordCommand are filled
-  onMount(()=>{
+onMount(()=>{
     document.getElementById('recordProjectFolder').addEventListener('input',()=>{
       if(document.getElementById('recordProjectFolder').value && document.getElementById('recordCommand').value){
         document.getElementById('startRecordingButton').disabled = false;
@@ -78,6 +76,7 @@
     <div id="recordCommandDiv">
       <h1 id="generatedRecordCommand">keploy record -c ""</h1>
     </div>
+    <div class="loader" id="loader"></div>
     <button id="stopRecordingButton">Stop Recording</button>
     <h3 id="recordStatus"> </h3>
     <div id="recordedTestCases">
@@ -159,6 +158,8 @@
     place-items: center;
 
   }
-  
+  .loader{
+    display: none;
+  }
   
 </style>

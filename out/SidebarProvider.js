@@ -286,6 +286,18 @@ class SidebarProvider {
                     }
                     break;
                 }
+                // case "displayPreviousTestResults" : {
+                //   if (!data.value) {
+                //     return;
+                //   }
+                //   try {
+                //     // this._view?.webview.postMessage({ type: 'displayPreviousTestResults', value: 'Displaying Previous Test Results' });
+                //     console.log('Displaying previous test results');
+                //   } catch (error) {
+                //     this._view?.webview.postMessage({ type: 'error', value: `Failed to display previous test results ${error}` });
+                //   }
+                //   break;
+                // }
             }
         }));
     }
@@ -299,6 +311,13 @@ class SidebarProvider {
         const styleVSCodeUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "media", "vscode.css"));
         // Use a nonce to only allow a specific script to be run.
         const nonce = (0, getNonce_1.getNonce)();
+        // webview.postMessage({ type: 'displayPreviousTestResults', value: 'Displaying Previous Test Results' });
+        const logfilePath = vscode.Uri.joinPath(this._extensionUri, "scripts", "keploy_test_script.log");
+        //call the function below after 3 seconds
+        setTimeout(() => {
+            (0, Test_1.displayTestCases)(logfilePath.fsPath, webview, true);
+        }, 2000);
+        // displayTestCases(logfilePath.fsPath, webview);
         return `<!DOCTYPE html>
 			<html lang="en">
 			<head>

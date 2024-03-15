@@ -80,6 +80,7 @@
     <div id="testCommandDiv">
       <h1 id="generatedTestCommand">keploy test -c ""</h1>
     </div>
+    <div class="loader" id="loader"></div>
     <button id="stopTestingButton">Stop Testing</button>
     <h3 id="testStatus"> </h3>
     <div id="testResults">
@@ -169,5 +170,8 @@
       display: none;
       width: 75%;
       margin: 10px auto;
+    }
+    .loader{
+      display: none;
     }
 </style>
