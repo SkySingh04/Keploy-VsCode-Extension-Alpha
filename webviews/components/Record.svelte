@@ -95,12 +95,6 @@ onMount(()=>{
   .keploylogo {
     width: 50%;
   }
-  hr {
-    margin: 0;
-    width: 80%;
-    text-align: center;
-    margin: 20px auto;
-  }
   #startRecordingButton {
     margin: 20px auto;
   }

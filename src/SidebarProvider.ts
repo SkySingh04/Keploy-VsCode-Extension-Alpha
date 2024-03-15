@@ -65,45 +65,6 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           vscode.window.showErrorMessage(data.value);
           break;
         }
-        case "updateKeploy": {
-          if (!data.value) {
-            return;
-          }
-          try {
-            await downloadAndUpdate("https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" , this._view?.webview);
-            this._view?.webview.postMessage({ type: 'success', value: 'Keploy binary updated!' });
-          } catch (error) {
-            this._view?.webview.postMessage({ type: 'error', value: `Failed to update Keploy binary: ${error}` });
-          }
-          break;
-        }
-        case "installKeploy": {
-          if (!data.value) {
-            return;
-          }
-          try {
-            console.log('Installing Keploy binary...');
-            await downloadAndInstallKeployBinary( this._view?.webview);
-
-            this._view?.webview.postMessage({ type: 'success', value: 'Keploy binary installed!' });
-          } catch (error) {
-            this._view?.webview.postMessage({ type: 'error', value: `Failed to install Keploy binary: ${error}` });
-          }
-          break;
-        }
-
-        case "updateKeployDocker": {
-          if (!data.value) {
-            return;
-          }
-          try {
-            await downloadAndUpdateDocker();
-            this._view?.webview.postMessage({ type: 'success', value: 'Keploy Docker updated!' });
-          } catch (error) {
-            this._view?.webview.postMessage({ type: 'error', value: `Failed to update Keploy Docker ${error}` });
-          }
-          break;
-        }
         case "selectRecordFolder": {
           if (!data.value) {
             return;
@@ -264,19 +225,20 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           break;
         }
 
-        // case "displayPreviousTestResults" : {
-        //   if (!data.value) {
-        //     return;
-        //   }
-        //   try {
-        //     // this._view?.webview.postMessage({ type: 'displayPreviousTestResults', value: 'Displaying Previous Test Results' });
-        //     console.log('Displaying previous test results');
-        //   } catch (error) {
-        //     this._view?.webview.postMessage({ type: 'error', value: `Failed to display previous test results ${error}` });
-        //   }
-        //   break;
-        // }
-        
+        case "viewCompleteSummary" : {
+          if (!data.value) {
+            return;
+          }
+          try {
+            console.log('Opening Complete Summary...');
+            const logfilePath =  vscode.Uri.joinPath(this._extensionUri, "scripts", "keploy_test_script.log");
+            displayTestCases(logfilePath.fsPath, this._view?.webview , false , true);
+          } catch (error) {
+            this._view?.webview.postMessage({ type: 'error', value: `Failed to open complete summary ${error}` });
+          }
+          break;
+
+        }
       }
 
     });
@@ -309,8 +271,8 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     const logfilePath =  vscode.Uri.joinPath(this._extensionUri, "scripts", "keploy_test_script.log");
     //call the function below after 3 seconds
     setTimeout(() => {
-      displayTestCases(logfilePath.fsPath, webview ,  true);
-    }, 2000);
+      displayTestCases(logfilePath.fsPath, webview ,  true , false);
+    }, 1000);
     // displayTestCases(logfilePath.fsPath, webview);
 
     return `<!DOCTYPE html>

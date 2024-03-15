@@ -71,12 +71,7 @@
     text-align: center;
     font-size: x-small;
   }
-  hr {
-    margin: 0;
-    width: 80%;
-    text-align: center;
-    margin: 20px auto;
-  }
+  
   button {
     margin: 10px;
     width: 75%;

@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { readFileSync, appendFile } from 'fs';
 
-export async function displayTestCases(logfilePath: string, webview: any , isHomePage : boolean): Promise<void> {
+export async function displayTestCases(logfilePath: string, webview: any, isHomePage: boolean, isCompleteSummary: boolean): Promise<void> {
     console.log('Displaying test cases');
     let logData;
     try {
@@ -10,7 +10,7 @@ export async function displayTestCases(logfilePath: string, webview: any , isHom
         }
         catch (error) {
             appendFile(logfilePath, "", function (err) {
-                if (err) { console.log("err here " +  err); }
+                if (err) { console.log("err here " + err); }
             });
             logData = readFileSync(logfilePath, 'utf8');
         }
@@ -26,8 +26,9 @@ export async function displayTestCases(logfilePath: string, webview: any , isHom
                 type: 'testResults',
                 value: 'Test Failed',
                 textSummary: "Error Replaying Test Cases. Please try again.",
-                error : true,
-                isHomePage : isHomePage
+                error: true,
+                isHomePage: isHomePage,
+                isCompleteSummary: isCompleteSummary
             });
             return;
         }
@@ -40,8 +41,9 @@ export async function displayTestCases(logfilePath: string, webview: any , isHom
                 type: 'testResults',
                 value: 'Test Failed',
                 textSummary: "Error Replaying Test Cases. Please try again.",
-                error : true,
-                isHomePage : isHomePage
+                error: true,
+                isHomePage: isHomePage,
+                isCompleteSummary: isCompleteSummary
             });
             return;
         }
@@ -54,8 +56,9 @@ export async function displayTestCases(logfilePath: string, webview: any , isHom
                 type: 'testResults',
                 value: 'Test Failed',
                 textSummary: "Error Replaying Test Cases. Please try again.",
-                error : true,
-                isHomePage : isHomePage
+                error: true,
+                isHomePage: isHomePage,
+                isCompleteSummary: isCompleteSummary
             });
             return;
         }
@@ -69,20 +72,37 @@ export async function displayTestCases(logfilePath: string, webview: any , isHom
         testSummaryList.pop();
         //remove first line of summary which is header
         testSummaryList.shift();
-        //send first three lines of summary
-        testSummaryList.forEach((line, index) => {
-            if (index > 2) {
-                return;
-            }
-            webview.postMessage({
-                type: 'testResults',
-                value: 'Test Summary Generated',
-                textSummary: line,
-                isHomePage : isHomePage
+
+
+        if (isCompleteSummary) {
+            //remove fist 7 lines of summary
+            testSummaryList.splice(0, 7);
+            testSummaryList.forEach((line, index) => {
+                webview.postMessage({
+                    type: 'testResults',
+                    value: 'Test Summary Generated',
+                    textSummary: line,
+                    isHomePage: false,
+                    isCompleteSummary: isCompleteSummary
+                });
             });
-        }); 
-        
         }
+        else {
+        //send first three lines of summary
+            testSummaryList.forEach((line, index) => {
+                if (index > 2) {
+                    return;
+                }
+                webview.postMessage({
+                    type: 'testResults',
+                    value: 'Test Summary Generated',
+                    textSummary: line,
+                    isHomePage: isHomePage,
+                    isCompleteSummary: isCompleteSummary
+                });
+            });
+        }
+    }
     catch (error) {
         console.log(error);
         vscode.window.showErrorMessage('Error occurred Keploy Test: ' + error);
@@ -91,7 +111,7 @@ export async function displayTestCases(logfilePath: string, webview: any , isHom
 }
 
 
-export async function startTesting(command: string, filepath: string,wslscriptPath: string, wsllogfilePath: string, scriptPath: string, logfilePath: string, webview: any): Promise<void> {
+export async function startTesting(command: string, filepath: string, wslscriptPath: string, wsllogfilePath: string, scriptPath: string, logfilePath: string, webview: any): Promise<void> {
     try {
         return new Promise<void>((resolve, reject) => {
             try {
@@ -112,10 +132,10 @@ export async function startTesting(command: string, filepath: string,wslscriptPa
                     const testCmd = `${wslscriptPath} "${command}" "${filepath}" "${wsllogfilePath}" ;exit 0 `;
                     terminal.sendText(testCmd);
                 }
-                else{
-                const testCmd = `sudo ${scriptPath} "${command}" "${filepath}" "${logfilePath}" ;exit 0 `;
-                // const exitCmd = 'exit';
-                terminal.sendText(testCmd);
+                else {
+                    const testCmd = `sudo ${scriptPath} "${command}" "${filepath}" "${logfilePath}" ;exit 0 `;
+                    // const exitCmd = 'exit';
+                    terminal.sendText(testCmd);
                 }
                 // terminal.sendText('exit', true);
 
@@ -124,7 +144,7 @@ export async function startTesting(command: string, filepath: string,wslscriptPa
                     console.log('Terminal closed');
                     if (eventTerminal === terminal) {
                         disposable.dispose(); // Dispose the listener
-                        displayTestCases(logfilePath, webview ,  false); // Call function when terminal is closed
+                        displayTestCases(logfilePath, webview, false, false); // Call function when terminal is closed
                         resolve(); // Resolve the promise
                     }
                 });

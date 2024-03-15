@@ -85,7 +85,7 @@
     <h3 id="testStatus"> </h3>
     <div id="testResults">
     </div>
-    <button id="viewCompleteSummaryButton" disabled=true>View Complete Test Summary</button>
+    <button id="viewCompleteSummaryButton">View Complete Test Summary</button>
 
   </div>
 </body>
@@ -99,12 +99,6 @@
   }
   .keploylogo {
     width: 50%;
-  }
-  hr {
-    margin: 0;
-    width: 80%;
-    text-align: center;
-    margin: 20px auto;
   }
   #selectTestCases {
     margin: 20px auto;
