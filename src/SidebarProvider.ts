@@ -272,7 +272,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     //call the function below after 3 seconds
     setTimeout(() => {
       displayTestCases(logfilePath.fsPath, webview ,  true , false);
-    }, 1000);
+    }, 3000);
     // displayTestCases(logfilePath.fsPath, webview);
 
     return `<!DOCTYPE html>

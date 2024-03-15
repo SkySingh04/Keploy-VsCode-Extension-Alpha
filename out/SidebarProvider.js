@@ -277,7 +277,7 @@ class SidebarProvider {
         //call the function below after 3 seconds
         setTimeout(() => {
             (0, Test_1.displayTestCases)(logfilePath.fsPath, webview, true, false);
-        }, 1000);
+        }, 3000);
         // displayTestCases(logfilePath.fsPath, webview);
         return `<!DOCTYPE html>
 			<html lang="en">

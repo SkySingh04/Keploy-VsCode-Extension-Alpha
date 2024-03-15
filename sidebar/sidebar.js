@@ -350,7 +350,7 @@ window.addEventListener('message', event => {
     if (message.isHomePage === true) {
       if (message.error === true) {
         if (lastTestResultsDiv) {
-          lastTestResultsDiv.innerHTML = `<p class="error">${message.value}</p>`;
+          lastTestResultsDiv.innerHTML = `<p class="error">No Test Runs Found</p>`;
           return;
         }
       }
