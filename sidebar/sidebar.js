@@ -231,6 +231,7 @@ if (startTestButton) {
 if (stopTestButton) {
   stopTestButton.addEventListener('click', async () => {
     console.log("stopTestButton clicked");
+    loader.style.display = "none";
     vscode.postMessage({
       type: "stopTestingCommand",
       value: `Stop Testing`
@@ -280,6 +281,7 @@ window.addEventListener('message', event => {
   else if (message.type === 'testcaserecorded') {
     console.log("message.textContent", message.textContent);
     stopRecordingButton.style.display = 'none';
+    loader.style.display = "none";
     recordStatus.style.display = "block";
     upperOutputDiv.style.display = "none";
     generatedRecordCommandDiv.style.display = "none";
