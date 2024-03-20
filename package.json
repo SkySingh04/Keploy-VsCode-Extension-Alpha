@@ -1,8 +1,8 @@
 {
   "name": "heykeploy",
-  "displayName": "Keploy VSCode Extension",
-  "description": "Hello Keploy Community!",
-  "version": "2.6.1",
+  "displayName": "Keploy - Aplha",
+  "description": "E2E Testing , Right from your Vscode!",
+  "version": "2.6.2",
   "publisher": "Akash-Singh04",
   "icon": "media/logo.png",
   "repository": {
