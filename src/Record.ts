@@ -63,7 +63,7 @@ export async function stopRecording(){
     }
 }
 
-export async function startRecording(command: string, filepath: string, generatedRecordCommand: string, wslscriptPath: string, wsllogfilePath: string ,scriptPath: string, logfilePath: string, webview: any): Promise<void> {
+export async function startRecording(command: string, folderPath: string, generatedRecordCommand: string, wslscriptPath: string, wsllogfilePath: string ,scriptPath: string, logfilePath: string, webview: any): Promise<void> {
     try {
         return new Promise<void>((resolve, reject) => {
             try {
@@ -83,11 +83,12 @@ export async function startRecording(command: string, filepath: string, generate
 
                 terminal.show();
                 if (process.platform === 'win32'){
-                    const recordCmd = `${wslscriptPath} "${generatedRecordCommand}" "${filepath}" "${wsllogfilePath}" ; exit 0`;
+                    const recordCmd = `${wslscriptPath} "${wsllogfilePath}" "${folderPath}" "${generatedRecordCommand}"; exit 0`;
                     terminal.sendText(recordCmd);
                 }
                 else{
-                    const recordCmd = `sudo ${scriptPath} "${generatedRecordCommand}" "${filepath}" "${logfilePath}" ; exit 0 `;
+                    const recordCmd = `sudo ${scriptPath} "${logfilePath}" "${folderPath}" "${generatedRecordCommand}"; exit 0 `;
+                    console.log(recordCmd);
                 // const exitCmd = 'exit';
                 terminal.sendText(recordCmd);
                 }

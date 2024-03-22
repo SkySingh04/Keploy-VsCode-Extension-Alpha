@@ -289,8 +289,8 @@ window.addEventListener('message', event => {
     recordStatus.style.display = "block";
     upperOutputDiv.style.display = "none";
     if(upperHR){
-    upperHR.style.display = 'none';
-    }
+      upperHR.style.display = 'none';
+      }
     generatedRecordCommandDiv.style.display = "none";
     if (message.error === true) {
       recordStatus.textContent = `Failed To Test Test Cases`;
@@ -324,9 +324,6 @@ window.addEventListener('message', event => {
   else if (message.type === "testResults") {
     console.log("message.value", message.value);
     loader.style.display = "none";
-    if(upperHR){
-    upperHR.style.display = 'none';
-    }
     const testCaseElement = document.createElement('p');
     testCaseElement.textContent = message.textSummary;
     if (message.textSummary.includes("test passed")) {
@@ -377,6 +374,9 @@ window.addEventListener('message', event => {
     upperOutputDiv.style.display = "none";
     generatedTestCommandDiv.style.display = "none";
     testStatus.style.display = "block";
+    if(upperHR){
+      upperHR.style.display = 'none';
+      }
     if (message.error === true) {
       viewCompleteSummaryButton.style.display = "none";
     }

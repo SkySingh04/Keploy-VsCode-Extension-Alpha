@@ -105,7 +105,7 @@ function stopRecording() {
     });
 }
 exports.stopRecording = stopRecording;
-function startRecording(command, filepath, generatedRecordCommand, wslscriptPath, wsllogfilePath, scriptPath, logfilePath, webview) {
+function startRecording(command, folderPath, generatedRecordCommand, wslscriptPath, wsllogfilePath, scriptPath, logfilePath, webview) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             return new Promise((resolve, reject) => {
@@ -125,11 +125,12 @@ function startRecording(command, filepath, generatedRecordCommand, wslscriptPath
                     });
                     terminal.show();
                     if (process.platform === 'win32') {
-                        const recordCmd = `${wslscriptPath} "${generatedRecordCommand}" "${filepath}" "${wsllogfilePath}" ; exit 0`;
+                        const recordCmd = `${wslscriptPath} "${wsllogfilePath}" "${folderPath}" "${generatedRecordCommand}"; exit 0`;
                         terminal.sendText(recordCmd);
                     }
                     else {
-                        const recordCmd = `sudo ${scriptPath} "${generatedRecordCommand}" "${filepath}" "${logfilePath}" ; exit 0 `;
+                        const recordCmd = `sudo ${scriptPath} "${logfilePath}" "${folderPath}" "${generatedRecordCommand}"; exit 0 `;
+                        console.log(recordCmd);
                         // const exitCmd = 'exit';
                         terminal.sendText(recordCmd);
                     }

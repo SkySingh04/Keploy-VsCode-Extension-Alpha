@@ -1,9 +1,11 @@
 #!/bin/bash -i
 
-# Command to execute
-command="$1"
+
 folderpath="$2"
-log_file_path="$3"
+log_file_path="$1"
+
+#command is all of the cli args after 2nd arg
+command="${@:3}"
 
 # Create log file if it doesn't exist
 touch "$log_file_path"
