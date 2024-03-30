@@ -15,6 +15,8 @@ To set up Keploy VSCode extension in your Visual Studio Code development environ
 ```ext install Akash-Singh04.heykeploy```
 - After the installation is complete, you may be prompted to reload Visual Studio Code. Click the "Reload" button or close and reopen Visual Studio Code.
 
+## [Changelog](https://marketplace.visualstudio.com/items/Akash-Singh04.heykeploy/changelog) 
+
 ## Requirements
 
 There are no specific requirements or dependencies for using Keploy-VsCode. Simply install the extension and start enjoying its features!
