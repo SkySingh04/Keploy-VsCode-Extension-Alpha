@@ -16,11 +16,11 @@ To set up Keploy VSCode extension in your Visual Studio Code development environ
 - After the installation is complete, you may be prompted to reload Visual Studio Code. Click the "Reload" button or close and reopen Visual Studio Code.
 
 ## [Changelog](https://marketplace.visualstudio.com/items/Akash-Singh04.heykeploy/changelog) 
+## [Video Tutorial](https://github.com/orgs/keploy/discussions/1654#discussioncomment-8848006)
 
 ## Requirements
 
 There are no specific requirements or dependencies for using Keploy-VsCode. Simply install the extension and start enjoying its features!
-
 
 ## Following Extension Guidelines
 
