@@ -21,9 +21,6 @@ To set up Keploy VSCode extension in your Visual Studio Code development environ
 
 There are no specific requirements or dependencies for using Keploy-VsCode. Simply install the extension and start enjoying its features!
 
-## Extension Settings
-
-Keploy-VsCode doesn't add any custom settings to Visual Studio Code at the moment.
 
 ## Following Extension Guidelines
 
