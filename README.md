@@ -1,6 +1,7 @@
 # [Keploy VsCode Extension : Alpha](https://marketplace.visualstudio.com/items?itemName=Akash-Singh04.heykeploy)
 
-### Note: This is just a prototype built as a proof of concept. The full Vs Code Extension for Keploy can be found [here](https://github.com/keploy/vscode-extension)
+### Note: This is just a prototype built as a proof of concept. The full Vs Code Extension for Keploy can be found [here](https://github.com/keploy/vscode-extension). This repository serves as a public archive for the same and will not be maintained moving forward.
+
 ## Features
 
 - **Keploy Record** :  Record Testcases with Keploy 
